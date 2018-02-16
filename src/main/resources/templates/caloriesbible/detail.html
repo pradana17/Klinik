@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$("table").dataTable();
+	});
+
+	$(document).on("dblclick", ".ca", function() {
+		var idx = $(".ca").index(this);
+		var idCal = $(".cas:eq(" + idx + ")").val();
+		var currentCalorie = $(this).text();
+		var id = "newValue-ca-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentCalorie);
+		var url = "/changeCalorie";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newCalorie = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				calorie : newCalorie
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newCalorie);
+			});
+		});
+	});
+	
+
+	$(document).on("dblclick", ".pr", function() {
+		var idx = $(".pr").index(this);
+		var idCal = $(".prs:eq(" + idx + ")").val();
+		var currentPro = $(this).text();
+		var id = "newValue-pr-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentPro);
+		var url = "/changeProtein";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newPro = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				protein : newPro
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newPro);
+			});
+		});
+	});
+	
+	$(document).on("dblclick", ".fat", function() {
+		var idx = $(".fat").index(this);
+		var idCal = $(".fats:eq(" + idx + ")").val();
+		var currentFats = $(this).text();
+		var id = "newValue-fat-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentFats);
+		var url = "/changeFats";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newFats = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				fats : newFats
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newFats);
+			});
+		});
+	});
+	
+	$(document).on("dblclick", ".carb", function() {
+		var idx = $(".carb").index(this);
+		var idCal = $(".carbs:eq(" + idx + ")").val();
+		var currentCarb = $(this).text();
+		var id = "newValue-carb-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentCarb);
+		var url = "/changeCarb";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newCarb = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				carbhdrt : newCarb
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newCarb);
+			});
+		});
+	});
+	
+	$(document).on("dblclick", ".calc", function() {
+		var idx = $(".calc").index(this);
+		var idCal = $(".calcs:eq(" + idx + ")").val();
+		var currentCalc = $(this).text();
+		var id = "newValue-calc-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentCalc);
+		var url = "/changeCalcium";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newCalc = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				calcium : newCalc
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newCalc);
+			});
+		});
+	});
+	
+	$(document).on("dblclick", ".phos", function() {
+		var idx = $(".phos").index(this);
+		var idCal = $(".phosp:eq(" + idx + ")").val();
+		var currentPhos = $(this).text();
+		var id = "newValue-phos-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentPhos);
+		var url = "/changePhosphor";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newPhos = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				phosphor : newPhos
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newPhos);
+			});
+		});
+	});
+	
+	$(document).on("dblclick", ".iron", function() {
+		var idx = $(".iron").index(this);
+		var idCal = $(".irons:eq(" + idx + ")").val();
+		var currentIron = $(this).text();
+		var id = "newValue-iron-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentIron);
+		var url = "/changeIron";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newIron = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				iron : newIron
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newIron);
+			});
+		});
+	});
+	
+	$(document).on("dblclick", ".vita", function() {
+		var idx = $(".vita").index(this);
+		var idCal = $(".vitas:eq(" + idx + ")").val();
+		var currentVita = $(this).text();
+		var id = "newValue-vita-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentVita);
+		var url = "/changeVita";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newVita = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				vita : newVita
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newVita);
+			});
+		});
+	});
+	
+	$(document).on("dblclick", ".vitb", function() {
+		var idx = $(".vitb").index(this);
+		var idCal = $(".vitbs:eq(" + idx + ")").val();
+		var currentVitb = $(this).text();
+		var id = "newValue-vitb-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentVitb);
+		var url = "/changeVitb";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newVitb = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				vitb1 : newVitb
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newVitb);
+			});
+		});
+	});
+	
+	$(document).on("dblclick", ".vitc", function() {
+		var idx = $(".vitc").index(this);
+		var idCal = $(".vitcs:eq(" + idx + ")").val();
+		var currentVitc = $(this).text();
+		var id = "newValue-vitc-" + idCal;
+		$(this).html('<input type="text" id="'+id+'"/>');
+		$("#" + id).val(currentVitc);
+		var url = "/changeVitc";
+		var clicked = $(this);
+
+		$("#" + id).change(function() {
+			var newVitc = $(this).val();
+			$.get(url, {
+				idcal : idCal,
+				vitc : newVitc
+			}).done(function(data) {
+				if (data)
+					$(clicked).text(newVitc);
+			});
+		});
+	});
+	
+</script>
+
+<title>Insert title here</title>
+</head>
+<body>
+	<table class="table table-striped table-sm">
+		<tr>
+			<td style="width:100px">FOOD NAME</td>
+			<td th:text="${detailCalories.foodname}"></td>
+		</tr>
+		<tr>
+			<td>CALORIE</td>
+			<td th:text="${detailCalories.calorie}" class="ca"></td>
+			<input type="hidden" class="cas" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>PROTEIN</td>
+			<td th:text="${detailCalories.protein}" class="pr"></td>
+			<input type="hidden" class="prs" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>FATS</td>
+			<td th:text="${detailCalories.fats}" class="fat"></td>
+			<input type="hidden" class="fats" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>CARBOHIDRAT</td>
+			<td th:text="${detailCalories.carbhdrt}" class="carb"></td>
+			<input type="hidden" class="carbs" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>CALCIUM</td>
+			<td th:text="${detailCalories.calcium}" class="calc"></td>
+			<input type="hidden" class="calcs" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>PHOSPOR</td>
+			<td th:text="${detailCalories.phosphor}" class="phos"></td>
+			<input type="hidden" class="phosp" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>IRON</td>
+			<td th:text="${detailCalories.iron}" class="iron"></td>
+			<input type="hidden" class="irons" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>VIT A</td>
+			<td th:text="${detailCalories.vita}" class="vita"></td>
+			<input type="hidden" class="vitas" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>VIT B1</td>
+			<td th:text="${detailCalories.vitb1}" class="vitb"></td>
+			<input type="hidden" class="vitbs" th:value="${detailCalories.idcal}" />
+		</tr>
+		<tr>
+			<td>VIT C</td>
+			<td th:text="${detailCalories.vitc}" class="vitc"></td>
+			<input type="hidden" class="vitcs" th:value="${detailCalories.idcal}" />
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+
+<title>Calories Bible</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img src=".." width="30"
+				height="30" class="d-inline-block align-top" alt="" /> Klinik
+			</a>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link"
+						href="nutritionistschedule.html">Schedule Consultation </a></li>
+					<li class="nav-item active"><a class="nav-link"
+						href="nutritionistsmealplan.html"> Set Meal Plan <span
+							class="sr-only">(current)</span></a></li>
+				</ul>
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link"
+						href="{{ url('/login') }}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#addbranch" id="set">Add</button>
+	<table class="table table-striped table-sm">
+		<thead class="thead-dark">
+			<tr>
+				<th>Food Name</th>
+				<th>Calories</th>
+				<th>Details</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="calori : ${semuaCaloriesbible}">
+				<td th:text="${calori.foodname}"></td>
+				<td th:text="${calori.calorie}"></td>
+				<td><a th:href="@{'/caloriesbible/detail/'+${calori.idcal}}">Detail</a>
+				<button class="delete">Delete</button>
+				<input type="hidden" class="cas" th:value="${calori.idcal}" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="modal fade" id="addbranch" tabindex="-1" role="dialog"
+		aria-labelledby="addbranch" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="title">ADD CALORIESBIBLE</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="#" th:action="@{/caloriesbible/index}"
+					th:object="${caloriesbible}" method="post">
+					<div class="modal-body">
+						<div class="flex-column">
+							<div class="form-row">
+								<div class="form-group col-md-8">
+									<label th:for="${caloriesbible.foodname}">FOOD NAME</label> <input
+										type="text" class="form-control" id="foodname"
+										placeholder="FOOD NAME" th:field="*{foodname}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.calorie}">CALORIE</label> <input
+										type="text" class="form-control" id="calorie"
+										placeholder="9999" th:field="*{calorie}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.protein}">PROTEIN</label> <input
+										type="text" class="form-control" id="protein"
+										placeholder="999" th:field="*{protein}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.fats}">FATS</label> <input
+										type="text" class="form-control" id="fats" placeholder="99"
+										th:field="*{fats}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.carbhdrt}">CARBOHIDRAT</label> <input
+										type="text" class="form-control" id="carbhdrt"
+										placeholder="999" th:field="*{carbhdrt}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.calcium}">CALCIUM</label> <input
+										type="text" class="form-control" id="calcium"
+										placeholder="9999" th:field="*{calcium}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.phosphor}">PHOSPHOR</label> <input
+										type="text" class="form-control" id="phosphor"
+										placeholder="9999" th:field="*{phosphor}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.iron}">IRON</label> <input
+										type="text" class="form-control" id="iron" placeholder="999"
+										th:field="*{iron}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.vita}">VITAMIN A</label> <input
+										type="text" class="form-control" id="vita" placeholder="99999"
+										th:field="*{vita}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.vitb1}">VITAMIN B1</label> <input
+										type="text" class="form-control" id="vitb1" placeholder="9999"
+										th:field="*{vitb1}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.vitc}">VITAMIN C</label> <input
+										type="text" class="form-control" id="vitc" placeholder="99"
+										th:field="*{vitc}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.amount}">AMOUNT</label> <input
+										type="text" class="form-control" id="amount" placeholder="999"
+										th:field="*{amount}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.fweight}">F WEIGHT</label> <input
+										type="text" class="form-control" id="fweight"
+										placeholder="999" th:field="*{fweight}" />
+								</div>
+								<div class="form-group col-md-4">
+									<label th:for="${caloriesbible.added}">ADDED BY</label> <input
+										type="text" class="form-control" id="added"
+										placeholder="ADMIN" th:field="*{added}" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<button class="btn btn-primary" type="submit" formmethod="post"
+							id="submitcalorie">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	$(document).ready(function() {
+		$("table").DataTable();
+		$(".delete").click (function(){
+			var idx = $(".delete").index(this);
+			var idCal = $(".cas:eq(" + idx + ")").val();
+			var url = "/deleteCal";
+			var choice = confirm('Do you really want to delete this record?');
+		    if(choice == true) {
+				$.get(url,{idcal :idCal});
+				location.reload();
+		    } else {
+		    	return false;
+		    };
+	    });
+	});
+	
+	
+</script>
+	
+</body>
+</html>
