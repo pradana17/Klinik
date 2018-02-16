@@ -1,18 +1,33 @@
 package com.klinik.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManagerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klinik.DAO.BranchDAO;
 import com.klinik.DAO.CaloriesbibleDAO;
+import com.klinik.DAO.NutritionistDAO;
+import com.klinik.model.Branch;
 import com.klinik.model.Caloriesbible;
+
+
 
 @RestController
 public class BackgroudHandler {
-
+	
+	@Autowired
+	private EntityManagerFactory entityManagerFactory;
+	
 	@Autowired
 	private CaloriesbibleDAO calbible;
+	private BranchDAO branchDAO;
+	private NutritionistDAO nutDAO;
 	
 	@GetMapping("/changeCalorie")
 	public boolean changeCalorie(@RequestParam("idcal") short idcal, @RequestParam("calorie") Float calorie) {
@@ -89,6 +104,66 @@ public class BackgroudHandler {
 		Caloriesbible updateCalorie = calbible.getCaloriesbible(idcal);
 		updateCalorie.setIsactive(0);
 		return calbible.editCaloriesbible(updateCalorie);
+	}
+	
+//	@GetMapping("/changebranchkode")
+//	public boolean changeBranchkode(
+//			@RequestParam("id") Integer id,
+//			@RequestParam("kode") String kdbranch) {
+//
+//		Branch branch = branchDAO.getBranchId(id);
+//		branch.set(kdbranch);
+//		return branchDAO.editBranch(branch);
+//	}
+	
+	@GetMapping("/changebranchnama")
+	public boolean changeBranchnama(
+			@RequestParam("id") String id,
+			@RequestParam("nama") String nama) {
+
+		Branch branch = branchDAO.getBranchId(id);
+		branch.setNamabranch(nama);
+		return branchDAO.editBranch(branch);
+	}
+	
+	@GetMapping("/changebranchalamat")
+	public boolean changeBranchalamat(
+			@RequestParam("id") String id,
+			@RequestParam("alamat") String alamat) {
+
+		Branch branch = branchDAO.getBranchId(id);
+		branch.setAlamat(alamat);
+		return branchDAO.editBranch(branch);
+	}
+	
+	@GetMapping("/branchname")
+	public List<String> getAllBranchName() {
+		StringBuilder builder;
+		List<String> hasil = new ArrayList<>();
+		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch").getResultList();
+		
+		for (Branch branch : listBranch) {
+			builder = new StringBuilder();
+			builder.append(branch.getNamabranch());
+			hasil.add(builder.toString());
+		}
+		
+		return hasil;
+	}
+	
+	@GetMapping("/branchid")
+	public List<String> getAllBranchId() {
+		StringBuilder builder;
+		List<String> hasil = new ArrayList<>();
+		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch").getResultList();
+		
+		for (Branch branch : listBranch) {
+			builder = new StringBuilder();
+			builder.append(branch.getIdbranch());
+			hasil.add(builder.toString());
+		}
+		
+		return hasil;
 	}
 	
 }

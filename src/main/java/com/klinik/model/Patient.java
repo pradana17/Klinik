@@ -8,6 +8,7 @@ package com.klinik.model;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "patient")
@@ -37,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Patient.findByEmail", query = "SELECT p FROM Patient p WHERE p.email = :email")
     , @NamedQuery(name = "Patient.findByFullname", query = "SELECT p FROM Patient p WHERE p.fullname = :fullname")
     , @NamedQuery(name = "Patient.findByWeight", query = "SELECT p FROM Patient p WHERE p.weight = :weight")
-    , @NamedQuery(name = "Patient.findByHeight", query = "SELECT p FROM Patient p WHERE p.height = :height")})
+    , @NamedQuery(name = "Patient.findByHeight", query = "SELECT p FROM Patient p WHERE p.height = :height")
+    , @NamedQuery(name = "Patient.findByIsactive", query = "SELECT p FROM Patient p WHERE p.isactive = :isactive")})
 public class Patient implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,8 +63,20 @@ public class Patient implements Serializable {
     private Integer weight;
     @Column(name = "HEIGHT")
     private Integer height;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ISACTIVE")
+    private int isactive;
     @OneToMany(mappedBy = "userpatient", fetch = FetchType.LAZY)
     private List<Mealpick> mealpickList;
+    @OneToMany(mappedBy = "userpatient", fetch = FetchType.LAZY)
+    private List<Appointment> appointmentList;
+    @OneToMany(mappedBy = "userpatient", fetch = FetchType.LAZY)
+    private List<Personalitytest> personalitytestList;
+    @OneToMany(mappedBy = "userpatient", fetch = FetchType.LAZY)
+    private List<Membership> membershipList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<Useranswers> useranswersList;
     @OneToMany(mappedBy = "receiverId", fetch = FetchType.LAZY)
     private List<Chat> chatList;
     @JoinColumn(name = "USERNUTRITIONIST", referencedColumnName = "USERNUTRITIONIST")
@@ -71,16 +85,17 @@ public class Patient implements Serializable {
     @JoinColumn(name = "IDBRANCH", referencedColumnName = "IDBRANCH")
     @ManyToOne(fetch = FetchType.LAZY)
     private Branch idbranch;
-    @OneToMany(mappedBy = "userpatient", fetch = FetchType.LAZY)
-    private List<Appointment> appointmentList;
-    @OneToMany(mappedBy = "userpatient", fetch = FetchType.LAZY)
-    private List<Personalitytest> personalitytestList;
 
     public Patient() {
     }
 
     public Patient(String userpatient) {
         this.userpatient = userpatient;
+    }
+
+    public Patient(String userpatient, int isactive) {
+        this.userpatient = userpatient;
+        this.isactive = isactive;
     }
 
     public String getUserpatient() {
@@ -131,6 +146,14 @@ public class Patient implements Serializable {
         this.height = height;
     }
 
+    public int getIsactive() {
+        return isactive;
+    }
+
+    public void setIsactive(int isactive) {
+        this.isactive = isactive;
+    }
+
     @XmlTransient
     public List<Mealpick> getMealpickList() {
         return mealpickList;
@@ -138,6 +161,42 @@ public class Patient implements Serializable {
 
     public void setMealpickList(List<Mealpick> mealpickList) {
         this.mealpickList = mealpickList;
+    }
+
+    @XmlTransient
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
+    }
+
+    @XmlTransient
+    public List<Personalitytest> getPersonalitytestList() {
+        return personalitytestList;
+    }
+
+    public void setPersonalitytestList(List<Personalitytest> personalitytestList) {
+        this.personalitytestList = personalitytestList;
+    }
+
+    @XmlTransient
+    public List<Membership> getMembershipList() {
+        return membershipList;
+    }
+
+    public void setMembershipList(List<Membership> membershipList) {
+        this.membershipList = membershipList;
+    }
+
+    @XmlTransient
+    public List<Useranswers> getUseranswersList() {
+        return useranswersList;
+    }
+
+    public void setUseranswersList(List<Useranswers> useranswersList) {
+        this.useranswersList = useranswersList;
     }
 
     @XmlTransient
@@ -165,24 +224,6 @@ public class Patient implements Serializable {
         this.idbranch = idbranch;
     }
 
-    @XmlTransient
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
-    }
-
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
-    }
-
-    @XmlTransient
-    public List<Personalitytest> getPersonalitytestList() {
-        return personalitytestList;
-    }
-
-    public void setPersonalitytestList(List<Personalitytest> personalitytestList) {
-        this.personalitytestList = personalitytestList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -205,7 +246,7 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Patient[ userpatient=" + userpatient + " ]";
+        return "com.klinik.model.Patient[ userpatient=" + userpatient + " ]";
     }
     
 }

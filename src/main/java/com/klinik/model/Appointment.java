@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "appointment")
@@ -145,7 +145,7 @@ public class Appointment implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Appointment[ idappointment=" + idappointment + " ]";
+        return "com.klinik.model.Appointment[ idappointment=" + idappointment + " ]";
     }
     
 }

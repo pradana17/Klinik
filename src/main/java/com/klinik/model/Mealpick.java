@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "mealpick")
@@ -134,7 +134,7 @@ public class Mealpick implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Mealpick[ idpick=" + idpick + " ]";
+        return "com.klinik.model.Mealpick[ idpick=" + idpick + " ]";
     }
     
 }

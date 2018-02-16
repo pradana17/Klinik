@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "mealplan")
@@ -33,10 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Mealplan.findAll", query = "SELECT m FROM Mealplan m")
     , @NamedQuery(name = "Mealplan.findByIdmealplan", query = "SELECT m FROM Mealplan m WHERE m.idmealplan = :idmealplan")
     , @NamedQuery(name = "Mealplan.findByCalories", query = "SELECT m FROM Mealplan m WHERE m.calories = :calories")
-    , @NamedQuery(name = "Mealplan.findByFiles", query = "SELECT m FROM Mealplan m WHERE m.files = :files")
     , @NamedQuery(name = "Mealplan.findByCreatedby", query = "SELECT m FROM Mealplan m WHERE m.createdby = :createdby")
     , @NamedQuery(name = "Mealplan.findByFase", query = "SELECT m FROM Mealplan m WHERE m.fase = :fase")
-    , @NamedQuery(name = "Mealplan.findByKodemealplan", query = "SELECT m FROM Mealplan m WHERE m.kodemealplan = :kodemealplan")})
+    , @NamedQuery(name = "Mealplan.findByKodemealplan", query = "SELECT m FROM Mealplan m WHERE m.kodemealplan = :kodemealplan")
+    , @NamedQuery(name = "Mealplan.findByFilename", query = "SELECT m FROM Mealplan m WHERE m.filename = :filename")})
 public class Mealplan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,9 +48,9 @@ public class Mealplan implements Serializable {
     private Integer idmealplan;
     @Column(name = "CALORIES")
     private Integer calories;
-    @Size(max = 50)
+    @Lob
     @Column(name = "FILES")
-    private String files;
+    private byte[] files;
     @Size(max = 50)
     @Column(name = "CREATEDBY")
     private String createdby;
@@ -59,6 +60,9 @@ public class Mealplan implements Serializable {
     @Size(max = 10)
     @Column(name = "KODEMEALPLAN")
     private String kodemealplan;
+    @Size(max = 45)
+    @Column(name = "FILENAME")
+    private String filename;
     @OneToMany(mappedBy = "idmealplan", fetch = FetchType.LAZY)
     private List<Mealpick> mealpickList;
 
@@ -85,11 +89,11 @@ public class Mealplan implements Serializable {
         this.calories = calories;
     }
 
-    public String getFiles() {
+    public byte[] getFiles() {
         return files;
     }
 
-    public void setFiles(String files) {
+    public void setFiles(byte[] files) {
         this.files = files;
     }
 
@@ -115,6 +119,14 @@ public class Mealplan implements Serializable {
 
     public void setKodemealplan(String kodemealplan) {
         this.kodemealplan = kodemealplan;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     @XmlTransient
@@ -148,7 +160,7 @@ public class Mealplan implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Mealplan[ idmealplan=" + idmealplan + " ]";
+        return "com.klinik.model.Mealplan[ idmealplan=" + idmealplan + " ]";
     }
     
 }

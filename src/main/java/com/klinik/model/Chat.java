@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "chat")
@@ -150,7 +150,7 @@ public class Chat implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Chat[ idchat=" + idchat + " ]";
+        return "com.klinik.model.Chat[ idchat=" + idchat + " ]";
     }
     
 }

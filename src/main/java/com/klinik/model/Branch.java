@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "branch")
@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Branch.findAll", query = "SELECT b FROM Branch b")
     , @NamedQuery(name = "Branch.findByIdbranch", query = "SELECT b FROM Branch b WHERE b.idbranch = :idbranch")
-    , @NamedQuery(name = "Branch.findByAlamat", query = "SELECT b FROM Branch b WHERE b.alamat = :alamat")})
+    , @NamedQuery(name = "Branch.findByAlamat", query = "SELECT b FROM Branch b WHERE b.alamat = :alamat")
+    , @NamedQuery(name = "Branch.findByNamabranch", query = "SELECT b FROM Branch b WHERE b.namabranch = :namabranch")})
 public class Branch implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +45,9 @@ public class Branch implements Serializable {
     @Size(max = 10)
     @Column(name = "ALAMAT")
     private String alamat;
+    @Size(max = 45)
+    @Column(name = "NAMABRANCH")
+    private String namabranch;
     @OneToMany(mappedBy = "idbranch", fetch = FetchType.LAZY)
     private List<Nutritionist> nutritionistList;
     @OneToMany(mappedBy = "idbranch", fetch = FetchType.LAZY)
@@ -70,6 +74,14 @@ public class Branch implements Serializable {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public String getNamabranch() {
+        return namabranch;
+    }
+
+    public void setNamabranch(String namabranch) {
+        this.namabranch = namabranch;
     }
 
     @XmlTransient
@@ -112,7 +124,7 @@ public class Branch implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Branch[ idbranch=" + idbranch + " ]";
+        return "com.klinik.model.Branch[ idbranch=" + idbranch + " ]";
     }
     
 }

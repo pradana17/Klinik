@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "personalitytest")
@@ -115,7 +115,7 @@ public class Personalitytest implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Personalitytest[ idpertest=" + idpertest + " ]";
+        return "com.klinik.model.Personalitytest[ idpertest=" + idpertest + " ]";
     }
     
 }

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Nutritionist Schedule</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style type="text/css">
+  #first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn{
+    width: 100px;
+    height: 100px;
+  }
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src=".." width="30" height="30" class="d-inline-block align-top" alt="">
+      Klinik
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="nutritionistschedule.html">Schedule & Consultation </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="nutritionistsmealplan.html">Meal Plan <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Calories Bible</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="nutritionistschathistory.html">Chat History</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/login') }}">Logout</a>
+        </li>
+      </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="margin-top: 2rem; margin-left: 2rem">
+    <li class="nav-item">
+      <a class="nav-link active" id="pills-proga-tab" data-toggle="pill" href="#pills-proga" role="tab" aria-controls="pills-proga" aria-selected="true">Programme A</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-progb-tab" data-toggle="pill" href="#pills-progb" role="tab" aria-controls="pills-progb" aria-selected="false">Programme B</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-progc-tab" data-toggle="pill" href="#pills-progc" role="tab" aria-controls="pills-progc" aria-selected="false">Programme C</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent" style="margin-left: 3rem">
+    <div class="tab-pane fade show active" id="pills-proga" role="tabpanel" aria-labelledby="pills-proga-tab">
+      <table>
+        <tr>
+          <td>
+            <img src="C:\Users\MuhammadTaufik\Pictures\aa.jpg" width="50" height="50" style="border-radius: 50%; margin-right: 10px">
+          </td>
+          <td>
+            <a role="button" data-toggle="modal" data-target="#modalsetmealproga" id="usr">full name</a>
+          </td>
+          <td>
+            <i class="far fa-check-circle" style="color: green; margin-left: 10px; visibility: hidden;" id="checka"></i>
+          </td>
+        </tr>
+      </table>
+      <div class="modal fade" id="modalsetmealproga" tabindex="-1" role="dialog" aria-labelledby="modalsetmealproga" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="usermodal">User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table>
+                <tr>
+                  <td>
+                    Calories Need
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Programme
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Fase
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Meal Plan
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Files
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="senda" data-dismiss="modal">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pills-progb" role="tabpanel" aria-labelledby="pills-progb-tab">
+      <table>
+        <tr>
+          <td>
+            <img src="C:\Users\MuhammadTaufik\Pictures\aa.jpg" width="50" height="50" style="border-radius: 50%; margin-right: 10px">
+          </td>
+          <td>
+            <a role="button" data-toggle="modal" data-target="#modalsetmealprogb" id="usr">full name</a>
+          </td>
+          <td>
+            <i class="far fa-check-circle" style="color: green; margin-left: 10px; visibility: hidden;" id="checkb"></i>
+          </td>
+        </tr>
+      </table>
+      <div class="modal fade" id="modalsetmealprogb" tabindex="-1" role="dialog" aria-labelledby="modalsetmealprogb" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="usermodal">User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table>
+                <tr>
+                  <td>
+                    Calories Need
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Programme
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Fase
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Meal Plan
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Files
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="sendb" data-dismiss="modal">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pills-progc" role="tabpanel" aria-labelledby="pills-progc-tab">
+      <table>
+        <tr>
+          <td>
+            <img src="C:\Users\MuhammadTaufik\Pictures\aa.jpg" width="50" height="50" style="border-radius: 50%; margin-right: 10px">
+          </td>
+          <td>
+            <a role="button" data-toggle="modal" data-target="#modalsetmealprogc" id="usr">full name</a>
+          </td>
+          <td>
+            <i class="far fa-check-circle" style="color: green; margin-left: 10px; visibility: hidden;" id="checkc"></i>
+          </td>
+        </tr>
+      </table>
+      <div class="modal fade" id="modalsetmealprogc" tabindex="-1" role="dialog" aria-labelledby="modalsetmealprogc" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="usermodal">User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table>
+                <tr>
+                  <td>
+                    Calories Need
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Programme
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Fase
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Meal Plan
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Files
+                  </td>
+                  <td>
+                    ...
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="sendc" data-dismiss="modal">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script defer src="/static/fontawesome/fontawesome-all.js"></script>
+
+<script>
+$(document).ready(function(){
+  $("#senda").click(function(){
+    $("#checka").css("visibility", "visible");
+  });
+
+  $("#sendb").click(function(){
+    $("#checkb").css("visibility", "visible");
+  });
+
+  $("#sendc").click(function(){
+    $("#checkc").css("visibility", "visible");
+  });
+});
+</script>
+</body>
+</html>

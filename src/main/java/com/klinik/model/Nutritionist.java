@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "nutritionist")
@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Nutritionist.findByUsernutritionist", query = "SELECT n FROM Nutritionist n WHERE n.usernutritionist = :usernutritionist")
     , @NamedQuery(name = "Nutritionist.findByPassword", query = "SELECT n FROM Nutritionist n WHERE n.password = :password")
     , @NamedQuery(name = "Nutritionist.findByEmail", query = "SELECT n FROM Nutritionist n WHERE n.email = :email")
-    , @NamedQuery(name = "Nutritionist.findByFullname", query = "SELECT n FROM Nutritionist n WHERE n.fullname = :fullname")})
+    , @NamedQuery(name = "Nutritionist.findByFullname", query = "SELECT n FROM Nutritionist n WHERE n.fullname = :fullname")
+    , @NamedQuery(name = "Nutritionist.findByIsactive", query = "SELECT n FROM Nutritionist n WHERE n.isactive = :isactive")})
 public class Nutritionist implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,6 +56,12 @@ public class Nutritionist implements Serializable {
     @Size(max = 50)
     @Column(name = "FULLNAME")
     private String fullname;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ISACTIVE")
+    private int isactive;
+    @OneToMany(mappedBy = "usernutritionist", fetch = FetchType.LAZY)
+    private List<Appointment> appointmentList;
     @JoinColumn(name = "IDBRANCH", referencedColumnName = "IDBRANCH")
     @ManyToOne(fetch = FetchType.LAZY)
     private Branch idbranch;
@@ -62,14 +69,17 @@ public class Nutritionist implements Serializable {
     private List<Chat> chatList;
     @OneToMany(mappedBy = "usernutritionist", fetch = FetchType.LAZY)
     private List<Patient> patientList;
-    @OneToMany(mappedBy = "usernutritionist", fetch = FetchType.LAZY)
-    private List<Appointment> appointmentList;
 
     public Nutritionist() {
     }
 
     public Nutritionist(String usernutritionist) {
         this.usernutritionist = usernutritionist;
+    }
+
+    public Nutritionist(String usernutritionist, int isactive) {
+        this.usernutritionist = usernutritionist;
+        this.isactive = isactive;
     }
 
     public String getUsernutritionist() {
@@ -104,6 +114,23 @@ public class Nutritionist implements Serializable {
         this.fullname = fullname;
     }
 
+    public int getIsactive() {
+        return isactive;
+    }
+
+    public void setIsactive(int isactive) {
+        this.isactive = isactive;
+    }
+
+    @XmlTransient
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
+    }
+
     public Branch getIdbranch() {
         return idbranch;
     }
@@ -130,15 +157,6 @@ public class Nutritionist implements Serializable {
         this.patientList = patientList;
     }
 
-    @XmlTransient
-    public List<Appointment> getAppointmentList() {
-        return appointmentList;
-    }
-
-    public void setAppointmentList(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -161,7 +179,7 @@ public class Nutritionist implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Nutritionist[ usernutritionist=" + usernutritionist + " ]";
+        return "com.klinik.model.Nutritionist[ usernutritionist=" + usernutritionist + " ]";
     }
     
 }

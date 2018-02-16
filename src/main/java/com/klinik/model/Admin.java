@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "admin")
@@ -86,7 +86,7 @@ public class Admin implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Admin[ useradmin=" + useradmin + " ]";
+        return "com.klinik.model.Admin[ useradmin=" + useradmin + " ]";
     }
     
 }

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Manage Branch</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+<link href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
+
+<style type="text/css">
+#first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn{
+  width: 100px;
+  height: 100px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: absolute;
+  left: 250px;
+  width: 250px;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #222;
+}
+
+#page-content-wrapper {
+  width: calc(100% - 250px);
+  position: absolute;
+  padding: 15px;
+  margin-left: 250px;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+  color: gray;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+  border-top: 1px solid #373737;
+  border-bottom: 1px solid #1A1A1A;
+}
+
+#manage li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+  border-top: 1px solid #373737;
+  border-bottom: 1px solid #1A1A1A;
+  text-indent: 2.5rem;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1510 !important;
+  float: left;
+  display: none;
+  min-width: 160px;
+  width: 160px;
+  padding: 4px 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src=".." width="30" height="30" class="d-inline-block align-top" alt="" />
+      Klinik
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav mr-auto">
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/login') }}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row flex-xl-nowrap">
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav" >
+        <li><a data-toggle="collapse" href="#scheduleapp" role="button" aria-expanded="false" aria-controls="scheduleapp">Schedule Appointment</a></li>
+        <li><a data-toggle="collapse" href="#manage" role="button" aria-expanded="false" aria-controls="manage">Manage</a></li>
+        <div class="collapse" id="manage">
+          <li><a th:href="@{'/admin/managenut'}" role="button">Nutritionist</a></li>
+          <li><a th:href="@{'/admin/managepat'}" role="button">Patient</a></li>
+          <li><a href="#" role="button">Meal Plan</a></li>
+          <li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
+        </div>
+        <li><a data-toggle="collapse" href="#announc" role="button" aria-expanded="false" aria-controls="announc">Announcement</a></li>
+      </ul>
+    </div>
+    <div id="page-content-wrapper">
+      <div class="flex-column pl-md-3 pb-md-3">
+      	<div class="card-block">
+      	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addbranch" id="set"><i class="fas fa-plus fa-1x"></i></button>
+      	</div>
+      </div>
+      <div class="modal fade" id="addbranch" tabindex="-1" role="dialog" aria-labelledby="addbranch" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="title">Add Data Nutritionist</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action="#" th:action="@{/admin/managenut}" th:object="${nut}" method="post">
+              <div class="modal-body">
+                <div class="flex-column">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label th:for="${nut.usernutritionist}">Username</label>
+                      <input type="text" class="form-control" id="inputusernut" placeholder="wunsch" th:field="*{usernutritionist}" />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label th:for="${nut.password}">Password</label>
+                      <input type="password" class="form-control" id="inputpw" placeholder="" th:field="*{password}" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label th:for="${nut.fullname}">Full Name</label>
+                    <input type="text" class="form-control" id="inputfname" placeholder="name" th:field="*{fullname}" />
+                  </div>
+                  <div class="form-group">
+                    <label th:for="${nut.email}">Email</label>
+                    <input type="email" class="form-control" id="inputemail" placeholder="user@gmail.com" th:field="*{email}" />
+                  </div>
+                  <div class="form-group">
+                    <label th:for="${nut.namabranch}">Branch</label>
+                    <input type="text" class="form-control" id="inputbranch" placeholder="" />
+                    <input type="hidden" class="form-control" id="selectbranch" placeholder="" th:field="*{idbranch.idbranch}" />
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="submit" formmethod="post"
+                id="submitbranch">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Full Name</th>
+				<th>Branch</th>
+				<th>Status</th>
+				<th>Patient(s)</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="n : ${semuaNut}">
+				<td th:text="${n.usernutritionist}" class="user"></td>
+				<td th:text="${n.email}" class="email"></td>
+				<td th:text="${n.fullname}" class="fname"></td>
+				<td th:text="${n.idbranch.namabranch}" class="branch"></td>
+				<td th:value="${n.isactive}" class="status"></td>
+				<td th:text="${#lists.size(n.patientList)}" class="patient"></td>
+				<td style="width: 40px">
+					<a href="#" style="margin-right: 15px;" class="edit" th:id="${n.usernutritionist}"><i class="fas fa-edit"></i></a>
+					<a href="#"><i class="fas fa-trash-alt"></i></a>
+					<input type="hidden" class="nutIds" th:value="${n.usernutritionist}" />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+    </div>
+  </div>
+</div>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/static/fontawesome/fontawesome-all.js"></script>
+<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+$(document).ready(function(){
+	$("table").dataTable();
+	
+	if ($(".status").val() == 0){
+		$(".status").text("Active");
+	}
+	
+});
+
+$(document).ready(function(){
+	var branchName = [];
+	var branchId = [];
+	$.get("/branchname", function(data) {
+		$.each(data, function( index, value ) {
+			branchName.push(value);
+		});
+	});
+	
+	$.get("/branchid", function(data) {
+		$.each(data, function( index, value ) {
+			branchId.push(value);
+		});
+	});
+
+	
+	$("#inputbranch").autocomplete({
+		source : branchName,
+		select: function (event, ui) {
+			var index = branchName.indexOf(ui.item.value);
+	        $("#selectbranch").val(branchId[index]);
+		}		     
+	});
+});
+
+$("#manage").collapse({
+  toggle: true
+});
+
+</script>
+</body>
+</html>

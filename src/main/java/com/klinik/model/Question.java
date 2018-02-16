@@ -6,20 +6,25 @@
 package com.klinik.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author dony pradana
+ * @author MuhammadTaufik
  */
 @Entity
 @Table(name = "question")
@@ -39,6 +44,10 @@ public class Question implements Serializable {
     @Size(max = 100)
     @Column(name = "QUESTIONS")
     private String questions;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.LAZY)
+    private List<Useranswers> useranswersList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question", fetch = FetchType.LAZY)
+    private List<Correctanswers> correctanswersList;
 
     public Question() {
     }
@@ -63,6 +72,24 @@ public class Question implements Serializable {
         this.questions = questions;
     }
 
+    @XmlTransient
+    public List<Useranswers> getUseranswersList() {
+        return useranswersList;
+    }
+
+    public void setUseranswersList(List<Useranswers> useranswersList) {
+        this.useranswersList = useranswersList;
+    }
+
+    @XmlTransient
+    public List<Correctanswers> getCorrectanswersList() {
+        return correctanswersList;
+    }
+
+    public void setCorrectanswersList(List<Correctanswers> correctanswersList) {
+        this.correctanswersList = correctanswersList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -85,7 +112,7 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return "klinik.Question[ questionid=" + questionid + " ]";
+        return "com.klinik.model.Question[ questionid=" + questionid + " ]";
     }
     
 }
