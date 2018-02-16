@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+ crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://cdn.dataTables.net/1.10.16/css/jquery.dataTables.min.css"/>
+	
+<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("table").dataTable();
+		$(".fname").dblclick(function() {
+			var idx = $(".fname").index(this);
+			var actorId = $(".bibleIds:eq(" + idx + ")").val();
+			//var newName = prompt("Change", $(this).text());
+			var currentName = $(this).text();
+			var id = "newValue-fName"+idcal;
+			$(this).html('<input type="text" id="'+id+'"/>');
+			$("#"+id).val(currentName);
+			var url = "/changeFoodName";
+			var clicked = $(this);
+			$("#"+id).change(function() {
+				var newName = $(this).val();
+				$.get(url, {
+					x : idcal,
+					y : newName
+				}).done(function(data) {
+					if (data)
+						$(clicked).text(newName);
+				});
+			});
+
+		});
+	});
+</script>
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nama</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="bible : ${getDetail}">
+				<td th:text="${bible.idcal}"></td>
+				<td th:text="${bible.foodname}"></td>				
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
