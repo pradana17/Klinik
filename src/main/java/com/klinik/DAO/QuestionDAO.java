@@ -26,19 +26,4 @@ public class QuestionDAO {
 		return (Question) factory.createEntityManager().createQuery("from Question when questionid = " +id).getSingleResult();
 	}
 	
-	public boolean addQuestion(Question question) {
-		EntityManager em = factory.createEntityManager();
-		EntityTransaction transaksi = null;
-		boolean isAdded = true;
-		try {
-			transaksi = em.getTransaction();
-			transaksi.begin();
-			em.persist(question);
-		}catch(Exception ex) {
-			transaksi.rollback();
-			isAdded = false;
-			System.out.println(ex.getMessage());
-		}
-		return isAdded;
-	}
 }
