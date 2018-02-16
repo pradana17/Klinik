@@ -33,10 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Mealplan.findAll", query = "SELECT m FROM Mealplan m")
     , @NamedQuery(name = "Mealplan.findByIdmealplan", query = "SELECT m FROM Mealplan m WHERE m.idmealplan = :idmealplan")
-    , @NamedQuery(name = "Mealplan.findByCalories", query = "SELECT m FROM Mealplan m WHERE m.calories = :calories")
+    , @NamedQuery(name = "Mealplan.findByCalorneed", query = "SELECT m FROM Mealplan m WHERE m.calorneed = :calorneed")
     , @NamedQuery(name = "Mealplan.findByCreatedby", query = "SELECT m FROM Mealplan m WHERE m.createdby = :createdby")
     , @NamedQuery(name = "Mealplan.findByFase", query = "SELECT m FROM Mealplan m WHERE m.fase = :fase")
-    , @NamedQuery(name = "Mealplan.findByKodemealplan", query = "SELECT m FROM Mealplan m WHERE m.kodemealplan = :kodemealplan")
+    , @NamedQuery(name = "Mealplan.findByKdmp", query = "SELECT m FROM Mealplan m WHERE m.kdmp = :kdmp")
     , @NamedQuery(name = "Mealplan.findByFilename", query = "SELECT m FROM Mealplan m WHERE m.filename = :filename")})
 public class Mealplan implements Serializable {
 
@@ -46,21 +46,20 @@ public class Mealplan implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDMEALPLAN_")
     private Integer idmealplan;
-    @Column(name = "CALORIES")
-    private Integer calories;
+    @Column(name = "CALORNEED")
+    private Integer calorneed;
     @Lob
     @Column(name = "FILES")
     private byte[] files;
     @Size(max = 50)
     @Column(name = "CREATEDBY")
     private String createdby;
-    @Size(max = 10)
     @Column(name = "FASE")
-    private String fase;
+    private Integer fase;
     @Size(max = 10)
-    @Column(name = "KODEMEALPLAN")
-    private String kodemealplan;
-    @Size(max = 45)
+    @Column(name = "KDMP")
+    private String kdmp;
+    @Size(max = 70)
     @Column(name = "FILENAME")
     private String filename;
     @OneToMany(mappedBy = "idmealplan", fetch = FetchType.LAZY)
@@ -81,12 +80,12 @@ public class Mealplan implements Serializable {
         this.idmealplan = idmealplan;
     }
 
-    public Integer getCalories() {
-        return calories;
+    public Integer getCalorneed() {
+        return calorneed;
     }
 
-    public void setCalories(Integer calories) {
-        this.calories = calories;
+    public void setCalorneed(Integer calorneed) {
+        this.calorneed = calorneed;
     }
 
     public byte[] getFiles() {
@@ -105,20 +104,20 @@ public class Mealplan implements Serializable {
         this.createdby = createdby;
     }
 
-    public String getFase() {
+    public Integer getFase() {
         return fase;
     }
 
-    public void setFase(String fase) {
+    public void setFase(Integer fase) {
         this.fase = fase;
     }
 
-    public String getKodemealplan() {
-        return kodemealplan;
+    public String getKdmp() {
+        return kdmp;
     }
 
-    public void setKodemealplan(String kodemealplan) {
-        this.kodemealplan = kodemealplan;
+    public void setKdmp(String kdmp) {
+        this.kdmp = kdmp;
     }
 
     public String getFilename() {
