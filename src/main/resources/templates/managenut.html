@@ -124,7 +124,7 @@ body {
         <div class="collapse" id="manage">
           <li><a th:href="@{'/admin/managenut'}" role="button">Nutritionist</a></li>
           <li><a th:href="@{'/admin/managepat'}" role="button">Patient</a></li>
-          <li><a th:href="@{'/admin/managemealplan'}" role="button">Meal Plan</a></li>
+          <li><a href="#" role="button">Meal Plan</a></li>
           <li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
         </div>
         <li><a data-toggle="collapse" href="#announc" role="button" aria-expanded="false" aria-controls="announc">Announcement</a></li>
@@ -145,29 +145,29 @@ body {
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="#" th:action="@{/admin/managepat}" th:object="${pat}" method="post">
+            <form action="#" th:action="@{/admin/managenut}" th:object="${nut}" method="post">
               <div class="modal-body">
                 <div class="flex-column">
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label th:for="${pat.userpatient}">Username</label>
-                      <input type="text" class="form-control" id="inputuserpat" placeholder="wunsch" th:field="*{userpatient}" />
+                      <label th:for="${nut.usernutritionist}">Username</label>
+                      <input type="text" class="form-control" id="inputusernut" placeholder="wunsch" th:field="*{usernutritionist}" />
                     </div>
                     <div class="form-group col-md-6">
-                      <label th:for="${pat.password}">Password</label>
+                      <label th:for="${nut.password}">Password</label>
                       <input type="password" class="form-control" id="inputpw" placeholder="" th:field="*{password}" />
                     </div>
                   </div>
                   <div class="form-group">
-                    <label th:for="${pat.fullname}">Full Name</label>
+                    <label th:for="${nut.fullname}">Full Name</label>
                     <input type="text" class="form-control" id="inputfname" placeholder="name" th:field="*{fullname}" />
                   </div>
                   <div class="form-group">
-                    <label th:for="${pat.email}">Email</label>
+                    <label th:for="${nut.email}">Email</label>
                     <input type="email" class="form-control" id="inputemail" placeholder="user@gmail.com" th:field="*{email}" />
                   </div>
                   <div class="form-group">
-                    <label th:for="${pat.idbranch}">Branch</label>
+                    <label th:for="${nut.namabranch}">Branch</label>
                     <input type="text" class="form-control" id="inputbranch" placeholder="" />
                     <input type="hidden" class="form-control" id="selectbranch" placeholder="" th:field="*{idbranch.idbranch}" />
                   </div>
@@ -190,20 +190,22 @@ body {
 				<th>Full Name</th>
 				<th>Branch</th>
 				<th>Status</th>
+				<th>Patient(s)</th>
 				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="n : ${semuaPat}">
-				<td th:text="${n.userpatient}" class="user"></td>
+			<tr th:each="n : ${semuaNut}">
+				<td th:text="${n.usernutritionist}" class="user"></td>
 				<td th:text="${n.email}" class="email"></td>
 				<td th:text="${n.fullname}" class="fname"></td>
 				<td th:text="${n.idbranch.namabranch}" class="branch"></td>
 				<td th:value="${n.isactive}" class="status"></td>
+				<td th:text="${#lists.size(n.patientList)}" class="patient"></td>
 				<td style="width: 40px">
-					<a href="#" style="margin-right: 15px;" class="edit" th:id="${n.userpatient}"><i class="fas fa-edit"></i></a>
+					<a href="#" style="margin-right: 15px;" class="edit" th:id="${n.usernutritionist}"><i class="fas fa-edit"></i></a>
 					<a href="#"><i class="fas fa-trash-alt"></i></a>
-					<input type="hidden" class="nutIds" th:value="${n.userpatient}" />
+					<input type="hidden" class="nutIds" th:value="${n.usernutritionist}" />
 				</td>
 			</tr>
 		</tbody>
@@ -227,9 +229,9 @@ body {
 $(document).ready(function(){
 	$("table").dataTable();
 	
-	if ($(".status").val() == 0){
-		$(".status").text("Active");
-	}
+//	if ($(".status").val() == 0){
+//		$(".status").text("Active");
+//	}
 	
 });
 

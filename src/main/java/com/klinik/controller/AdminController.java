@@ -31,9 +31,13 @@ public class AdminController {
 	
 	@Autowired
 	private BranchDAO branchDAO;
-	private NutritionistDAO nutritionistDAO;
-	private PatientDAO patientDAO;
-	private MealplanDAO mealplanDAO;
+	@Autowired
+	private NutritionistDAO nutDAO;
+	@Autowired
+	private PatientDAO patDAO;
+	@Autowired
+	private MealplanDAO mpDAO;
+	@Autowired
 	private static String UPLOADED_FOLDER = "E://";
 	
 	@GetMapping("/managebranch")
@@ -60,7 +64,7 @@ public class AdminController {
 	@GetMapping("/managenut")
 	public String formNut(Model model) {
 		Nutritionist nutritionist  = new Nutritionist();
-		model.addAttribute("semuaNut", nutritionistDAO.getAllNutritionist());
+		model.addAttribute("semuaNut", nutDAO.getAllNutritionist());
 		model.addAttribute("nut", nutritionist);
 		return "admin/managenut";
 	}
@@ -68,7 +72,7 @@ public class AdminController {
 	@PostMapping("/managenut")
 	public String addNut(@Valid Nutritionist nutritionist, BindingResult result) {
 		
-		if(!result.hasErrors() && nutritionistDAO.addNutritionist(nutritionist)) {
+		if(!result.hasErrors() && nutDAO.addNutritionist(nutritionist)) {
 			return "redirect:/admin/managenut";
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
@@ -81,7 +85,7 @@ public class AdminController {
 	@GetMapping("/managepat")
 	public String formPat(Model model) {
 		Patient patient  = new Patient();
-		model.addAttribute("semuaPat", patientDAO.getAllPatient());
+		model.addAttribute("semuaPat", patDAO.getAllPatient());
 		model.addAttribute("pat", patient);
 		return "admin/managepatient";
 	}
@@ -89,7 +93,7 @@ public class AdminController {
 	@PostMapping("/managepat")
 	public String addPatient(@Valid Patient patient, BindingResult result) {
 		
-		if(!result.hasErrors() && patientDAO.addPatient(patient)) {
+		if(!result.hasErrors() && patDAO.addPatient(patient)) {
 			return "redirect:/admin/managepatient";
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
@@ -102,7 +106,7 @@ public class AdminController {
 	@GetMapping("/managemealplan")
 	public String indexMeal(Model model) {
 		Mealplan mealplan = new Mealplan();
-		model.addAttribute("semuaMeal", mealplanDAO.getAllMeal());
+		model.addAttribute("semuaMeal", mpDAO.getAllMeal());
 		model.addAttribute("mp", mealplan);
 		return "admin/managemealplan";
 	}
@@ -115,7 +119,7 @@ public class AdminController {
             String filenames = file.getOriginalFilename();
             mealplan.setFiles(bytes);
             mealplan.setFilename(filenames);
-            mealplanDAO.addMeal(mealplan);
+            mpDAO.addMeal(mealplan);
 
         } catch (IOException e) {
             e.printStackTrace();

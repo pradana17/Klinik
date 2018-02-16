@@ -124,7 +124,7 @@ body {
         <div class="collapse" id="manage">
           <li><a th:href="@{'/admin/managenut'}" role="button">Nutritionist</a></li>
           <li><a th:href="@{'/admin/managepat'}" role="button">Patient</a></li>
-          <li><a href="#" role="button">Meal Plan</a></li>
+          <li><a th:href="@{'/admin/managemealplan'}" role="button">Meal Plan</a></li>
           <li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
         </div>
         <li><a data-toggle="collapse" href="#announc" role="button" aria-expanded="false" aria-controls="announc">Announcement</a></li>
@@ -167,7 +167,7 @@ body {
                     <input type="email" class="form-control" id="inputemail" placeholder="user@gmail.com" th:field="*{email}" />
                   </div>
                   <div class="form-group">
-                    <label th:for="${nut.namabranch}">Branch</label>
+                    <label th:for="${nut.idbranch}">Branch</label>
                     <input type="text" class="form-control" id="inputbranch" placeholder="" />
                     <input type="hidden" class="form-control" id="selectbranch" placeholder="" th:field="*{idbranch.idbranch}" />
                   </div>
