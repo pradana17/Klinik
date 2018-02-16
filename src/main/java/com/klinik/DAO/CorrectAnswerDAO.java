@@ -1,4 +1,4 @@
-package com.klinik.dao;
+package com.klinik.DAO;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import id.co.klinik.model.Correctanswers;
+import com.klinik.model.Correctanswers;
 
 @Service
 public class CorrectAnswerDAO {

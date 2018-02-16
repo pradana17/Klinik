@@ -1,4 +1,4 @@
-package com.klinik.dao;
+package com.klinik.DAO;
 
 import java.util.List;
 
@@ -9,7 +9,8 @@ import javax.persistence.EntityTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import id.co.klinik.model.Question;
+import com.klinik.model.Question;
+
 
 @Service
 public class QuestionDAO {

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import id.co.klinik.dao.CorrectAnswerDAO;
-import id.co.klinik.dao.QuestionDAO;
+import com.klinik.DAO.CorrectAnswerDAO;
+
 
 @Controller
 @RequestMapping("correctanswer")
