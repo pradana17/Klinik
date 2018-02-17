@@ -1,15 +1,25 @@
 package com.klinik.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,8 +47,6 @@ public class AdminController {
 	private PatientDAO patDAO;
 	@Autowired
 	private MealplanDAO mpDAO;
-	@Autowired
-	private static String UPLOADED_FOLDER = "E://";
 	
 	@GetMapping("/managebranch")
 	public String formBranch(Model model) {
@@ -117,8 +125,10 @@ public class AdminController {
         try {
             byte[] bytes = file.getBytes();
             String filenames = file.getOriginalFilename();
+            String filetype = file.getContentType();
             mealplan.setFiles(bytes);
             mealplan.setFilename(filenames);
+            mealplan.setTypefile(filetype);
             mpDAO.addMeal(mealplan);
 
         } catch (IOException e) {
@@ -127,4 +137,28 @@ public class AdminController {
 
         return "admin/managemealplan";
     }
+    
+    @GetMapping("/download/{idmealplan}")
+	public String download(@PathVariable("idmealplan")
+	Integer idmealplan, HttpServletResponse response) {
+
+		Mealplan mealplan = mpDAO.getMealId(idmealplan);
+		try {
+			response.setHeader("Content-Disposition", "inline;filename=\"" +mealplan.getFilename()+ "\"");
+//			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			OutputStream out = response.getOutputStream();
+			ByteArrayInputStream inputStream = new ByteArrayInputStream(mealplan.getFiles());
+			response.setContentType(mealplan.getTypefile());
+//			IOUtils.copy(doc.getContent().getBinaryStream(), out);
+			IOUtils.copy(inputStream, out);
+			out.flush();
+			out.close();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+		}
+		return null;
+	}
 }

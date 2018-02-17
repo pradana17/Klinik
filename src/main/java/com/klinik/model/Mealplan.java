@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Mealplan.findByCreatedby", query = "SELECT m FROM Mealplan m WHERE m.createdby = :createdby")
     , @NamedQuery(name = "Mealplan.findByFase", query = "SELECT m FROM Mealplan m WHERE m.fase = :fase")
     , @NamedQuery(name = "Mealplan.findByKdmp", query = "SELECT m FROM Mealplan m WHERE m.kdmp = :kdmp")
-    , @NamedQuery(name = "Mealplan.findByFilename", query = "SELECT m FROM Mealplan m WHERE m.filename = :filename")})
+    , @NamedQuery(name = "Mealplan.findByFilename", query = "SELECT m FROM Mealplan m WHERE m.filename = :filename")
+    , @NamedQuery(name = "Mealplan.findByTypefile", query = "SELECT m FROM Mealplan m WHERE m.typefile = :typefile")})
 public class Mealplan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +63,9 @@ public class Mealplan implements Serializable {
     @Size(max = 70)
     @Column(name = "FILENAME")
     private String filename;
+    @Size(max = 45)
+    @Column(name = "TYPEFILE")
+    private String typefile;
     @OneToMany(mappedBy = "idmealplan", fetch = FetchType.LAZY)
     private List<Mealpick> mealpickList;
 
@@ -126,6 +130,14 @@ public class Mealplan implements Serializable {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    public String getTypefile() {
+        return typefile;
+    }
+
+    public void setTypefile(String typefile) {
+        this.typefile = typefile;
     }
 
     @XmlTransient

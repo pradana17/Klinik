@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.klinik.DAO.BranchDAO;
 import com.klinik.DAO.CaloriesbibleDAO;
+import com.klinik.DAO.MealplanDAO;
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.model.Branch;
 import com.klinik.model.Caloriesbible;
@@ -26,8 +27,12 @@ public class BackgroudHandler {
 	
 	@Autowired
 	private CaloriesbibleDAO calbible;
+	@Autowired
 	private BranchDAO branchDAO;
+	@Autowired
 	private NutritionistDAO nutDAO;
+	@Autowired
+	private MealplanDAO mpDAO;
 	
 	@GetMapping("/changeCalorie")
 	public boolean changeCalorie(@RequestParam("idcal") short idcal, @RequestParam("calorie") Float calorie) {
@@ -164,6 +169,5 @@ public class BackgroudHandler {
 		}
 		
 		return hasil;
-	}
-	
+	}		
 }

@@ -21,6 +21,10 @@ public class MealplanDAO {
 		return (List<Mealplan>) factory.createEntityManager().createQuery("from Mealplan").getResultList();
 	}
 	
+	public Mealplan getMealId(Integer id) {
+		return (Mealplan) factory.createEntityManager().createQuery("from Mealplan where idmealplan = " + id).getSingleResult();
+	}
+	
 	public boolean addMeal(Mealplan meal) {
 		EntityManager em = factory.createEntityManager();
 		EntityTransaction transaksi = null;
