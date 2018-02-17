@@ -169,5 +169,5 @@ public class BackgroudHandler {
 		}
 		
 		return hasil;
-	}		
+	}
 }

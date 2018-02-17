@@ -224,14 +224,59 @@ body {
 							<td th:text="${mp.calorneed}" class="nm"></td>
 							<td th:text="${mp.fase}" class="alm"></td>
 							<td th:text="${mp.filename}" class="s"></td>
-							<td style="width: 40px"><a th:href="@{'/admin/download/' + ${mp.idmealplan}}"
+							<td style="width: 40px"><a
+								th:href="@{'/admin/download/' + ${mp.idmealplan}}"
 								style="margin-right: 15px;" class="edit" id="editb"><i
-									class="fas fa-download"></i></a> <a href="#"><i
-									class="fas fa-trash-alt"></i></a> <input type="hidden"
+									class="fas fa-download"></i></a> <a
+								th:href="'javascript:openViewUser(\'' + ${mp.idmealplan} +'\');'"><i
+									class="fas fa-pencil-alt"></i></a> <input type="hidden"
 								class="branchIds" th:value="${mp.idmealplan}" /></td>
 						</tr>
 					</tbody>
 				</table>
+				<div id="viewUser" class="modal fade" role="dialog"
+					th:fragment="viewmp">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body">
+							<h4>View User</h4>
+							<div class="row">
+								<div class="col s12">
+									<div class="row">
+										<table>
+											<thead>
+												<tr>
+													<th></th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Kode Meal Plan:</td>
+													<td th:text="${mp.kdmp}"></td>
+												</tr>
+												<tr>
+													<td>Last Name:</td>
+													<td th:text="${mp.calorneed}"></td>
+												</tr>
+												<tr>
+													<td>Username</td>
+													<td th:text="${mp.fase}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							</div>
+							<div class="modal-footer">
+								<button
+									type="button" class="btn btn-default" data-dismiss="modal">Close
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -275,6 +320,21 @@ body {
 		$("#manage").collapse({
 			toggle : true
 		});
+
+		function openViewUser(id) {
+			$.ajax({
+				url : "/admin/detailmp/" + id,
+		//		success : function(data){
+		//			$("#viewUserHolder").html(data);
+		//			$("#viewUser").modal("show");
+		//		}
+				success : function(response) {
+					$('#viewUserHolder').html(response);
+					$('#viewUser').modal();
+					$('#viewUser').modal('open');
+				}
+			});
+		}
 	</script>
 </body>
 </html>

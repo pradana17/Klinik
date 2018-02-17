@@ -1,21 +1,17 @@
 package com.klinik.controller;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -145,20 +141,33 @@ public class AdminController {
 		Mealplan mealplan = mpDAO.getMealId(idmealplan);
 		try {
 			response.setHeader("Content-Disposition", "inline;filename=\"" +mealplan.getFilename()+ "\"");
-//			ByteArrayOutputStream stream = new ByteArrayOutputStream();
 			OutputStream out = response.getOutputStream();
 			ByteArrayInputStream inputStream = new ByteArrayInputStream(mealplan.getFiles());
 			response.setContentType(mealplan.getTypefile());
-//			IOUtils.copy(doc.getContent().getBinaryStream(), out);
+	//		IOUtils.copy(mealplan.getFiles().getBinaryStream(), out);
 			IOUtils.copy(inputStream, out);
 			out.flush();
 			out.close();
 		
 		} catch (IOException e) {
 			e.printStackTrace();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
+	//	} catch (SQLException e) {
+	//		e.printStackTrace();
 		}
 		return null;
 	}
+    
+    @GetMapping("/detailmp/{idmealplan}")
+    public String view(@PathVariable("idmealplan") Integer id, ModelMap modelMap) {
+        //Mealplan mealplan = mpDAO.getMealId(id);
+        modelMap.addAttribute("mp", mpDAO.getMealId(id));
+        return "admin/managemealplan :: viewmp";
+    }
+    
+    @GetMapping("/detailnut/{usernutritionist}")
+    public String viewNut(@PathVariable("usernutritionist") String user, ModelMap modelMap) {
+       // Nutritionist nutritionist = nutDAO.getNutrionUser(user);
+        modelMap.addAttribute("nut", nutDAO.getNutrionUser(user));
+        return "admin/managenut :: viewnut";
+    }
 }
