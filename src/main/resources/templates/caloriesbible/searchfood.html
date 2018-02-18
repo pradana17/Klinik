@@ -21,11 +21,10 @@
 		$('#search').autocomplete({ 
 		     source: data,
 		     change: function (event, ui) { 
-		    	 window.location = 'http://localhost:8145/caloriesbible/detailSearch/' + ui.item.value;
-		    	 $('#searchname').val(ui.item.value);
+		      window.location = 'http://localhost:8145/caloriesbible/detailSearch/' + ui.item.value;
 		     }
 		});
-	});     
+	});    
 </script>
 </head>
 <body>
@@ -47,15 +46,18 @@
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<ul class="nav navbar-nav">
-						<li class="active" color="blue"><a href="#">Home <span
+						<li><a href="#">Profil <span
 								class="sr-only">(current)</span></a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Programme</a></li>
-						<li><a href="#">Nutritionist</a></li>
+						<li><a href="#">Chat</a></li>
+						<li><a href="#">Meal Plans</a></li>
+						<li><a href="#">Track body</a></li>
+						<li class="active"><a href="#">Get your food calories</a></li>
+						<li><a href="#">Appointment</a></li>
+						<li><a href="#">Take test</a></li>
 					</ul>
 					<form class="navbar-form navbar-right">
 						<button type="submit" class="btn btn-default" color="blue">Sign
-							in</button>
+							out</button>
 					</form>
 				</ul>
 			</div>
@@ -66,73 +68,28 @@
 	<div class="jumbotron">
 		<div>
 			<div class="container">
+				<br></br>
 				<div class="row">
-					<div class="col-lg-8 col-md-10 col-sm-12 center-block"
-						style="float: none">
+				<br></br>
+					<div class="col-lg-4 col-md-6 col-sm-10 center-block"
+						style="float: none">							
 						<div class="row">
 							<div class="col-md-12" style="padding-top: 25px">
 								<input type="text" class="typeahead form-control"
 									required="required" name="inputnama"
 									placeholder="Find out nutrition on your food.." id="search"></input>	
-									<input type="text" id="searchname" size="60"></input>					
-							<span class="input-group-btn">
-								<a class="btn btn-primary" type="button" id="btn-search">Search</a>
-							</span>
+								<!--  <input type="text" id="searchname" size="60"></input>	-->		
+								<br>
+									<span class="input-group-btn">
+										<a class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal">Search</a>
+									</span>
+								</br>
 							</div>
 						</div>
-					</div>
+					</div>				
 				</div>
 			</div>
 		</div>
 	</div>
-
-		<footer class="footer-distributed">
-			<div class="footer-left">
-				<p class="footer-links">
-					<a href="#">Home</a> 
-					<br> <a href="#">About</a> </br>
-					<a href="#">Programme</a>
-					<br> <a href="#">Blog</a> </br> 
-					<a href="#">Faq</a> 
-					<br><a href="#">Contact</a></br>
-				</p>
-				<p class="footer-company-name">Company Name &copy; 2017</p>
-			</div>
-			<div class="footer-center">
-				<div>
-					<i class="fa fa-map-marker"></i>
-					<p>
-						<span>21 Revolution Street</span> Paris, France
-					</p>
-				</div>
-				<div>
-					<i class="fa fa-phone"></i>
-					<p>+1 555 123456</p>
-				</div>
-				<div>
-					<i class="fa fa-envelope"></i>
-					<p>
-						<a href="mailto:support@company.com">support@company.com</a>
-					</p>
-				</div>
-			</div>
-			<div class="footer-right">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Pencarian..." id="search"> 
-							</input>
-							<span
-								class="input-group-btn">
-								<button class="btn btn-primary" type="button" id="btn-search">SEARCH</button>
-							</span>
-							<div id="searchname">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
 </body>
 </html>
