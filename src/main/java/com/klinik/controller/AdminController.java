@@ -159,15 +159,22 @@ public class AdminController {
     
     @GetMapping("/detailmp/{idmealplan}")
     public String view(@PathVariable("idmealplan") Integer id, ModelMap modelMap) {
-        //Mealplan mealplan = mpDAO.getMealId(id);
-        modelMap.addAttribute("mp", mpDAO.getMealId(id));
+        Mealplan mealplan = mpDAO.getMealId(id);
+        modelMap.addAttribute("objMP", mealplan);
         return "admin/managemealplan :: viewmp";
     }
     
     @GetMapping("/detailnut/{usernutritionist}")
     public String viewNut(@PathVariable("usernutritionist") String user, ModelMap modelMap) {
-       // Nutritionist nutritionist = nutDAO.getNutrionUser(user);
-        modelMap.addAttribute("nut", nutDAO.getNutrionUser(user));
+        Nutritionist nutritionist = nutDAO.getNutrionUser(user);
+        modelMap.addAttribute("objNut", nutritionist);
         return "admin/managenut :: viewnut";
+    }
+    
+    @GetMapping("/detailpat/{userpatient}")
+    public String viewPat(@PathVariable("userpatient") String user, ModelMap modelMap) {
+        Patient patient = patDAO.getPatientUser(user);
+        modelMap.addAttribute("objPatient", patient);
+        return "admin/managepat :: viewpat";
     }
 }

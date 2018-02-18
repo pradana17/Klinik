@@ -228,13 +228,13 @@ body {
 								th:href="@{'/admin/download/' + ${mp.idmealplan}}"
 								style="margin-right: 15px;" class="edit" id="editb"><i
 									class="fas fa-download"></i></a> <a
-								th:href="'javascript:openViewUser(\'' + ${mp.idmealplan} +'\');'"><i
+								th:href="'javascript:openViewMp(\'' + ${mp.idmealplan} +'\');'"><i
 									class="fas fa-pencil-alt"></i></a> <input type="hidden"
 								class="branchIds" th:value="${mp.idmealplan}" /></td>
 						</tr>
 					</tbody>
 				</table>
-				<div id="viewUser" class="modal fade" role="dialog"
+				<div id="viewMp" class="modal fade" role="dialog"
 					th:fragment="viewmp">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -253,15 +253,12 @@ body {
 											<tbody>
 												<tr>
 													<td>Kode Meal Plan:</td>
-													<td th:text="${mp.kdmp}"></td>
 												</tr>
 												<tr>
 													<td>Last Name:</td>
-													<td th:text="${mp.calorneed}"></td>
 												</tr>
 												<tr>
 													<td>Username</td>
-													<td th:text="${mp.fase}"></td>
 												</tr>
 											</tbody>
 										</table>
@@ -321,17 +318,13 @@ body {
 			toggle : true
 		});
 
-		function openViewUser(id) {
+		function openViewMp(id) {
 			$.ajax({
 				url : "/admin/detailmp/" + id,
-		//		success : function(data){
-		//			$("#viewUserHolder").html(data);
-		//			$("#viewUser").modal("show");
-		//		}
 				success : function(response) {
-					$('#viewUserHolder').html(response);
-					$('#viewUser').modal();
-					$('#viewUser').modal('open');
+					$('#viewMpHolder').html(response);
+					$('#viewMp').modal();
+					$('#viewMp').modal('open');
 				}
 			});
 		}

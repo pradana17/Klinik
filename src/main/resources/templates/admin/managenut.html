@@ -221,11 +221,12 @@ body {
 							<td th:text="${n.idbranch.namabranch}" class="branch"></td>
 							<td th:value="${n.isactive}" class="status"></td>
 							<td th:text="${#lists.size(n.patientList)}" class="patient"></td>
-							<td style="width: 40px"><a th:href="'javascript:openViewNut(\'' + ${n.usernutritionist} +'\');'"
-								style="margin-right: 15px;" class="edit"><i class="fas fa-edit"></i></a> <a
-								href="#"><i class="fas fa-trash-alt"></i></a> <input
-								type="hidden" class="nutIds" th:value="${n.usernutritionist}" />
-							</td>
+							<td style="width: 40px"><a
+								th:href="'javascript:openViewNut('+ ${n.usernutritionist} +');'"
+								style="margin-right: 15px;" class="edit"><i
+									class="fas fa-edit"></i></a> <a href="#"><i
+									class="fas fa-trash-alt"></i></a> <input type="hidden"
+								class="nutIds" th:value="${n.usernutritionist}" /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -248,7 +249,6 @@ body {
 												<tbody>
 													<tr>
 														<td>Kode Meal Plan:</td>
-														<td th:text="${nut.usernutritionist}"></td>
 													</tr>
 												</tbody>
 											</table>
@@ -312,19 +312,12 @@ body {
 					$("#selectbranch").val(branchId[index]);
 				}
 			});
+
 		});
 
-		$("#manage").collapse({
-			toggle : true
-		});
-		
 		function openViewNut(user) {
 			$.ajax({
 				url : "/admin/detailnut/" + user,
-		//		success : function(data){
-		//			$("#viewNutHolder").html(data);
-		//			$("#viewNut").modal("show");
-		//		}
 				success : function(response) {
 					$("#viewNutHolder").html(response);
 					$("#viewNut").modal();
@@ -332,6 +325,10 @@ body {
 				}
 			});
 		}
+
+		$("#manage").collapse({
+			toggle : true
+		});
 	</script>
 </body>
 </html>
