@@ -2,16 +2,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1" />
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<title>Get detail of your food</title>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
- crossorigin="anonymous"/>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="static/sheet.css"></link>
 
 <link rel="stylesheet"
 	href="https://cdn.dataTables.net/1.10.16/css/jquery.dataTables.min.css"/>
@@ -46,23 +50,107 @@ integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6J
 
 		});
 	});
-</script>
+</script> 
 <title>Insert title here</title>
 </head>
-<body>
-	<table>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Nama</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="bible : ${getDetail}">
-				<td th:text="${bible.idcal}"></td>
-				<td th:text="${bible.foodname}"></td>				
-			</tr>
-		</tbody>
-	</table>
-</body>
+	<body>
+	<br></br>
+	<br></br>
+		<div class="container" >
+		<nav class="navbar navbar-inverse navbar navbar-fixed-top">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+					aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Brand</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav">
+						<li><a href="#">Profil <span
+								class="sr-only">(current)</span></a></li>
+						<li><a href="#">Chat</a></li>
+						<li><a href="#">Meal Plans</a></li>
+						<li><a href="#">Track body</a></li>
+						<li class="active"><a href="#">Get your food calories</a></li>
+						<li><a href="#">Appointment</a></li>
+						<li><a href="#">Take test</a></li>
+					</ul>
+					<form class="navbar-form navbar-right">
+						<button type="submit" class="btn btn-default" color="blue">Sign
+							out</button>
+					</form>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+				<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<td style="width:100px">Detail</td>
+					</tr>
+				 </thead>
+				 <tbody>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Food name</td>
+						<td th:text="${bible.foodname}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Calorie</td>
+						<td th:text="${bible.calorie}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Protein</td>
+						<td th:text="${bible.protein}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Fats</td>
+						<td th:text="${bible.fats}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Carbohydrate</td>
+						<td th:text="${bible.carbhdrt}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Calcium</td>
+						<td th:text="${bible.calcium}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Phospor</td>
+						<td th:text="${bible.phosphor}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Iron</td>
+						<td th:text="${bible.iron}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Vit. A</td>
+						<td th:text="${bible.vita}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Vit. B1</td>
+						<td th:text="${bible.vitb1}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Vit. C</td>
+						<td th:text="${bible.vitc}"></td>
+					</tr>
+					<tr th:each="bible : ${getDetail}">
+						<td style="width:100px">Amount (gr)</td>
+						<td th:text="${bible.amount}"></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>	   		  
+	</body>
 </html>
