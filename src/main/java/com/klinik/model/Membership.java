@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,14 +34,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Membership.findAll", query = "SELECT m FROM Membership m")
     , @NamedQuery(name = "Membership.findByIDmember", query = "SELECT m FROM Membership m WHERE m.iDmember = :iDmember")
     , @NamedQuery(name = "Membership.findByDatejoin", query = "SELECT m FROM Membership m WHERE m.datejoin = :datejoin")
-    , @NamedQuery(name = "Membership.findByDateexpired", query = "SELECT m FROM Membership m WHERE m.dateexpired = :dateexpired")
-    , @NamedQuery(name = "Membership.findByStatus", query = "SELECT m FROM Membership m WHERE m.status = :status")})
+    , @NamedQuery(name = "Membership.findByDateexpired", query = "SELECT m FROM Membership m WHERE m.dateexpired = :dateexpired")})
 public class Membership implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "IDmember")
     private Integer iDmember;
     @Column(name = "DATEJOIN")
@@ -49,8 +49,6 @@ public class Membership implements Serializable {
     @Column(name = "DATEEXPIRED")
     @Temporal(TemporalType.DATE)
     private Date dateexpired;
-    @Column(name = "STATUS")
-    private Integer status;
     @JoinColumn(name = "USERPATIENT", referencedColumnName = "USERPATIENT")
     @ManyToOne(fetch = FetchType.LAZY)
     private Patient userpatient;
@@ -84,14 +82,6 @@ public class Membership implements Serializable {
 
     public void setDateexpired(Date dateexpired) {
         this.dateexpired = dateexpired;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Patient getUserpatient() {

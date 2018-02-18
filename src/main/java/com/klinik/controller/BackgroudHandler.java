@@ -14,8 +14,11 @@ import com.klinik.DAO.BranchDAO;
 import com.klinik.DAO.CaloriesbibleDAO;
 import com.klinik.DAO.MealplanDAO;
 import com.klinik.DAO.NutritionistDAO;
+import com.klinik.DAO.PatientDAO;
 import com.klinik.model.Branch;
 import com.klinik.model.Caloriesbible;
+import com.klinik.model.Nutritionist;
+import com.klinik.model.Patient;
 
 
 
@@ -33,6 +36,8 @@ public class BackgroudHandler {
 	private NutritionistDAO nutDAO;
 	@Autowired
 	private MealplanDAO mpDAO;
+	@Autowired
+	private PatientDAO patDAO;
 	
 	@GetMapping("/changeCalorie")
 	public boolean changeCalorie(@RequestParam("idcal") short idcal, @RequestParam("calorie") Float calorie) {
@@ -169,5 +174,26 @@ public class BackgroudHandler {
 		}
 		
 		return hasil;
+	}
+	
+	@GetMapping("/deleteBranch")
+	public boolean deleteBranch(@RequestParam("idbr") String id) {
+		Branch branch = branchDAO.getBranchId(id);
+		branch.setIsactive(0);
+		return branchDAO.editBranch(branch);
+	}
+	
+	@GetMapping("/deleteNut")
+	public boolean deleteNut(@RequestParam("idnut") String id) {
+		Nutritionist nutritionist = nutDAO.getNutrionUser(id);
+		nutritionist.setIsactive(0);
+		return nutDAO.editNutritionist(nutritionist);
+	}
+	
+	@GetMapping("/deletePat")
+	public boolean deletePat(@RequestParam("idpat") String id) {
+		Patient patient = patDAO.getPatientUser(id);
+		patient.setIsactive(0);
+		return patDAO.editPatient(patient);
 	}
 }

@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Branch.findAll", query = "SELECT b FROM Branch b")
     , @NamedQuery(name = "Branch.findByIdbranch", query = "SELECT b FROM Branch b WHERE b.idbranch = :idbranch")
     , @NamedQuery(name = "Branch.findByAlamat", query = "SELECT b FROM Branch b WHERE b.alamat = :alamat")
-    , @NamedQuery(name = "Branch.findByNamabranch", query = "SELECT b FROM Branch b WHERE b.namabranch = :namabranch")})
+    , @NamedQuery(name = "Branch.findByNamabranch", query = "SELECT b FROM Branch b WHERE b.namabranch = :namabranch")
+    , @NamedQuery(name = "Branch.findByIsactive", query = "SELECT b FROM Branch b WHERE b.isactive = :isactive")})
 public class Branch implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,6 +49,10 @@ public class Branch implements Serializable {
     @Size(max = 45)
     @Column(name = "NAMABRANCH")
     private String namabranch;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ISACTIVE")
+    private int isactive;
     @OneToMany(mappedBy = "idbranch", fetch = FetchType.LAZY)
     private List<Nutritionist> nutritionistList;
     @OneToMany(mappedBy = "idbranch", fetch = FetchType.LAZY)
@@ -58,6 +63,11 @@ public class Branch implements Serializable {
 
     public Branch(String idbranch) {
         this.idbranch = idbranch;
+    }
+
+    public Branch(String idbranch, int isactive) {
+        this.idbranch = idbranch;
+        this.isactive = isactive;
     }
 
     public String getIdbranch() {
@@ -82,6 +92,14 @@ public class Branch implements Serializable {
 
     public void setNamabranch(String namabranch) {
         this.namabranch = namabranch;
+    }
+
+    public int getIsactive() {
+        return isactive;
+    }
+
+    public void setIsactive(int isactive) {
+        this.isactive = isactive;
     }
 
     @XmlTransient

@@ -3,325 +3,440 @@
 <head>
 <meta charset="ISO-8859-1" />
 <title>Manage Branch</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
 <style type="text/css">
-#first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn{
-  width: 100px;
-  height: 100px;
+#first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn {
+	width: 100px;
+	height: 100px;
 }
 
 body {
-  overflow-x: hidden;
+	overflow-x: hidden;
 }
 
 #sidebar-wrapper {
-  z-index: 1000;
-  position: absolute;
-  left: 250px;
-  width: 250px;
-  height: 100%;
-  margin-left: -250px;
-  overflow-y: auto;
-  background: #222;
+	z-index: 1000;
+	position: absolute;
+	left: 250px;
+	width: 250px;
+	height: 100%;
+	margin-left: -250px;
+	overflow-y: auto;
+	background: #222;
 }
 
 #page-content-wrapper {
-  width: calc(100% - 250px);
-  position: absolute;
-  padding: 15px;
-  margin-left: 250px;
+	width: calc(100% - 250px);
+	position: absolute;
+	padding: 15px;
+	margin-left: 250px;
 }
 
 .sidebar-nav {
-  position: absolute;
-  top: 0;
-  width: 250px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+	position: absolute;
+	top: 0;
+	width: 250px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 .sidebar-nav li {
-  text-indent: 20px;
-  line-height: 40px;
-  color: gray;
+	text-indent: 20px;
+	line-height: 40px;
+	color: gray;
 }
 
 .sidebar-nav li a {
-  display: block;
-  text-decoration: none;
-  color: #999999;
-  border-top: 1px solid #373737;
-  border-bottom: 1px solid #1A1A1A;
+	display: block;
+	text-decoration: none;
+	color: #999999;
+	border-top: 1px solid #373737;
+	border-bottom: 1px solid #1A1A1A;
 }
 
 #manage li a {
-  display: block;
-  text-decoration: none;
-  color: #999999;
-  border-top: 1px solid #373737;
-  border-bottom: 1px solid #1A1A1A;
-  text-indent: 2.5rem;
+	display: block;
+	text-decoration: none;
+	color: #999999;
+	border-top: 1px solid #373737;
+	border-bottom: 1px solid #1A1A1A;
+	text-indent: 2.5rem;
 }
 
 .sidebar-nav li a:hover {
-  text-decoration: none;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.2);
+	text-decoration: none;
+	color: #fff;
+	background: rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-nav li a:active, .sidebar-nav li a:focus {
-  text-decoration: none;
+	text-decoration: none;
 }
-
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src=".." width="30" height="30" class="d-inline-block align-top" alt="" />
-      Klinik
-    </a>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <ul class="navbar-nav mr-auto">
-      </ul>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/login') }}">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="container-fluid">
-  <div class="row flex-xl-nowrap">
-    <div id="sidebar-wrapper">
-      <ul class="sidebar-nav" >
-        <li><a data-toggle="collapse" href="#scheduleapp" role="button" aria-expanded="false" aria-controls="scheduleapp">Schedule Appointment</a></li>
-        <li><a data-toggle="collapse" href="#manage" role="button" aria-expanded="false" aria-controls="manage">Manage</a></li>
-        <div class="collapse" id="manage">
-          <li><a th:href="@{'/admin/managenut'}" role="button">Nutritionist</a></li>
-          <li><a th:href="@{'/admin/managepat'}" role="button">Patient</a></li>
-          <li><a th:href="@{'/admin/managemealplan'}" role="button">Meal Plan</a></li>
-          <li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
-        </div>
-        <li><a data-toggle="collapse" href="#announc" role="button" aria-expanded="false" aria-controls="announc">Announcement</a></li>
-      </ul>
-    </div>
-    <div id="page-content-wrapper">
-      <div class="flex-column pl-md-3 pb-md-3">
-      	<div class="card-block">
-      	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addbranch" id="set"><i class="fas fa-plus fa-1x"></i></button>
-      	</div>
-      </div>
-      <div class="modal fade" id="addbranch" tabindex="-1" role="dialog" aria-labelledby="addbranch" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="title">Add Branch</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form action="#" th:action="@{/admin/managebranch}" th:object="${branch}" method="post">
-              <div class="modal-body">
-                <div class="flex-column">
-                  <div class="form-row">
-                    <div class="form-group col-md-4">
-                      <label th:for="${branch.idbranch}">Kode Branch</label>
-                      <input type="text" class="form-control" id="inputkdbranch" placeholder="BR001" th:field="*{idbranch}" />
-                    </div>
-                    <div class="form-group col-md-8">
-                      <label th:for="${branch.namabranch}">Nama Branch</label>
-                      <input type="text" class="form-control" id="inputnmbranch" placeholder="Klinik Tes" th:field="*{namabranch}" />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label th:for="${branch.alamat}">Alamat</label>
-                    <input type="text" class="form-control" id="inputalmt" placeholder="Jalan Tomang" th:field="*{alamat}" />
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="submit" formmethod="post"
-                id="submitbranch">Submit</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <table class="table table-striped table-bordered">
-		<thead class="thead-dark">
-			<tr>
-				<th>Kode Branch</th>
-				<th>Nama Branch</th>
-				<th>Alamat</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="br : ${semuabranch}">
-				<td th:text="${br.idbranch}" class="kd"></td>
-				<td th:text="${br.namabranch}" class="nm"></td>
-				<td th:text="${br.alamat}" class="alm"></td>	
-				<td style="width: 40px">
-					<a href="#" style="margin-right: 15px;" class="edit" id="editb"><i class="fas fa-edit"></i></a>
-					<a href="#"><i class="fas fa-trash-alt"></i></a>
-					<input type="hidden" class="branchIds" th:value="${br.idbranch}" />
-				</td>
-			</tr>
-		</tbody>
-	</table>
-    </div>
-  </div>
-</div>
+	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img src=".." width="30"
+				height="30" class="d-inline-block align-top" alt="" /> Klinik
+			</a>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<ul class="navbar-nav mr-auto">
+				</ul>
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link"
+						href="{{ url('/login') }}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row flex-xl-nowrap">
+			<div id="sidebar-wrapper">
+				<ul class="sidebar-nav">
+					<li><a data-toggle="collapse" href="#scheduleapp"
+						role="button" aria-expanded="false" aria-controls="scheduleapp">Schedule
+							Appointment</a></li>
+					<li><a data-toggle="collapse" href="#manage" role="button"
+						aria-expanded="false" aria-controls="manage">Manage</a></li>
+					<div class="collapse" id="manage">
+						<li><a th:href="@{'/admin/managenut'}" role="button">Nutritionist</a></li>
+						<li><a th:href="@{'/admin/managepat'}" role="button">Patient</a></li>
+						<li><a th:href="@{'/admin/managemealplan'}" role="button">Meal
+								Plan</a></li>
+						<li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
+					</div>
+					<li><a data-toggle="collapse" href="#announc" role="button"
+						aria-expanded="false" aria-controls="announc">Announcement</a></li>
+				</ul>
+			</div>
+			<div id="page-content-wrapper">
+				<div class="flex-column pl-md-3 pb-md-3">
+					<div class="card-block">
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#addbranch" id="set">
+							<i class="fas fa-plus fa-1x"></i>
+						</button>
+					</div>
+				</div>
+				<div class="modal fade" id="addbranch" tabindex="-1" role="dialog"
+					aria-labelledby="addbranch" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="title">Add Branch</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<form action="#" th:action="@{/admin/managebranch}"
+								th:object="${branch}" method="post">
+								<div class="modal-body">
+									<div class="flex-column">
+										<div class="form-row">
+											<div class="form-group col-md-4">
+												<label th:for="${branch.idbranch}">Kode Branch</label> <input
+													type="text" class="form-control" id="inputkdbranch"
+													placeholder="BR001" th:field="*{idbranch}" />
+											</div>
+											<div class="form-group col-md-8">
+												<label th:for="${branch.namabranch}">Nama Branch</label> <input
+													type="text" class="form-control" id="inputnmbranch"
+													placeholder="Klinik Tes" th:field="*{namabranch}" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label th:for="${branch.alamat}">Alamat</label> <input
+												type="text" class="form-control" id="inputalmt"
+												placeholder="Jalan Tomang" th:field="*{alamat}" />
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Close</button>
+									<button class="btn btn-primary" type="submit" formmethod="post"
+										id="submitbranch">Submit</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-bordered">
+					<thead class="thead-dark">
+						<tr>
+							<th>Kode Branch</th>
+							<th>Nama Branch</th>
+							<th>Alamat</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="br : ${semuabranch}">
+							<td th:text="${br.idbranch}" class="kd"></td>
+							<td th:text="${br.namabranch}" class="nm"></td>
+							<td th:text="${br.alamat}" class="alm"></td>
+							<td class="s" th:value="${br.isactive}"></td>
+							<td style="width: 40px"><a href="#"
+								style="margin-right: 15px;" class="edit" id="editb"><i
+									class="fas fa-edit"></i></a> <a href="#" class="del"><i
+									class="fas fa-trash-alt"></i></a> <input type="hidden"
+								class="branchIds" th:value="${br.idbranch}" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-<script src="/static/fontawesome/fontawesome-all.js"></script>
-<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
-<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+	<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<script src="/static/fontawesome/fontawesome-all.js"></script>
+	<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
 
-<script>
-$(document).ready(function(){
-	$("table").dataTable();
-	
-	$(".kd").dblclick(function() {
-		var idx = $(".kd").index(this);
-		var branchId = $(".branchIds:eq("+ idx +")").val();
-		var currentName = $(this).text();
-		var id = "newValue-" + branchId;
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("table").dataTable();
+
+							$(".kd")
+									.dblclick(
+											function() {
+												var idx = $(".kd").index(this);
+												var branchId = $(
+														".branchIds:eq(" + idx
+																+ ")").val();
+												var currentName = $(this)
+														.text();
+												var id = "newValue-" + branchId;
+
+												$(this)
+														.html(
+																'<input type="text" id="'+id+'" />');
+												$("#" + id).val(currentName);
+												var url = "/changebranchkode";
+												var clicked = $(this);
+
+												$("#" + id)
+														.change(
+																function() {
+																	var newName = $(
+																			this)
+																			.val();
+																	$
+																			.get(
+																					url,
+																					{
+																						id : branchId,
+																						kode : newName
+																					})
+																			.done(
+																					function(
+																							data) {
+																						if (data)
+																							$(
+																									clicked)
+																									.text(
+																											newName);
+																					});
+																});
+											});
+
+							$(".nm")
+									.dblclick(
+											function() {
+												var idx = $(".nm").index(this);
+												var branchId = $(
+														".branchIds:eq(" + idx
+																+ ")").val();
+												var currentName = $(this)
+														.text();
+												var id = "newValues-"
+														+ branchId;
+
+												$(this)
+														.html(
+																'<input type="text" id="'+id+'" />');
+												$("#" + id).val(currentName);
+												var url = "/changebranchnama";
+												var clicked = $(this);
+
+												$("#" + id)
+														.change(
+																function() {
+																	var newName = $(
+																			this)
+																			.val();
+																	$
+																			.get(
+																					url,
+																					{
+																						id : branchId,
+																						nama : newName
+																					})
+																			.done(
+																					function(
+																							data) {
+																						if (data)
+																							$(
+																									clicked)
+																									.text(
+																											newName);
+																					});
+																});
+											});
+
+							$(".alm")
+									.dblclick(
+											function() {
+												var idx = $(".alm").index(this);
+												var branchId = $(
+														".branchIds:eq(" + idx
+																+ ")").val();
+												var currentName = $(this)
+														.text();
+												var id = "newValuese-"
+														+ branchId;
+
+												$(this)
+														.html(
+																'<input type="text" id="'+id+'" />');
+												$("#" + id).val(currentName);
+												var url = "/changebranchalamat";
+												var clicked = $(this);
+
+												$("#" + id)
+														.change(
+																function() {
+																	var newName = $(
+																			this)
+																			.val();
+																	$
+																			.get(
+																					url,
+																					{
+																						id : branchId,
+																						alamat : newName
+																					})
+																			.done(
+																					function(
+																							data) {
+																						if (data)
+																							$(
+																									clicked)
+																									.text(
+																											newName);
+																					});
+																});
+											});
+
+							$(".del")
+									.click(
+											function() {
+												var idx = $(".del").index(this);
+												var idBranch = $(
+														".branchIds:eq(" + idx
+																+ ")").val();
+												var url = "/deleteBranch";
+												var choice = confirm('Do you really want to delete this record?');
+												if (choice == true) {
+													location.reload();
+													$.get(url, {
+														idbr : idBranch
+													});
+												} else {
+													return false;
+												}
+												;
+											});
+						});
+
+		/*$(document).on("click", ".edit", function() {
 		
-		$(this).html('<input type="text" id="'+id+'" />');
-		$("#"+id).val(currentName);
-		var url = "/changebranchkode";
-		var clicked = $(this);
+		 $('#tes td').each(function() {
+		 alert(this.id);
+		 });
 		
-		$("#"+id).change(function() {
-			var newName = $(this).val();
-			$.get(url,{id : branchId, kode : newName})
-			.done(function (data) {
-				if (data) $(clicked).text(newName);	
-			});
+		 //var idx = $(".edit").index(this);
+		 //var branchId = $(".branchIds:eq("+ idx +")").val();
+		 //alert(branchId);
+		
+		 //var trid = $(".edit").closest('tr').attr('id');
+		 //alert(trid);
+		
+		 //var id = $(".edit").attr("id");
+		 //alert(id);
+		 //var idkdb = $(".kd").attr("id");
+		 //alert(idkdb);
+		 //var idnmb = $(".nm").attr("id");
+		 //alert(idnmb);
+		 //var idalmb = $(".alm").attr("id");
+		 //alert(idalmb);
+		
+		 var idkdb = "kd" + branchId;
+		 var idnmb = "nm" + branchId;
+		 var idalmb = "alm" + branchId;
+		 alert(idkdb);
+		 alert(idnmb);
+		 alert(idalmb);
+		
+		 var kdbr = $("#"+idkdb).text();
+		 var nmbr = $("#"+idnmb).text();
+		 var almt = $("#"+idalmb).text();
+		
+		 var idkd = "newValue-edit" + kdbr;
+		 var idnm = "newValue-edit" + nmbr;
+		 var idalm = "newValue-edit" + almt;
+		
+		 $("#"+idkdb).html('<input type="text" id="'+idkd+'" />');
+		 $("#"+idkd).val(kdbr);
+		 $("#"+idnmb).html('<input type="text" id="'+idnm+'" />');
+		 $("#"+idnm).val(nmbr);
+		 $("#"+idalmb).html('<input type="text" id="'+idalm+'" />');
+		 $("#"+idalm).val(almt);
+		 var url = "/changebranch";
+		 var clicked = $("#"+kdb);
+		 var clicked1 = $("#"+nmb);
+		 var clicked2 = $("#"+idalmb);
+		
+		 $("#"+id).click(function() {
+		 var newName = $("#"+idkdb).val();
+		 var nmbranch = $("#"+idnmb).val();
+		 var alamats = $("#"+idalmb).val();
+		 $.get(url,{id : branchId, kode : newName, nama : nmbranch, alamat: alamats})
+		 .done(function (data) {
+		 if (data) $(clicked).text(newName);
+		 if (data) $(clicked1).text(nmbranch);
+		 if (data) $(clicked2).text(alamats);
+		 });
+		 });
+		
+		 });*/
+
+		$("#manage").collapse({
+			toggle : true
 		});
-	});
-	
-	$(".nm").dblclick(function() {
-		var idx = $(".nm").index(this);
-		var branchId = $(".branchIds:eq("+ idx +")").val();
-		var currentName = $(this).text();
-		var id = "newValues-" + branchId;
-		
-		$(this).html('<input type="text" id="'+id+'" />');
-		$("#"+id).val(currentName);
-		var url = "/changebranchnama";
-		var clicked = $(this);
-		
-		$("#"+id).change(function() {
-			var newName = $(this).val();
-			$.get(url,{id : branchId, nama : newName})
-			.done(function (data) {
-				if (data) $(clicked).text(newName);	
-			});
-		});
-	});
-	
-	$(".alm").dblclick(function() {
-		var idx = $(".alm").index(this);
-		var branchId = $(".branchIds:eq("+ idx +")").val();
-		var currentName = $(this).text();
-		var id = "newValuese-" + branchId;
-		
-		$(this).html('<input type="text" id="'+id+'" />');
-		$("#"+id).val(currentName);
-		var url = "/changebranchalamat";
-		var clicked = $(this);
-		
-		$("#"+id).change(function() {
-			var newName = $(this).val();
-			$.get(url,{id : branchId, alamat : newName})
-			.done(function (data) {
-				if (data) $(clicked).text(newName);	
-			});
-		});
-	});
-});
 
-
-/*$(document).on("click", ".edit", function() {
-	
-	$('#tes td').each(function() {
-	    alert(this.id);
-	});
-	
-	//var idx = $(".edit").index(this);
-	//var branchId = $(".branchIds:eq("+ idx +")").val();
-	//alert(branchId);
-	
-	//var trid = $(".edit").closest('tr').attr('id');
-	//alert(trid);
-	
-	//var id = $(".edit").attr("id");
-	//alert(id);
-	//var idkdb = $(".kd").attr("id");
-	//alert(idkdb);
-	//var idnmb = $(".nm").attr("id");
-	//alert(idnmb);
-	//var idalmb = $(".alm").attr("id");
-	//alert(idalmb);
-	
-	var idkdb = "kd" + branchId;
-	var idnmb = "nm" + branchId;
-	var idalmb = "alm" + branchId;
-	alert(idkdb);
-	alert(idnmb);
-	alert(idalmb);
-	
-	var kdbr = $("#"+idkdb).text();
-	var nmbr = $("#"+idnmb).text();
-	var almt = $("#"+idalmb).text();
-	
-	var idkd = "newValue-edit" + kdbr;
-	var idnm = "newValue-edit" + nmbr;
-	var idalm = "newValue-edit" + almt;
-	
-	$("#"+idkdb).html('<input type="text" id="'+idkd+'" />');
-	$("#"+idkd).val(kdbr);
-	$("#"+idnmb).html('<input type="text" id="'+idnm+'" />');
-	$("#"+idnm).val(nmbr);
-	$("#"+idalmb).html('<input type="text" id="'+idalm+'" />');
-	$("#"+idalm).val(almt);
-	var url = "/changebranch";
-	var clicked = $("#"+kdb);
-	var clicked1 = $("#"+nmb);
-	var clicked2 = $("#"+idalmb);
-	
-	$("#"+id).click(function() {
-		var newName = $("#"+idkdb).val();
-		var nmbranch = $("#"+idnmb).val();
-		var alamats = $("#"+idalmb).val();
-		$.get(url,{id : branchId, kode : newName, nama : nmbranch, alamat: alamats})
-		.done(function (data) {
-			if (data) $(clicked).text(newName);
-			if (data) $(clicked1).text(nmbranch);
-			if (data) $(clicked2).text(alamats);
-		});
-	});
-	
-});*/
-
-$("#manage").collapse({
-  toggle: true
-});
-
-</script>
+		if ($(".s").val() == 0) {
+			$(".s").text("Aktif");
+		} else {
+			$(".s").text("Tidak Aktif");
+		}
+	</script>
 </body>
 </html>

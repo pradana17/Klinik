@@ -224,37 +224,25 @@ body {
 							<td style="width: 40px"><a
 								th:href="'javascript:openViewNut('+ ${n.usernutritionist} +');'"
 								style="margin-right: 15px;" class="edit"><i
-									class="fas fa-edit"></i></a> <a href="#"><i
+									class="fas fa-edit"></i></a> <a href="#" class="delnut"><i
 									class="fas fa-trash-alt"></i></a> <input type="hidden"
 								class="nutIds" th:value="${n.usernutritionist}" /></td>
 						</tr>
 					</tbody>
 				</table>
-				<div id="viewNut" class="modal fade" role="dialog"
+				<div class="modal fade" id="viewNut" role="dialog"
 					th:fragment="viewnut">
-					<div class="modal-dialog">
+					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="titl">Edit Data Nutritionist</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
 							<div class="modal-body">
-								<h4>View User</h4>
-								<div class="row">
-									<div class="col s12">
-										<div class="row">
-											<table>
-												<thead>
-													<tr>
-														<th></th>
-														<th></th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>Kode Meal Plan:</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
+								<div class="flex-column"></div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
@@ -284,9 +272,11 @@ body {
 		$(document).ready(function() {
 			$("table").dataTable();
 
-			//	if ($(".status").val() == 0){
-			//		$(".status").text("Active");
-			//	}
+			if ($(".status").val() == 0) {
+				$(".status").text("Aktif");
+			} else {
+				$(".status").text("Tidak Aktif");
+			}
 
 		});
 
@@ -312,6 +302,19 @@ body {
 					$("#selectbranch").val(branchId[index]);
 				}
 			});
+			
+		$(".delnut").click (function(){
+				var idx = $(".delnut").index(this);
+				var idNut = $(".nutIds:eq(" + idx + ")").val();
+				var url = "/deleteNut";
+				var choice = confirm('Do you really want to delete this record?');
+			    if(choice == true) {
+					$.get(url,{idnut :idNut});
+					location.reload();
+			    } else {
+			    	return false;
+			    };
+		    });
 
 		});
 

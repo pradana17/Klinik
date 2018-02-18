@@ -56,6 +56,7 @@ public class BranchDAO {
 			
 			existingBranch.setNamabranch(branch.getNamabranch());
 			existingBranch.setAlamat(branch.getAlamat());
+			existingBranch.setIsactive(branch.getIsactive());
 			transaksi.commit();
 			
 		} catch (Exception ex) {

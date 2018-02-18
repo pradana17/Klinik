@@ -156,6 +156,7 @@ public class AdminController {
 		}
 		return null;
 	}
+
     
     @GetMapping("/detailmp/{idmealplan}")
     public String view(@PathVariable("idmealplan") Integer id, ModelMap modelMap) {
