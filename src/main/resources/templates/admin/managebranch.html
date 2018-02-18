@@ -368,32 +368,9 @@ body {
 
 		/*$(document).on("click", ".edit", function() {
 		
-		 $('#tes td').each(function() {
-		 alert(this.id);
-		 });
+		 var idx = $(".edit").index(this);
+		 var branchId = $(".branchIds:eq("+ idx +")").val();
 		
-		 //var idx = $(".edit").index(this);
-		 //var branchId = $(".branchIds:eq("+ idx +")").val();
-		 //alert(branchId);
-		
-		 //var trid = $(".edit").closest('tr').attr('id');
-		 //alert(trid);
-		
-		 //var id = $(".edit").attr("id");
-		 //alert(id);
-		 //var idkdb = $(".kd").attr("id");
-		 //alert(idkdb);
-		 //var idnmb = $(".nm").attr("id");
-		 //alert(idnmb);
-		 //var idalmb = $(".alm").attr("id");
-		 //alert(idalmb);
-		
-		 var idkdb = "kd" + branchId;
-		 var idnmb = "nm" + branchId;
-		 var idalmb = "alm" + branchId;
-		 alert(idkdb);
-		 alert(idnmb);
-		 alert(idalmb);
 		
 		 var kdbr = $("#"+idkdb).text();
 		 var nmbr = $("#"+idnmb).text();

@@ -57,7 +57,7 @@ public class NutritionistDAO {
 			existingNutrion.setFullname(nutritionist.getFullname());
 			existingNutrion.setPassword(nutritionist.getPassword());
 			existingNutrion.setEmail(nutritionist.getEmail());
-			//existingNutrion.setIsactive(nutritionist.getIsactive());
+			existingNutrion.setIsactive(nutritionist.getIsactive());
 			
 			transaksi.commit();
 			

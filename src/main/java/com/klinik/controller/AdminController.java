@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -159,9 +160,9 @@ public class AdminController {
 
     
     @GetMapping("/detailmp/{idmealplan}")
-    public String view(@PathVariable("idmealplan") Integer id, ModelMap modelMap) {
+    public String viewMP(Model model, @PathVariable("idmealplan") Integer id) {
         Mealplan mealplan = mpDAO.getMealId(id);
-        modelMap.addAttribute("objMP", mealplan);
+        model.addAttribute("objMP", mealplan);
         return "admin/managemealplan :: viewmp";
     }
     

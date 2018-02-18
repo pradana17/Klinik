@@ -253,6 +253,7 @@ body {
 											<tbody>
 												<tr>
 													<td>Kode Meal Plan:</td>
+													<!-- <td th:text="${objMP.fase}"></td>  -->
 												</tr>
 												<tr>
 													<td>Last Name:</td>
@@ -321,10 +322,10 @@ body {
 		function openViewMp(id) {
 			$.ajax({
 				url : "/admin/detailmp/" + id,
-				success : function(response) {
-					$('#viewMpHolder').html(response);
-					$('#viewMp').modal();
-					$('#viewMp').modal('open');
+				success : function(data) {
+					alert(data);
+					$("#viewMpHolder").html(data);
+					$("#viewMp").modal("show");
 				}
 			});
 		}
