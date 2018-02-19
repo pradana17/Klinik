@@ -18,6 +18,26 @@
 <title>Calories Bible</title>
 </head>
 <body>
+<script>
+	$(document).ready(function() {
+		$("table").DataTable();
+		$(".delete").click (function(){
+			var idx = $(".delete").index(this);
+			var idCal = $(".cas:eq(" + idx + ")").val();
+			var url = "/deleteCal";
+			var choice = confirm('Do you really want to delete this record?');
+		    if(choice == true) {
+		    	location.reload();
+		    	$.get(url,{idcal :idCal});
+		    } else {
+		    	return false;
+		    };
+	    });
+	});
+	
+	
+</script>
+
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#"> <img src=".." width="30"
@@ -158,27 +178,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
-	
-	<script>
-	$(document).ready(function() {
-		$("table").DataTable();
-		$(".delete").click (function(){
-			var idx = $(".delete").index(this);
-			var idCal = $(".cas:eq(" + idx + ")").val();
-			var url = "/deleteCal";
-			var choice = confirm('Do you really want to delete this record?');
-		    if(choice == true) {
-				$.get(url,{idcal :idCal});
-				location.reload();
-		    } else {
-		    	return false;
-		    };
-	    });
-	});
-	
-	
-</script>
-	
+	</div>	
 </body>
 </html>

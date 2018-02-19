@@ -33,6 +33,7 @@ public class BranchDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
+			branch.setIsactive(1);
 			em.persist(branch);
 			transaksi.commit();
 		} catch (Exception ex) {
