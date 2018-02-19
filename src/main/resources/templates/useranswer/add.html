@@ -42,16 +42,16 @@
 	<table class="table table-hover">
 		<thead class="thead-dark">
 			<tr>
-				<th>No.</th>
 				<th>Question</th>
 				<th>Answer</th>
+				<th>Kalori</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="questionObj: ${allQuestions}">
-				<td th:text="${questionObj.questionid}"></td>
-				<td th:text="${questionObj.questions}"></td>
-				<td><a th:href="@{'/useranswer/detail/'+${questionObj.questionid}}">Answer</a></td>
+			<tr th:each="allAnswers ${allUserAnswers}">
+				<td th:text="${allAnswers.questionid}"></td>
+				<td th:text="${allAnswers.choosenansweris}"></td>
+				<td th:text="${allAnswers.resulttemp}"></td>
 			</tr>
 		</tbody>
 	</table>

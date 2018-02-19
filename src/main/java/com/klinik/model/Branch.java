@@ -43,7 +43,15 @@ public class Branch implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "IDBRANCH")
     private String idbranch;
+<<<<<<< HEAD
     @Size(max = 80)
+=======
+<<<<<<< HEAD
+    @Size(max = 50)
+=======
+    @Size(max = 80)
+>>>>>>> b992fe75a5822bdb2b24ef082bd53e9f80fd626b
+>>>>>>> bc297ee392a50fffd562b975fbcf82806528f8af
     @Column(name = "ALAMAT")
     private String alamat;
     @Size(max = 45)

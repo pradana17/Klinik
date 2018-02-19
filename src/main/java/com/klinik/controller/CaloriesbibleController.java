@@ -49,4 +49,16 @@ public class CaloriesbibleController {
 		}
 	}
 	
+	@GetMapping("/searchfood")
+	public String displayBible() {
+		return "caloriesbible/searchfood";
+	}	
+	
+	@GetMapping("/detailSearch/{foodname}")
+	public String detailSearch(Model model, @PathVariable("foodname") String foodname) {
+		System.out.println("foodname" +foodname);
+		model.addAttribute("getDetail",caloriesbibleDAO.getFoodDetail(foodname));
+		return "caloriesbible/detailSearch";
+	}
+	
 }

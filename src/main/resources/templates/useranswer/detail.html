@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="ISO-8859-1" />
+
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous" />
+        <link rel="stylesheet"
+              href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <script
+        src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+        <link rel="stylesheet"
+              href="https://cdn.dataTables.net/1.10.16/css/jquery.dataTables.min.css" />
+
+        <script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+        <title>Insert title here</title>
+        <script type="text/javascript">
+            var simpan;
+            var simpanID;
+
+
+            function limit_checkbox(max, identifier)
+            {
+                var checkbox = $("input[name='" + identifier + "[]']");
+                var checked = $("input[name='" + identifier + "[]']:checked").length;
+                checkbox.filter(':not(:checked)').prop('disabled', checked >= max);
+                simpan = $("input[name='" + identifier + "[]']:checked").val();
+                document.getElementById("chooseanswer").value = $("input[name='" + identifier + "[]']:checked").val();
+            }
+
+            function save_val() {
+                alert(simpanID);
+            }
+
+            function getQuestionID(id) {
+                simpanID = id;
+                document.getElementById("choosequestion").value = simpanID;
+                save_val();
+            }
+
+        </script>
+    </head>
+    <body>
+
+        <div th:each="x : ${objQuestion.correctanswersList}">
+            <input type="checkbox" name="check[]" th:value="${x.answers.idanswer}" onchange="limit_checkbox(1, 'check');">			 
+            <td th:text="${x.answers.answer}"  class="questionanswer" 
+                questionId="${x.question.questionid}"></td>
+            </input>
+        </div>
+        <div th:each="x : ${objQuestion}">	
+            <td th:text="${x.questions}" class="getQuestionID" th:value="${x.questions}"></td>	
+        </div>	
+
+        <form action="#" th:action="@{/question/detail}" th:object="${getUserAnswer}" method="post">
+
+            <div>	
+                <div th:each="get1 : ${getUserAnswer}">
+                    <label th:for="${get1.choosenanswerid}">Choose</label>		
+                    <input type="text" id="chooseanswer" size="60" th:field="*{choosenanswerid}"/>
+                </div>	
+            </div>	
+            <div th:each="get1 : ${getUserAnswer}">			
+                <label th:for="${get1.questionid}">Choose</label>
+                <div th:each="x : ${objQuestion.correctanswersList}">		
+                    <input type="text" id="choosequestion" th:field="*{questionid}" th:errorclass="fieldError" />		
+                    <p th:if="${#fields.hasErrors('questionid')}" th:errors="*{questionid}">Choose</p>
+                </div>
+            </div>
+            <div>
+                <div th:each="get1 : ${getUserAnswer}">
+                    <label th:for="${get1.datetest}">Date</label>
+                    <input type="text" id="dateNow" th:field="*{datetest}" th:value="${#dates.createNow()}"/>
+                </div>
+            </div>
+            <div>
+                <div th:each="get1 : ${getCaloriesNeed}">
+                    <label th:for="${get1.caloriesneed}">Calories</label>
+                </div>
+                <input type="text" id="inputTemp" placeholder="100"/>
+            </div>
+            <div>
+                <div th:each="get1 : ${getUserAnswer}">
+                    <label th:for="${get1.userpatient}">Patient</label>
+                </div>
+                <input type="text" class="form-control" id="inputPatient"  size="60" placeholder="P001" />
+            </div>
+            <!-- 	
+            <input type="text" id="result" size="60" />	  -->
+            <div th:each="x : ${objQuestion}">	
+                <button type="hidden" id="simpan" th:value="${x.questionid}" size="60" 
+                        onclick="getQuestionID(this.value)">Simpan</button>	
+            </div>				
+        </form>
+    </body>
+</html>

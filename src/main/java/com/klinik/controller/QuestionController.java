@@ -24,8 +24,6 @@ public class QuestionController {
 	
 	@Autowired
 	private QuestionDAO questionDAO;
-	private CorrectAnswerDAO answerDAO;
-	private UserAnswerDAO userAnswerDAO;
 	
 	@GetMapping("/index")
 	public String index(Model model) {
@@ -33,29 +31,10 @@ public class QuestionController {
 		return "question/index";
 	}	
 	
-	@GetMapping("/detail/{questionid")
+	@GetMapping("/detail/{questionid}")
 	public String detail(Model model, @PathVariable("questionid") short id) {
 		model.addAttribute("objQuestion",questionDAO.getQuestion(id));
 		return "question/detail";
 	}
 	
-	@GetMapping("/detail")
-	public String addForm(Model model) {
-		Useranswers userAnswer = new Useranswers();
-		model.addAttribute("getUserAnswer", userAnswer);
-		model.addAttribute("getCaloriesNeed", answerDAO.getCaloriesNeed(userAnswer.getChoosenanswerid(), userAnswer.getQuestion().getQuestionid()));
-		return "/question/detail";
-	}
-	
-	@PostMapping("/detail")
-	public String addActor(@Valid Useranswers useranswer, BindingResult result) {		
-		if(!result.hasErrors() && userAnswerDAO.addUserAnswer(useranswer)) {
-			return "redirect:/question/index";
-		} else {
-			for (ObjectError er : result.getAllErrors()) {
-				System.out.println(er.getDefaultMessage());
-			}
-			return "/question/index";
-		}
-	}
 }
