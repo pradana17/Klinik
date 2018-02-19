@@ -19,7 +19,7 @@ public class PatientDAO {
 	private EntityManagerFactory factory;
 	
 	public List<Patient> getAllPatient() {
-		return (List<Patient>) factory.createEntityManager().createQuery("from Patient").getResultList();
+		return (List<Patient>) factory.createEntityManager().createQuery("from Patient where isactive = 1").getResultList();
 	}
 	
 	public Patient getPatientUser(String user) {

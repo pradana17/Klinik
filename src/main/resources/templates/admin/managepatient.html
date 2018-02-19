@@ -270,9 +270,9 @@ body {
 		$(document).ready(function() {
 			$("table").dataTable();
 
-			if ($(".status").val() == 1) {
+			if ($(".status").val() == 0) {
 				$(".status").text("Aktif");
-			} else if ($(".status").val() == 0) {
+			} else {
 				$(".status").text("Tidak Aktif");
 			}
 			

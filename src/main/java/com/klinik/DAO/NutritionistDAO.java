@@ -19,7 +19,7 @@ public class NutritionistDAO {
 	private EntityManagerFactory factory;
 	
 	public List<Nutritionist> getAllNutritionist() {
-		return (List<Nutritionist>) factory.createEntityManager().createQuery("from Nutritionist").getResultList();
+		return (List<Nutritionist>) factory.createEntityManager().createQuery("from Nutritionist where isactive = 1").getResultList();
 	}
 	
 	public Nutritionist getNutrionUser(String user) {
