@@ -51,7 +51,7 @@
 			<tr th:each="questionObj: ${allQuestions}">
 				<td th:text="${questionObj.questionid}"></td>
 				<td th:text="${questionObj.questions}"></td>
-				<td><a th:href="@{'/useranswer/detail/'+${questionObj.questionid}}">Answer</a></td>
+				<td><a th:href="@{'/question/detail/'+${questionObj.questionid}}">Answer</a></td>
 			</tr>
 		</tbody>
 	</table>

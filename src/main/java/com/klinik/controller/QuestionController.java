@@ -31,10 +31,12 @@ public class QuestionController {
 		return "question/index";
 	}	
 	
+	
 	@GetMapping("/detail/{questionid}")
-	public String detail(Model model, @PathVariable("questionid") short id) {
+	public String detail(Model model, @PathVariable("questionid") Integer id) {
 		model.addAttribute("objQuestion",questionDAO.getQuestion(id));
 		return "question/detail";
 	}
+	
 	
 }
