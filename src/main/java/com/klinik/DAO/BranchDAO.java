@@ -19,11 +19,11 @@ public class BranchDAO {
 	private EntityManagerFactory factory;
 	
 	public List<Branch> getAllBranch() {
-		return (List<Branch>) factory.createEntityManager().createQuery("from Branch").getResultList();
+		return (List<Branch>) factory.createEntityManager().createQuery("from Branch where isactive = 1").getResultList();
 	}
 	
 	public Branch getBranchId(String id) {
-		return (Branch) factory.createEntityManager().createQuery("from Branch where idbranch = ' + id'").getSingleResult();
+		return (Branch) factory.createEntityManager().createQuery("from Branch where idbranch = '" + id + "'").getSingleResult();
 	}
 	
 	public boolean addBranch(Branch branch) {
