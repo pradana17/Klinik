@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.klinik.DAO.CorrectAnswerDAO;
 import com.klinik.DAO.QuestionDAO;
 
-import id.co.klinik.model.Useranswers;
+import com.klinik.model.Useranswers;
 
 
 @Controller
