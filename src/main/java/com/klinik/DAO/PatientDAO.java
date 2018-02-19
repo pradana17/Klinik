@@ -33,6 +33,7 @@ public class PatientDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
+			patient.setIsactive(1);
 			em.persist(patient);
 			transaksi.commit();
 		} catch (Exception ex) {

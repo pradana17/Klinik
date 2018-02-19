@@ -33,6 +33,7 @@ public class NutritionistDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
+			nutritionist.setIsactive(1);
 			em.persist(nutritionist);
 			transaksi.commit();
 		} catch (Exception ex) {
