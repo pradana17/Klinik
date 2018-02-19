@@ -24,7 +24,7 @@ public class QuestionDAO {
 	}
 	
 	public Question getQuestion(int id) {
-		return (Question) factory.createEntityManager().createQuery("from Question when questionid = " +id).getSingleResult();
+		return (Question) factory.createEntityManager().createQuery("from Question where questionid = " +id).getSingleResult();
 	}
 	
 }

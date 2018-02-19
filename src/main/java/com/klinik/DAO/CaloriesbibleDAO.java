@@ -73,5 +73,10 @@ public class CaloriesbibleDAO {
 		}
 		return isSuccess;
 	}
+	
+	public List<Caloriesbible> getFoodDetail(String nama) {
+		return factory.createEntityManager().createQuery("from Caloriesbible where foodname = '" + nama+"'").getResultList();
+	}
+	
 
 }
