@@ -270,8 +270,10 @@ body {
 		$(document).ready(function() {
 			$("table").dataTable();
 
-			if ($(".status").val() == 0) {
+			if ($(".status").val() == 1) {
 				$(".status").text("Aktif");
+			} else if ($(".status").val() == 0) {
+				$(".status").text("Tidak Aktif");
 			}
 			
 			$(".delpat").click (function(){

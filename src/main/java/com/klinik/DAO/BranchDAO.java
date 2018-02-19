@@ -23,7 +23,7 @@ public class BranchDAO {
 	}
 	
 	public Branch getBranchId(String id) {
-		return (Branch) factory.createEntityManager().createQuery("from Branch where idbranch = ' + id'").getSingleResult();
+		return (Branch) factory.createEntityManager().createQuery("from Branch where idbranch = '" + id + "'").getSingleResult();
 	}
 	
 	public boolean addBranch(Branch branch) {

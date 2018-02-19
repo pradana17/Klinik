@@ -23,7 +23,7 @@ public class PatientDAO {
 	}
 	
 	public Patient getPatientUser(String user) {
-		return (Patient) factory.createEntityManager().createQuery("from Patient where userpatient = ' + user'").getSingleResult();
+		return (Patient) factory.createEntityManager().createQuery("from Patient where userpatient = '" + user + "'").getSingleResult();
 	}
 	
 	public boolean addPatient(Patient patient) {

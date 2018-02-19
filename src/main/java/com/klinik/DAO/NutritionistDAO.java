@@ -23,7 +23,7 @@ public class NutritionistDAO {
 	}
 	
 	public Nutritionist getNutrionUser(String user) {
-		return (Nutritionist) factory.createEntityManager().createQuery("from Nutritionist where usernutritionist = ' + user'").getSingleResult();
+		return (Nutritionist) factory.createEntityManager().createQuery("from Nutritionist where usernutritionist = '" + user + "'").getSingleResult();
 	}
 	
 	public boolean addNutritionist(Nutritionist nutritionist) {
