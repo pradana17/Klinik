@@ -1,4 +1,4 @@
-package com.klinik.dao;
+package com.klinik.DAO;
 
 import java.util.Date;
 import java.util.List;

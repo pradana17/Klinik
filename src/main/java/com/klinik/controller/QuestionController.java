@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.klinik.DAO.CorrectAnswerDAO;
 import com.klinik.DAO.QuestionDAO;
-
-import id.co.klinik.model.Useranswers;
+import com.klinik.DAO.UserAnswerDAO;
+import com.klinik.model.Useranswers;
 
 
 @Controller
@@ -25,6 +25,7 @@ public class QuestionController {
 	@Autowired
 	private QuestionDAO questionDAO;
 	private CorrectAnswerDAO answerDAO;
+	private UserAnswerDAO userAnswerDAO;
 	
 	@GetMapping("/index")
 	public String index(Model model) {
@@ -42,7 +43,7 @@ public class QuestionController {
 	public String addForm(Model model) {
 		Useranswers userAnswer = new Useranswers();
 		model.addAttribute("getUserAnswer", userAnswer);
-		model.addAttribute("getCaloriesNeed", correctDAO.getCaloriesNeed(userAnswer.getChoosenanswerid(), userAnswer.getQuestion().getQuestionid()));
+		model.addAttribute("getCaloriesNeed", answerDAO.getCaloriesNeed(userAnswer.getChoosenanswerid(), userAnswer.getQuestion().getQuestionid()));
 		return "/question/detail";
 	}
 	
