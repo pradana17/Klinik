@@ -1,11 +1,16 @@
 package com.klinik.DAO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,11 +48,7 @@ public class UserAnswerDAO {
 			transaksi.begin();
 			useranswer.setDatetest(new Date());
 			patient.setUserpatient("P001");
-			useranswer.setPatient(patient);	
-			
-//			question.setQuestionid(5);
-//			useranswer.setQuestion(question);
-//			useranswersPK.setQuestionid(5);
+			useranswer.setPatient(patient);
 			
 			System.out.println("result " +useranswer.getChoosenanswerid()+" "+useranswer.getUseranswersPK().getQuestionid());
 			
@@ -72,5 +73,17 @@ public class UserAnswerDAO {
 			System.out.println(ex.getMessage());
 		}
 		return isSuccess;
-	}	
+	}		
+	
+	public long Sum(String user){
+		EntityManager em = factory.createEntityManager();
+		Query q = em.createQuery("select sum(resulttemp) from Useranswers where userpatient like '%" + user+"%'group by userpatient, datetest");
+		long result = (long) q.getSingleResult ();
+		System.out.println("sum "+result);
+		return result;		
+	}
+	
+
+	
+//	select sum(resulttemp) from useranswers where userpatient="P001" group by userpatient, datetest;
 }

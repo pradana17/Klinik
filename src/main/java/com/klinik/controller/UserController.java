@@ -19,4 +19,5 @@ public class UserController {
 		model.addAttribute("objChat", chatDAO.getChatId(id));
 		return "viewremind";
 	}
+	
 }

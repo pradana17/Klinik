@@ -44,9 +44,8 @@ public class Personalitytest implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDPERTEST")
     private Integer idpertest;
-    @Size(max = 50)
     @Column(name = "RESULT")
-    private String result;
+    private int result;
     @Column(name = "DATETEST")
     @Temporal(TemporalType.DATE)
     private Date datetest;
@@ -69,11 +68,11 @@ public class Personalitytest implements Serializable {
         this.idpertest = idpertest;
     }
 
-    public String getResult() {
+    public int getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(int result) {
         this.result = result;
     }
 

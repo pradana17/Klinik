@@ -30,52 +30,21 @@
         <script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
         <script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
         <title>Insert title here</title>
+        
         <script type="text/javascript">
-            var simpan;
-            var simpanID;
-
-
-            function limit_checkbox(max, identifier)
-            {
-                var checkbox = $("input[name='" + identifier + "[]']");
-                var checked = $("input[name='" + identifier + "[]']:checked").length;
-                checkbox.filter(':not(:checked)').prop('disabled', checked >= max);
-                simpan = $("input[name='" + identifier + "[]']:checked").val();
-                alert(simpan);
-                $("#chooseanswer").val(simpan);   
-                
-            }
-
+        
             function getQuestionID(id) {
-                simpanID = id;
-                $("#choosequestion").val(simpanID); 
+                $("#choosequestion").val(id); 
             }
 
         </script>
     </head>
     <body>
     
-<form action="#" th:action="@{/question/detail}" th:object="${getUserAnswer}" method="post">
- 
-   <div class="form-group">
-
-            <ul>
-			 <li th:each="x : ${objQuestion.correctanswersList}">			    
-			    <input type="radio" id="chooseanswer" th:field="*{choosenanswerid}" th:value="${x.answers.idanswer}" />
-			    <label th:for="${getUserAnswer.choosenanswerid}" th:text="${x.answers.answer}" >Wireframe</label>	
-			  </li>
-			</ul>						
-               
-                <label th:for="${getUserAnswer.useranswersPK}"></label>	
-                <div th:each="x : ${objQuestion.correctanswersList}">	
-                    <input type="hidden" id="choosequestion" th:value="${x.question.questionid}" th:field="*{useranswersPK.questionid}" th:errorclass="fieldError" />		
-                </div>
-
-            <div th:each="x : ${objQuestion}">	
-                <button type="hidden" id="simpan" th:value="${x.questionid}" size="60" 
-                        onclick="getQuestionID(this.value)">Simpan</button>	
-            </div>	
-    	 </div>	
+<form action="#" th:action="@{/test/sum}" th:object="${sum}" method="post">
+...
+                <button type="hidden" id="simpan" size="60" 
+                       >Simpan</button>	
         </form>
     </body>
 </html>
