@@ -44,20 +44,6 @@ public class Branch implements Serializable {
     @Column(name = "IDBRANCH")
     private String idbranch;
     @Size(max = 80)
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< HEAD
-    @Size(max = 80)
-=======
-<<<<<<< HEAD
-    @Size(max = 50)
-=======
-    @Size(max = 80)
->>>>>>> b992fe75a5822bdb2b24ef082bd53e9f80fd626b
->>>>>>> bc297ee392a50fffd562b975fbcf82806528f8af
->>>>>>> 3fbd23c7ae97f3f83a9d6374aef0f3a2d16cd368
->>>>>>> ce0e5f65c456b86095358b1bc5e89ade1b9ad131
     @Column(name = "ALAMAT")
     private String alamat;
     @Size(max = 45)
