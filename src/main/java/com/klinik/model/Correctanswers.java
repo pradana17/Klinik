@@ -36,7 +36,7 @@ public class Correctanswers implements Serializable {
     protected CorrectanswersPK correctanswersPK;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "CALORIESNEED")
-    private Double caloriesneed;
+    private int caloriesneed;
     @JoinColumn(name = "IDANSWER", referencedColumnName = "IDANSWER", insertable = false, updatable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Answers answers;
@@ -63,11 +63,11 @@ public class Correctanswers implements Serializable {
         this.correctanswersPK = correctanswersPK;
     }
 
-    public Double getCaloriesneed() {
+    public int getCaloriesneed() {
         return caloriesneed;
     }
 
-    public void setCaloriesneed(Double caloriesneed) {
+    public void setCaloriesneed(int caloriesneed) {
         this.caloriesneed = caloriesneed;
     }
 

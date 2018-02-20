@@ -41,72 +41,102 @@
                 var checked = $("input[name='" + identifier + "[]']:checked").length;
                 checkbox.filter(':not(:checked)').prop('disabled', checked >= max);
                 simpan = $("input[name='" + identifier + "[]']:checked").val();
-                document.getElementById("chooseanswer").value = $("input[name='" + identifier + "[]']:checked").val();
+                alert(simpan);
+                $("#chooseanswer").val(simpan);   
+                
             }
-
-            function save_val() {
-                alert(simpanID);
-            }
-
+          <!--  
+            $('document').ready(function(e) 
+            		{
+            			    $('#chooseanswer').click( function()
+            				{
+            					$("#kalori").prop('checked', true);
+            				});
+            				$('#chooseanswer').click( function()
+            				{
+            					$("#id_4").prop('checked', true);
+            				});
+            	    });
+            
+-->
             function getQuestionID(id) {
                 simpanID = id;
-                document.getElementById("choosequestion").value = simpanID;
-                save_val();
+                $("#choosequestion").val(simpanID); 
             }
 
         </script>
     </head>
     <body>
+    
+<form action="#" th:action="@{/question/detail}" th:object="${getUserAnswer}" method="post">
+ 
+   <div class="form-group">
 
-        <div th:each="x : ${objQuestion.correctanswersList}">
-            <input type="checkbox" name="check[]" th:value="${x.answers.idanswer}" onchange="limit_checkbox(1, 'check');">			 
-            <td th:text="${x.answers.answer}"  class="questionanswer" 
-                questionId="${x.question.questionid}"></td>
-            </input>
-        </div>
-        <div th:each="x : ${objQuestion}">	
-            <td th:text="${x.questions}" class="getQuestionID" th:value="${x.questions}"></td>	
-        </div>	
-
-        <form action="#" th:action="@{/question/detail}" th:object="${getUserAnswer}" method="post">
-
-            <div>	
-                <div th:each="get1 : ${getUserAnswer}">
-                    <label th:for="${get1.choosenanswerid}">Choose</label>		
-                    <input type="text" id="chooseanswer" size="60" th:field="*{choosenanswerid}"/>
-                </div>	
+            <ul>
+			 <li th:each="x : ${objQuestion.correctanswersList}">			    
+			    <input type="radio" id="chooseanswer" th:field="*{choosenanswerid}" th:value="${x.answers.idanswer}" />
+			    <label th:for="${getUserAnswer.choosenanswerid}" th:text="${x.answers.answer}" >Wireframe</label>
+			   <!--  		    			    
+			    <label th:for="${getUserAnswer.resulttemp}" th:text="${x.caloriesneed}" ></label>
+			    <input type="hidden" id="kalori" th:field="*{resulttemp}" th:value="${x.caloriesneed}" />
+			    --> 	
+			  </li>
+			</ul>						
+               
+                <label th:for="${getUserAnswer.useranswersPK}">Choose</label>	
+                <div th:each="x : ${objQuestion.correctanswersList}">	
+                    <input type="hidden" id="choosequestion" th:value="${x.question.questionid}" th:field="*{useranswersPK.questionid}" th:errorclass="fieldError" />		
+                </div>
+     <!--   
+            <div >	
+                <button type="submit" id="simpan"  size="60" 
+                 formmethod="post">Simpan</button>	
             </div>	
-            <div th:each="get1 : ${getUserAnswer}">			
-                <label th:for="${get1.questionid}">Choose</label>
-                <div th:each="x : ${objQuestion.correctanswersList}">		
-                    <input type="text" id="choosequestion" th:field="*{questionid}" th:errorclass="fieldError" />		
-                    <p th:if="${#fields.hasErrors('questionid')}" th:errors="*{questionid}">Choose</p>
-                </div>
-            </div>
-            <div>
-                <div th:each="get1 : ${getUserAnswer}">
-                    <label th:for="${get1.datetest}">Date</label>
-                    <input type="text" id="dateNow" th:field="*{datetest}" th:value="${#dates.createNow()}"/>
-                </div>
-            </div>
-            <div>
-                <div th:each="get1 : ${getCaloriesNeed}">
-                    <label th:for="${get1.caloriesneed}">Calories</label>
-                </div>
-                <input type="text" id="inputTemp" placeholder="100"/>
-            </div>
-            <div>
-                <div th:each="get1 : ${getUserAnswer}">
-                    <label th:for="${get1.userpatient}">Patient</label>
-                </div>
-                <input type="text" class="form-control" id="inputPatient"  size="60" placeholder="P001" />
-            </div>
-            <!-- 	
-            <input type="text" id="result" size="60" />	  -->
+             
+                <label th:for="${getUserAnswer.resulttemp}">Choose</label>	
+                <div th:each="x : ${getNutrition}">	
+                    <input type="hidden" th:value="${x.caloriesneed}" th:field="*{resulttemp}" th:errorclass="fieldError" />		
+                </div> --> 
+              
             <div th:each="x : ${objQuestion}">	
                 <button type="hidden" id="simpan" th:value="${x.questionid}" size="60" 
                         onclick="getQuestionID(this.value)">Simpan</button>	
-            </div>				
+            </div>	
+              
+     </div>	
         </form>
     </body>
 </html>
+
+
+
+<!-- 		
+			     <div th:each="x : ${objQuestion}">	
+			     	<label th:for="${getUserAnswer.question.questionid}" th:value="${x.questionid}" ></label>
+			     </div>
+			     
+             <div th:each="x : ${objQuestion}">	
+                <td th:text="${x.questions}" class="getQuestionID" th:value="${x.questions}"></td>	
+            </div>            
+            <div th:each="x : ${objQuestion.correctanswersList}">
+                <input type="checkbox" name="check[]" th:value="${x.answers.idanswer}" onchange="limit_checkbox(1, 'check');">			 
+                <td th:text="${x.answers.answer}"  class="questionanswer" 
+                    questionId="${x.question.questionid}"></td>
+                </input>
+            </div>
+            
+            <label th:for="${getUserAnswer.patient.userpatient}">Patient</label>
+            <input type="text" class="form-control" id="inputPatient"  th:field="*{userpatient}" size="60" placeholder="P001"/>     
+            	
+             <label th:for="${getUserAnswer.question.questionid}">Choose</label>
+             <div th:each="x : ${objQuestion.correctanswersList}">		
+                    <input type="text" id="choosequestion" th:field="*{questionid}" th:errorclass="fieldError" />		
+                    <p th:if="${#fields.hasErrors('questionid')}" th:errors="*{questionid}">Choose</p>
+             </div>
+             						
+             <div th:each="x : ${objQuestion}">	
+                <button type="submit" id="simpan" th:value="${x.questionid}" size="60" 
+                        onclick="getQuestionID(this.value)" formmethod="post">Simpan</button>	
+            </div>							
+            						
+            						 -->
