@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<style>
+.msg {
+	position: relative;
+	width: auto;
+	min-width: 100px;
+	max-width: 100%;
+	height: auto;
+	background: #FFF;
+	border-radius: 7px;
+	clear: both;
+}
+
+.msg .timestamp {
+	display: block;
+	position: absolute;
+	right: 10px;
+	bottom: 6px;
+	color: #AAA;
+	user-select: none;
+}
+
+.messageReceived {
+	float: left;
+	background: #FFF;
+}
+
+.messageSent {
+	float: right;
+	background: #effdde;
+}
+
+.messageSent > .timestamp, .messageReceived > .timestamp{
+	bottom: 10px;
+	right: 40px;
+	color: darkgreen;
+	user-select: none;
+}
+</style>
+</head>
+
+<body>
+	<div class="card" style="width: 17rem" id="card-chat">
+		<div class="card-header">
+			<a class="card-link" data-toggle="collapse" href="#chatting"
+				aria-expanded="false" aria-controls="chatting" id="user">Name</a>
+		</div>
+		<div id="chatting" class="collapse">
+			<div class="card-block">
+				<div id="view-chat">
+					<div class="d-flex flex-column" style="height: 15rem">
+						<table>
+							<tbody>
+								<tr th:each="c : ${objChat}">
+									<tr>
+										<td th:text="${c.message}" class="msg messageReceived"></td>
+									</tr>
+									<tr>
+										<td class="timestamp" th:text="${c.datereceiver}"></td>
+									</tr>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div id="message">
+					<form class="form-inline">
+						<div class="form-group mx-1">
+							<textarea class="form-control" id="exampleFormControlTextarea1"
+								rows="2" style="width: 12rem"></textarea>
+						</div>
+						<button id="send" type="submit" class="btn btn-primary mb-1">Send</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="/static/fontawesome/fontawesome-all.js"></script>
+</body>
+</html>
