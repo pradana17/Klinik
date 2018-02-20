@@ -27,8 +27,11 @@
 			var url = "/deleteCal";
 			var choice = confirm('Do you really want to delete this record?');
 		    if(choice == true) {
-		    	location.reload();
-		    	$.get(url,{idcal :idCal});
+		    	$.get(url,{idcal :idCal})
+		    	.done(function( data ) {
+    				alert( "Data Loaded: " + data );
+		    		location.reload();	
+		    	});
 		    } else {
 		    	return false;
 		    };

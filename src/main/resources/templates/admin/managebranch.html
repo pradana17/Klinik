@@ -354,15 +354,14 @@ body {
 																+ ")").val();
 												var url = "/deleteBranch";
 												var choice = confirm('Do you really want to delete this record?');
-												if (choice == true) {
-													location.reload();
-													$.get(url, {
-														idbr : idBranch
-													});
-												} else {
-													return false;
-												}
-												;
+												if(choice == true) {
+											    	$.get(url,{idbr :idBranch})
+											    	.done(function( data ) {
+											    		location.reload();	
+											    	});
+											    } else {
+											    	return false;
+											    };
 											});
 						});
 
@@ -409,7 +408,7 @@ body {
 			toggle : true
 		});
 
-		if ($(".s").val() == 0) {
+		if ($(".s").val() == 0) {	
 			$(".s").text("Aktif");
 		} else {
 			$(".s").text("Tidak Aktif");
