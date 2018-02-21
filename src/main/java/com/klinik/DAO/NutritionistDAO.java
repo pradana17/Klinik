@@ -1,5 +1,6 @@
 package com.klinik.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,6 +25,20 @@ public class NutritionistDAO {
 	
 	public Nutritionist getNutrionUser(String user) {
 		return (Nutritionist) factory.createEntityManager().createQuery("from Nutritionist where usernutritionist = '" + user + "'").getSingleResult();
+	}
+	
+	public List<String> getAllUserNut(){
+		StringBuilder builder;
+		List<String> nutName = new ArrayList<>();
+		List<Nutritionist> nut = factory.createEntityManager().createQuery("from Nutritionist where isactive = 1").getResultList();
+		
+		for (Nutritionist n : nut) {
+			builder = new StringBuilder();
+			builder.append(n.getUsernutritionist());
+			nutName.add(builder.toString());
+		}
+		
+		return nutName;
 	}
 	
 	public boolean addNutritionist(Nutritionist nutritionist) {

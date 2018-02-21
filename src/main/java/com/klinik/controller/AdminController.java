@@ -24,10 +24,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klinik.DAO.BranchDAO;
+import com.klinik.DAO.ChatDAO;
 import com.klinik.DAO.MealplanDAO;
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
 import com.klinik.model.Branch;
+import com.klinik.model.Chat;
 import com.klinik.model.Mealplan;
 import com.klinik.model.Nutritionist;
 import com.klinik.model.Patient;
@@ -44,6 +46,8 @@ public class AdminController {
 	private PatientDAO patDAO;
 	@Autowired
 	private MealplanDAO mpDAO;
+	@Autowired
+	private ChatDAO chatDAO;
 	
 	@GetMapping("/managebranch")
 	public String formBranch(Model model) {
@@ -179,4 +183,11 @@ public class AdminController {
         modelMap.addAttribute("objPatient", patient);
         return "admin/managepat :: viewpat";
     }
+    
+    @GetMapping("/managechat")
+	public String formChat(Model model) {
+		model.addAttribute("semuaChat", chatDAO.getAllChat());
+		return "admin/managechat";
+	}
+	
 }

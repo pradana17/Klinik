@@ -25,22 +25,12 @@ public class BackgroundService {
 	@Scheduled(cron="0 30 6 * * *")
 	public boolean reminderBreakfast(){
 		Chat cha;
-		StringBuilder builder;
-		List<String> patName = new ArrayList<>();
-		List<Patient> allPatient = patDAO.getAllPatient();
-		
-		for (Patient patient : allPatient) {
-			builder = new StringBuilder();
-			builder.append(patient.getUserpatient());
-			patName.add(builder.toString());
-		}
+		List<String> patName = patDAO.getAllUserPatientName();
 		
 		for (String eachname : patName) {
 			cha = new Chat();
 			cha.setSenderId("Admin");;
 			cha.setReceiverId(eachname);
-			cha.setDatesending(new Date());
-			cha.setDatereceiver(new Date());
 			cha.setMessage("Jangan Lupa sarapan sesuai menu yang disarankan");
 			chatDAO.addChat(cha);
 		}
@@ -50,22 +40,12 @@ public class BackgroundService {
 	@Scheduled(cron="0 0 12 * * *")
 	public boolean reminderLunch(){
 		Chat cha;
-		StringBuilder builder;
-		List<String> patName = new ArrayList<>();
-		List<Patient> allPatient = patDAO.getAllPatient();
-		
-		for (Patient patient : allPatient) {
-			builder = new StringBuilder();
-			builder.append(patient.getUserpatient());
-			patName.add(builder.toString());
-		}
+		List<String> patName = patDAO.getAllUserPatientName();
 		
 		for (String eachname : patName) {
 			cha = new Chat();
 			cha.setSenderId("Admin");;
 			cha.setReceiverId(eachname);
-			cha.setDatesending(new Date());
-			cha.setDatereceiver(new Date());
 			cha.setMessage("Jangan Lupa makan siang sesuai menu yang disarankan");
 			chatDAO.addChat(cha);
 		}
@@ -75,22 +55,12 @@ public class BackgroundService {
 	@Scheduled(cron="0 0 18 * * *")
 	public boolean reminderDinner(){
 		Chat cha;
-		StringBuilder builder;
-		List<String> patName = new ArrayList<>();
-		List<Patient> allPatient = patDAO.getAllPatient();
-		
-		for (Patient patient : allPatient) {
-			builder = new StringBuilder();
-			builder.append(patient.getUserpatient());
-			patName.add(builder.toString());
-		}
+		List<String> patName = patDAO.getAllUserPatientName();
 		
 		for (String eachname : patName) {
 			cha = new Chat();
 			cha.setSenderId("Admin");;
 			cha.setReceiverId(eachname);
-			cha.setDatesending(new Date());
-			cha.setDatereceiver(new Date());
 			cha.setMessage("Jangan Lupa makan malam sesuai menu yang disarankan");
 			chatDAO.addChat(cha);
 		}
