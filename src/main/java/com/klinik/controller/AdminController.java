@@ -26,11 +26,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.klinik.DAO.BranchDAO;
 import com.klinik.DAO.ChatDAO;
 import com.klinik.DAO.MealplanDAO;
+import com.klinik.DAO.MembershipDAO;
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
 import com.klinik.model.Branch;
 import com.klinik.model.Chat;
 import com.klinik.model.Mealplan;
+import com.klinik.model.Membership;
 import com.klinik.model.Nutritionist;
 import com.klinik.model.Patient;
 
@@ -48,6 +50,8 @@ public class AdminController {
 	private MealplanDAO mpDAO;
 	@Autowired
 	private ChatDAO chatDAO;
+	@Autowired
+	private MembershipDAO memDAO;
 	
 	@GetMapping("/managebranch")
 	public String formBranch(Model model) {
@@ -91,18 +95,39 @@ public class AdminController {
 		}
 	}
 	
+//	@GetMapping("/managepat")
+//	public String formPat(Model model) {
+//		Patient patient  = new Patient();
+//		model.addAttribute("semuaPat", patDAO.getAllPatient());
+//		model.addAttribute("pat", patient);
+//		return "admin/managepatient";
+//	}
+//	
+//	@PostMapping("/managepat")
+//	public String addPatient(@Valid Patient patient, BindingResult result) {
+//		
+//		if(!result.hasErrors() && patDAO.addPatient(patient)) {
+//			return "redirect:/admin/managepatient";
+//		} else {
+//			for (ObjectError er : result.getAllErrors()) {
+//				System.out.println(er.getDefaultMessage());
+//			}
+//			return "admin/managepatient";
+//		}
+//	}
+	
 	@GetMapping("/managepat")
 	public String formPat(Model model) {
-		Patient patient  = new Patient();
-		model.addAttribute("semuaPat", patDAO.getAllPatient());
-		model.addAttribute("pat", patient);
+		Membership membership = new Membership();
+		model.addAttribute("semuaMem", memDAO.getAllMember());
+		model.addAttribute("mem", membership);
 		return "admin/managepatient";
 	}
 	
 	@PostMapping("/managepat")
-	public String addPatient(@Valid Patient patient, BindingResult result) {
+	public String addPatient(@Valid Membership membership, BindingResult result) {
 		
-		if(!result.hasErrors() && patDAO.addPatient(patient)) {
+		if(!result.hasErrors() && memDAO.addMember(membership)) {
 			return "redirect:/admin/managepatient";
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
