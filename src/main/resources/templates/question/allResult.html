@@ -255,5 +255,70 @@ body {
 	<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
 	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
 
+	<script>
+		$(document).ready(function() {
+			$("table").dataTable();
+
+			if ($(".status").val() == 0) {
+				$(".status").text("Aktif");
+			} else {
+				$(".status").text("Tidak Aktif");
+			}
+
+		});
+
+		$(document).ready(function() {
+			var branchName = [];
+			var branchId = [];
+			$.get("/branchname", function(data) {
+				$.each(data, function(index, value) {
+					branchName.push(value);
+				});
+			});
+
+			$.get("/branchid", function(data) {
+				$.each(data, function(index, value) {
+					branchId.push(value);
+				});
+			});
+
+			$("#inputbranch").autocomplete({
+				source : branchName,
+				select : function(event, ui) {
+					var index = branchName.indexOf(ui.item.value);
+					$("#selectbranch").val(branchId[index]);
+				}
+			});
+			
+		$(".delnut").click (function(){
+				var idx = $(".delnut").index(this);
+				var idNut = $(".nutIds:eq(" + idx + ")").val();
+				var url = "/deleteNut";
+				var choice = confirm('Do you really want to delete this record?');
+			    if(choice == true) {
+					$.get(url,{idnut :idNut});
+					location.reload();
+			    } else {
+			    	return false;
+			    };
+		    });
+
+		});
+
+		function openViewNut(user) {
+			$.ajax({
+				url : "/admin/detailnut/" + user,
+				success : function(response) {
+					$("#viewNutHolder").html(response);
+					$("#viewNut").modal();
+					$("#viewNut").modal("open");
+				}
+			});
+		}
+
+		$("#manage").collapse({
+			toggle : true
+		});
+	</script>
 </body>
 </html>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.klinik.DAO.CorrectAnswerDAO;
 import com.klinik.DAO.QuestionDAO;
 import com.klinik.DAO.UserAnswerDAO;
+import com.klinik.model.Personalitytest;
 import com.klinik.model.Useranswers;
 
 
@@ -32,6 +33,8 @@ public class QuestionController {
 	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("allQuestions",  questionDAO.getAllQuestion());
+//		Useranswers userAnswer = new Useranswers();
+//		model.addAttribute("getUserAnswer", userAnswer);
 		return "question/index";
 	}	
 	
@@ -47,10 +50,9 @@ public class QuestionController {
 	
 	
 	@PostMapping("/detail")
-	public String addActor(@Valid Useranswers useranswer, BindingResult result) {		
+	public String addAnswer(@Valid Useranswers useranswer, BindingResult result) {		
 		System.out.println("test "+result.hasErrors()+" "+userAnswerDAO.addUserAnswer(useranswer));
-//		return null;
-//		
+	
 		if(!result.hasErrors() && userAnswerDAO.addUserAnswer(useranswer)) {
 			return "redirect:/question/index";
 		} else {
@@ -61,11 +63,3 @@ public class QuestionController {
 		}
 	}
 }
-
-
-//@GetMapping("/add")
-//public String addForm(Model model) {
-//	Useranswers userAnswer = new Useranswers();
-//	model.addAttribute("getUserAnswer", userAnswer);
-//	return "/useranswer/add";
-//}

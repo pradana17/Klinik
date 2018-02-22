@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.klinik.model.Correctanswers;
 import com.klinik.model.Patient;
+import com.klinik.model.Personalitytest;
 import com.klinik.model.Question;
 import com.klinik.model.Useranswers;
 import com.klinik.model.UseranswersPK;
@@ -32,7 +33,11 @@ public class UserAnswerDAO {
 	CorrectAnswerDAO needCalorieDAO = new CorrectAnswerDAO();
 
 	public List<Useranswers> getAllUserAnswer(){
-		return factory.createEntityManager().createQuery("from Useranswers").getResultList();
+		return factory.createEntityManager().createQuery("from Useranswers ").getResultList();
+	}
+	
+	public List<Useranswers> SumResult(String user, String date){
+		return factory.createEntityManager().createQuery("from Useranswers where userpatient like '%" + user+"%' and datetest = '" +date+"'").getResultList();
 	}
 	
 	@Transactional
@@ -47,23 +52,29 @@ public class UserAnswerDAO {
 			transaksi = em.getTransaction();
 			transaksi.begin();
 			useranswer.setDatetest(new Date());
-			patient.setUserpatient("P001");
-			useranswer.setPatient(patient);
-			
+//			patient.setUserpatient("kaka");
+//			useranswer.setPatient(patient);
+//			
 			System.out.println("result " +useranswer.getChoosenanswerid()+" "+useranswer.getUseranswersPK().getQuestionid());
 			
 			useranswersPK.setQuestionid(useranswer.getUseranswersPK().getQuestionid());
 			question.setQuestionid(useranswer.getUseranswersPK().getQuestionid());
 			useranswer.setQuestion(question);
-			useranswersPK.setUserpatient("P001");
+			useranswersPK.setUserpatient("taufik");
 			useranswer.setUseranswersPK(useranswersPK);
 			System.out.println("lolos");
 			Correctanswers ca  = needCalorieDAO.getCaloriesNeed(useranswer.getChoosenanswerid(), useranswer.getUseranswersPK().getQuestionid());
 			System.out.println("test2 "+ca.getCaloriesneed());
-			int cneed = ca.getCaloriesneed();			
+			int cneed = ca.getCaloriesneed();	
+			
+			
 			useranswer.setResulttemp(cneed);
 			System.out.println("result 2 " +useranswer.getResulttemp());
-			em.persist(useranswer);
+			if (useranswer==null) {
+			    useranswer = new Useranswers();
+			    em.persist(useranswer);
+			}
+			useranswer = em.merge(useranswer);
 			transaksi.commit();
 			
 		} catch (Exception ex) {
@@ -74,6 +85,7 @@ public class UserAnswerDAO {
 		}
 		return isSuccess;
 	}		
+	
 	
 	public long Sum(String user){
 		EntityManager em = factory.createEntityManager();
