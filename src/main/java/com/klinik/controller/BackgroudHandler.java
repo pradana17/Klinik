@@ -196,4 +196,35 @@ public class BackgroudHandler {
 		patient.setIsactive(0);
 		return patDAO.editPatient(patient);
 	}
+	
+	
+	@GetMapping("/patientname")
+	public List<String> getAllPatient() {
+		StringBuilder builder;
+		List<String> hasil = new ArrayList<>();
+		List<Patient> listPatient = entityManagerFactory.createEntityManager().createQuery("from Patient").getResultList();
+		
+		for (Patient patient : listPatient) {
+			builder = new StringBuilder();
+			builder.append(patient.getFullname());
+			hasil.add(builder.toString());
+		}
+		
+		return hasil;
+	}
+	
+	@GetMapping("/patientid")
+	public List<String> getAllPatientId() {
+		StringBuilder builder;
+		List<String> hasil = new ArrayList<>();
+		List<Patient> listPatient = entityManagerFactory.createEntityManager().createQuery("from Patient").getResultList();
+		
+		for (Patient patient : listPatient) {
+			builder = new StringBuilder();
+			builder.append(patient.getUserpatient());
+			hasil.add(builder.toString());
+		}
+		
+		return hasil;
+	}
 }

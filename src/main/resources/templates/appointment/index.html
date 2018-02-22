@@ -123,6 +123,10 @@ body {
 					<li><a data-toggle="collapse" href="#scheduleapp"
 						role="button" aria-expanded="false" aria-controls="scheduleapp">Schedule
 							Appointment</a></li>
+					<div class="collapse" id="manage">
+						<li><a th:href="@{'/appointment/index'}" role="button">Appointment list</a></li>
+						<li><a th:href="@{'/appointment/validation'}" role="button">Validate appointment</a></li>
+					</div>
 					<li><a data-toggle="collapse" href="#manage" role="button"
 						aria-expanded="false" aria-controls="manage">Manage</a></li>
 					<div class="collapse" id="manage">
@@ -156,39 +160,32 @@ body {
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form action="#" th:action="@{/admin/managenut}"
-								th:object="${nut}" method="post">
+							<form action="#" th:action="@{/appointment/index}"
+								th:object="${janji}" method="post">
 								<div class="modal-body">
 									<div class="flex-column">
-										<div class="form-row">
-											<div class="form-group col-md-6">
-												<label th:for="${nut.usernutritionist}">Username</label> <input
-													type="text" class="form-control" id="inputusernut"
-													placeholder="wunsch" th:field="*{usernutritionist}" />
-											</div>
-											<div class="form-group col-md-6">
-												<label th:for="${nut.password}">Password</label> <input
-													type="password" class="form-control" id="inputpw"
-													placeholder="" th:field="*{password}" />
-											</div>
-										</div>
 										<div class="form-group">
-											<label th:for="${nut.fullname}">Full Name</label> <input
-												type="text" class="form-control" id="inputfname"
-												placeholder="name" th:field="*{fullname}" />
+										<label th:for="${janji.usernutritionist}">Nutritionist</label> <input
+												type="text" class="form-control" id="inputnut"
+												placeholder="name "/> <input type="hidden" class="form-control"
+												id="selectnutri" placeholder=""
+												th:field="*{usernutritionist.usernutritionist}"  />	
 										</div>
+										 
 										<div class="form-group">
-											<label th:for="${nut.email}">Email</label> <input
-												type="email" class="form-control" id="inputemail"
-												placeholder="user@gmail.com" th:field="*{email}" />
+											<label th:for="${janji.userpatient}">Patient</label> <input
+												type="text" class="form-control" id="inputpat"
+												placeholder="name patient" /> <input type="hidden" class="form-control"
+												id="selectpatient" placeholder=""
+												th:field="*{userpatient.userpatient}" />
 										</div>
+									
 										<div class="form-group">
-											<label th:for="${nut.idbranch}">Branch</label> <input
-												type="text" class="form-control" id="inputbranch"
-												placeholder="" /> <input type="hidden" class="form-control"
-												id="selectbranch" placeholder=""
-												th:field="*{idbranch.idbranch}" />
+											<label th:for="${janji.dateappointment}">Date appointment</label> <input
+												type="text" class="form-control" id="input-date"
+												placeholder="Date appointment" th:field="*{dateappointment}" />
 										</div>
+											
 									</div>
 								</div>
 								<div class="modal-footer">
@@ -204,34 +201,25 @@ body {
 				<table class="table table-striped table-bordered">
 					<thead class="thead-dark">
 						<tr>
-							<th>Username</th>
-							<th>Email</th>
-							<th>Full Name</th>
-							<th>Branch</th>
+							<th>Nutritionist</th>
+							<th>Patient</th>
+							<th>Date</th>
+							<th>Approved By</th>
 							<th>Status</th>
-							<th>Patient(s)</th>
-							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="n : ${semuaNut}">
-							<td th:text="${n.usernutritionist}" class="user"></td>
-							<td th:text="${n.email}" class="email"></td>
-							<td th:text="${n.fullname}" class="fname"></td>
-							<td th:text="${n.idbranch.namabranch}" class="branch"></td>
-							<td th:value="${n.isactive}" class="status"></td>
-							<td th:text="${#lists.size(n.patientList)}" class="patient"></td>
-							<td style="width: 40px"><a
-								th:href="'javascript:openViewNut('+$(n.usernutritionist}+');'"
-								style="margin-right: 15px;" class="edit"><i
-									class="fas fa-edit"></i></a> <a href="#" class="delnut"><i
-									class="fas fa-trash-alt"></i></a> <input type="hidden"
-								class="nutIds" th:value="${n.usernutritionist}" /></td>
+						<tr th:each="app : ${getAppointment}">
+							<td th:text="${app.usernutritionist}" class="nutritionist"></td>
+							<td th:text="${app.userpatient}" class="user"></td>
+							<td th:text="${app.dateappointment}" class="date"></td>
+							<td th:text="${app.approvedby}" class="by"></td>
+							<td th:text="${app.approved}" class="approved"></td>
 						</tr>
 					</tbody>
 				</table>
-				<div class="modal fade" id="viewNut" role="dialog"
-					th:fragment="viewnut">
+				<div class="modal fade" id="viewPat" role="dialog"
+					th:fragment="viewpat">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -266,10 +254,16 @@ body {
 	<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 	<script src="/static/fontawesome/fontawesome-all.js"></script>
 	<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>	
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+  <link rel="stylesheet" href="/resources/demos/style.css"/>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 	<script>
 		$(document).ready(function() {
+			$('#input-date').datepicker();
+			
 			$("table").dataTable();
 
 			if ($(".status").val() == 0) {
@@ -277,6 +271,19 @@ body {
 			} else {
 				$(".status").text("Tidak Aktif");
 			}
+			
+			$(".delpat").click (function(){
+				var idx = $(".delpat").index(this);
+				var idPat = $(".patIds:eq(" + idx + ")").val();
+				var url = "/deletePat";
+				var choice = confirm('Do you really want to delete this record?');
+			    if(choice == true) {
+					$.get(url,{idpat :idPat});
+					location.reload();
+			    } else {
+			    	return false;
+			    };
+		    });
 
 		});
 
@@ -302,36 +309,51 @@ body {
 					$("#selectbranch").val(branchId[index]);
 				}
 			});
-			
-		$(".delnut").click (function(){
-				var idx = $(".delnut").index(this);
-				var idNut = $(".nutIds:eq(" + idx + ")").val();
-				var url = "/deleteNut";
-				var choice = confirm('Do you really want to delete this record?');
-			    if(choice == true) {
-					$.get(url,{idnut :idNut});
-					location.reload();
-			    } else {
-			    	return false;
-			    };
-		    });
-
 		});
+		
+		$(document).ready(function() {
+			var patientName = [];
+			var patientID = [];
+			$.get("/patientname", function(data) {
+				$.each(data, function(index, value) {
+					patientName.push(value);
+				});
+			});
 
-		function openViewNut(user) {
-			$.ajax({
-				url : "/admin/detailnut/" + user,
-				success : function(response) {
-					$("#viewNutHolder").html(response);
-					$("#viewNut").modal();
-					$("#viewNut").modal("open");
+			$.get("/patientid", function(data) {
+				$.each(data, function(index, value) {
+					patientID.push(value);
+				});
+			});
+
+			$("#inputpat").autocomplete({
+				source : patientName,
+				select : function(event, ui) {
+					var index = patientName.indexOf(ui.item.value);
+					$("#selectpatient").val(patientId[index]);
 				}
 			});
-		}
+		});
+		
+		
+		$('#submitbranch').click(function(){
+			alert($('#inputnut').val());
+		});
 
 		$("#manage").collapse({
 			toggle : true
 		});
+
+		function openViewPat(user) {
+			$.ajax({
+				url : "/admin/detailpat/" + user,
+				success : function(response) {
+					$("#viewPatHolder").html(response);
+					$("#viewPat").modal();
+					$("#viewPat").modal("open");
+				}
+			});
+		}
 	</script>
 </body>
 </html>
