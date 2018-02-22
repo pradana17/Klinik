@@ -61,11 +61,7 @@ public class QuestionController {
 	@PostMapping("/detail")
 	public String addAnswer(@Valid Useranswers useranswer, BindingResult result) {		
 		System.out.println("test "+result.hasErrors()+" "+userAnswerDAO.addUserAnswer(useranswer));
-<<<<<<< HEAD
-	
-=======
-//		return null;
->>>>>>> 4242eb6dd1a6336853421ca14e310c40d3116ea3
+
 		if(!result.hasErrors() && userAnswerDAO.addUserAnswer(useranswer)) {
 			return "redirect:/question/index";
 		} else {

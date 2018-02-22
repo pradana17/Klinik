@@ -154,7 +154,7 @@ body {
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="title">Add Data Nutritionist</h5>
+								<h5 class="modal-title" id="title">Add Data Appointment</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -210,8 +210,8 @@ body {
 					</thead>
 					<tbody>
 						<tr th:each="app : ${getAppointment}">
-							<td th:text="${app.usernutritionist}" class="nutritionist"></td>
-							<td th:text="${app.userpatient}" class="user"></td>
+							<td th:text="${app.usernutritionist.usernutritionist}" class="nutritionist"></td>
+							<td th:text="${app.userpatient.userpatient}" class="user"></td>
 							<td th:text="${app.dateappointment}" class="date"></td>
 							<td th:text="${app.approvedby}" class="by"></td>
 							<td th:text="${app.approved}" class="approved"></td>

@@ -204,8 +204,7 @@ public class BackgroudHandler {
 		patient.setIsactive(0);
 		return patDAO.editPatient(patient);
 	}
-	
-<<<<<<< HEAD
+
 	
 	@GetMapping("/patientname")
 	public List<String> getAllPatient() {
@@ -235,7 +234,7 @@ public class BackgroudHandler {
 		}
 		
 		return hasil;
-=======
+	}
 	@GetMapping("/getallpat")
 	public List<String> getAllUserPat(){
 		List<String> patName = patDAO.getAllUserPatientName();
@@ -300,6 +299,5 @@ public class BackgroudHandler {
 		}
 		
 		return nutName;
->>>>>>> 4242eb6dd1a6336853421ca14e310c40d3116ea3
 	}
 }
