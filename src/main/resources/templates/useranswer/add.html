@@ -44,14 +44,12 @@
 			<tr>
 				<th>Question</th>
 				<th>Answer</th>
-				<th>Kalori</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="allAnswers ${allUserAnswers}">
+			<tr th:each="allAnswers : ${allUserAnswers}">
 				<td th:text="${allAnswers.questionid}"></td>
-				<td th:text="${allAnswers.choosenansweris}"></td>
-				<td th:text="${allAnswers.resulttemp}"></td>
+				<td th:text="${allAnswers.choosenanswerid}"></td>
 			</tr>
 		</tbody>
 	</table>

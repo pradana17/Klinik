@@ -22,9 +22,12 @@ import com.klinik.model.Useranswers;
 public class QuestionController {
 	
 	@Autowired
-	private QuestionDAO questionDAO;
 	private CorrectAnswerDAO answerDAO;
+	private QuestionDAO questionDAO;	
+	@Autowired
 	private UserAnswerDAO userAnswerDAO;
+	@Autowired
+	CorrectAnswerDAO correctDAO;
 	
 	@GetMapping("/index")
 	public String index(Model model) {
@@ -32,9 +35,13 @@ public class QuestionController {
 		return "question/index";
 	}	
 	
-	@GetMapping("/detail/{questionid")
-	public String detail(Model model, @PathVariable("questionid") short id) {
+	@GetMapping("/detail/{questionid}")
+	public String detail(Model model, @PathVariable("questionid") Integer id) {
 		model.addAttribute("objQuestion",questionDAO.getQuestion(id));
+		Useranswers userAnswer = new Useranswers();
+		model.addAttribute("getUserAnswer", userAnswer);
+//		model.addAttribute("getNutrition",correctDAO.getCaloriesNeed(userAnswer.getChoosenanswerid(), id));
+//		System.out.println("cek k: "+userAnswer.getChoosenanswerid()+" "+id);
 		return "question/detail";
 	}
 	
@@ -46,8 +53,12 @@ public class QuestionController {
 		return "/question/detail";
 	}
 	
+
+	
 	@PostMapping("/detail")
 	public String addActor(@Valid Useranswers useranswer, BindingResult result) {		
+		System.out.println("test "+result.hasErrors()+" "+userAnswerDAO.addUserAnswer(useranswer));
+//		return null;
 		if(!result.hasErrors() && userAnswerDAO.addUserAnswer(useranswer)) {
 			return "redirect:/question/index";
 		} else {
@@ -58,3 +69,11 @@ public class QuestionController {
 		}
 	}
 }
+
+
+//@GetMapping("/add")
+//public String addForm(Model model) {
+//	Useranswers userAnswer = new Useranswers();
+//	model.addAttribute("getUserAnswer", userAnswer);
+//	return "/useranswer/add";
+//}

@@ -21,10 +21,10 @@ public class CorrectAnswerDAO {
 		return factory.createEntityManager().createQuery("from Correctanswers").getResultList();
 	}
 	
-	public Correctanswers getCaloriesNeed(int idanswer, int idquestion) {
-		return (Correctanswers) factory.createEntityManager().createQuery
-				("from Correctanswers where Correctanswers.question.QUESTIONID = " + idquestion 
-						+" AND Correctanswers.answers.idanswer = "+idanswer).getSingleResult();
+	public  Correctanswers getCaloriesNeed(int idanswer, int idquestion) {
+		return (Correctanswers)	factory.createEntityManager().createQuery
+				("from Correctanswers where questionid = " + idquestion 
+						+" AND idanswer = "+idanswer).getSingleResult();
 	}
 	
 	public List<Correctanswers> detailQuiz(int Id) {

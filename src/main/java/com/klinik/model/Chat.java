@@ -10,19 +10,15 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -36,6 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Chat.findAll", query = "SELECT c FROM Chat c")
     , @NamedQuery(name = "Chat.findByIdchat", query = "SELECT c FROM Chat c WHERE c.idchat = :idchat")
+    , @NamedQuery(name = "Chat.findBySenderId", query = "SELECT c FROM Chat c WHERE c.senderId = :senderId")
+    , @NamedQuery(name = "Chat.findByReceiverId", query = "SELECT c FROM Chat c WHERE c.receiverId = :receiverId")
     , @NamedQuery(name = "Chat.findByDatesending", query = "SELECT c FROM Chat c WHERE c.datesending = :datesending")
     , @NamedQuery(name = "Chat.findByDatereceiver", query = "SELECT c FROM Chat c WHERE c.datereceiver = :datereceiver")})
 public class Chat implements Serializable {
@@ -46,13 +44,15 @@ public class Chat implements Serializable {
     @Basic(optional = false)
     @Column(name = "IDCHAT")
     private Integer idchat;
-    @Basic(optional = false)
-    @NotNull
+    @Size(max = 50)
+    @Column(name = "SENDER_ID")
+    private String senderId;
+    @Size(max = 50)
+    @Column(name = "RECEIVER_ID")
+    private String receiverId;
     @Column(name = "DATESENDING")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datesending;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "DATERECEIVER")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datereceiver;
@@ -60,12 +60,6 @@ public class Chat implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "MESSAGE")
     private String message;
-    @JoinColumn(name = "SENDER_ID", referencedColumnName = "USERNUTRITIONIST")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Nutritionist senderId;
-    @JoinColumn(name = "RECEIVER_ID", referencedColumnName = "USERPATIENT")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Patient receiverId;
 
     public Chat() {
     }
@@ -74,18 +68,28 @@ public class Chat implements Serializable {
         this.idchat = idchat;
     }
 
-    public Chat(Integer idchat, Date datesending, Date datereceiver) {
-        this.idchat = idchat;
-        this.datesending = datesending;
-        this.datereceiver = datereceiver;
-    }
-
     public Integer getIdchat() {
         return idchat;
     }
 
     public void setIdchat(Integer idchat) {
         this.idchat = idchat;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
     }
 
     public Date getDatesending() {
@@ -110,22 +114,6 @@ public class Chat implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Nutritionist getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(Nutritionist senderId) {
-        this.senderId = senderId;
-    }
-
-    public Patient getReceiverId() {
-        return receiverId;
-    }
-
-    public void setReceiverId(Patient receiverId) {
-        this.receiverId = receiverId;
     }
 
     @Override

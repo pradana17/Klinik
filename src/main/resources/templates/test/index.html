@@ -42,19 +42,20 @@
 	<table class="table table-hover">
 		<thead class="thead-dark">
 			<tr>
-				<th>No.</th>
-				<th>Question</th>
-				<th>Answer</th>
+				<th>ID tes</th>
+				<th>User</th>
+				<th>Result</th>
+				<th>Date test</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="questionObj: ${allQuestions}">
-				<td th:text="${questionObj.questionid}"></td>
-				<td th:text="${questionObj.questions}"></td>
-				<td><a th:href="@{'/question/detail/'+${questionObj.questionid}}">Answer</a></td>
+			<tr th:each="getTest: ${allTest}">
+				<td th:text="${getTest.idpertest}"></td>
+				<td th:text="${getTest.userpatient.fullname}"></td>
+				<td th:text="${getTest.result}"></td>
+				<td th:text="${getTest.datetest}"></td>
 			</tr>
 		</tbody>
-	</table>
-			
+	</table>			
 </body>
 </html>

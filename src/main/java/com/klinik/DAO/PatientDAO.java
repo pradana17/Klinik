@@ -1,5 +1,6 @@
 package com.klinik.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,6 +25,19 @@ public class PatientDAO {
 	
 	public Patient getPatientUser(String user) {
 		return (Patient) factory.createEntityManager().createQuery("from Patient where userpatient = '" + user + "'").getSingleResult();
+	}
+	
+	public List<String> getAllUserPatientName(){
+		StringBuilder builder;
+		List<String> patName = new ArrayList<>();
+		List<Patient> pat = factory.createEntityManager().createQuery("from Patient where isactive = 1").getResultList();
+		
+		for (Patient p : pat) {
+			builder = new StringBuilder();
+			builder.append(p.getUserpatient());
+			patName.add(builder.toString());
+		}
+		return patName;
 	}
 	
 	public boolean addPatient(Patient patient) {

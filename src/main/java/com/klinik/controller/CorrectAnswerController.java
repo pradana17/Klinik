@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.klinik.DAO.CorrectAnswerDAO;
+import com.klinik.DAO.UserAnswerDAO;
 
 
 @Controller
@@ -31,5 +32,7 @@ public class CorrectAnswerController {
 		model.addAttribute("objQuiz", caDAO.detailQuiz(Id));
 		return "correctanswer/detailquiz";
 	}
+	
+
 
 }

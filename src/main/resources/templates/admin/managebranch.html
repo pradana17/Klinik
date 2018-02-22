@@ -110,8 +110,7 @@ body {
 								Plan</a></li>
 						<li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
 					</div>
-					<li><a data-toggle="collapse" href="#announc" role="button"
-						aria-expanded="false" aria-controls="announc">Announcement</a></li>
+					<li><a th:href="@{'/admin/managechat'}" role="button">Announcement</a></li>
 				</ul>
 			</div>
 			<div id="page-content-wrapper">
@@ -354,15 +353,14 @@ body {
 																+ ")").val();
 												var url = "/deleteBranch";
 												var choice = confirm('Do you really want to delete this record?');
-												if (choice == true) {
-													location.reload();
-													$.get(url, {
-														idbr : idBranch
-													});
-												} else {
-													return false;
-												}
-												;
+												if(choice == true) {
+											    	$.get(url,{idbr :idBranch})
+											    	.done(function( data ) {
+											    		location.reload();	
+											    	});
+											    } else {
+											    	return false;
+											    };
 											});
 						});
 
@@ -409,7 +407,7 @@ body {
 			toggle : true
 		});
 
-		if ($(".s").val() == 0) {
+		if ($(".s").val() == 0) {	
 			$(".s").text("Aktif");
 		} else {
 			$(".s").text("Tidak Aktif");
