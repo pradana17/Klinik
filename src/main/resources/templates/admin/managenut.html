@@ -308,8 +308,10 @@ body {
 				var url = "/deleteNut";
 				var choice = confirm('Do you really want to delete this record?');
 			    if(choice == true) {
-					$.get(url,{idnut :idNut});
-					location.reload();
+			    	$.get(url,{idnut :idNut})
+			    	.done(function( data ) {
+			    		location.reload();	
+			    	});
 			    } else {
 			    	return false;
 			    };

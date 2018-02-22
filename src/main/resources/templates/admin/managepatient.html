@@ -156,47 +156,54 @@ body {
 								</button>
 							</div>
 							<form action="#" th:action="@{/admin/managepat}"
-								th:object="${mem}" method="post">
+								th:object="${pat}" method="post">
 								<div class="modal-body">
 									<div class="flex-column">
 										<div class="form-row">
 											<div class="form-group col-md-6">
-												<label th:for="${mem.userpatient}">Username</label> <input
+												<label th:for="${pat.userpatient}">Username</label> <input
 													type="text" class="form-control" id="inputuserpat"
-													placeholder="wunsch" th:field="*{userpatient.userpatient}" />
+													placeholder="wunsch" th:field="*{userpatient}" />
 											</div>
 											<div class="form-group col-md-6">
-												<label th:for="${mem.userpatient}">Password</label> <input
+												<label th:for="${pat.password}">Password</label> <input
 													type="password" class="form-control" id="inputpw"
-													placeholder="" th:field="*{userpatient.password}" />
+													placeholder="" th:field="*{password}" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label th:for="${mem.userpatient}">Full Name</label> <input
+											<label th:for="${pat.fullname}">Full Name</label> <input
 												type="text" class="form-control" id="inputfname"
-												placeholder="name" th:field="*{userpatient.fullname}" />
+												placeholder="name" th:field="*{fullname}" />
 										</div>
 										<div class="form-group">
-											<label th:for="${mem.userpatient}">Email</label> <input
+											<label th:for="${pat.email}">Email</label> <input
 												type="email" class="form-control" id="inputemail"
-												placeholder="user@gmail.com" th:field="*{userpatient.email}" />
+												placeholder="user@gmail.com" th:field="*{email}" />
 										</div>
 										<div class="form-group">
-											<label th:for="${mem.userpatient}">Height (cm)</label> <input
+											<label th:for="${pat.height}">Height (cm)</label> <input
 												type="text" class="form-control" id="inputheight"
-												placeholder="170" th:field="*{userpatient.height}" />
+												placeholder="170" th:field="*{height}" />
 										</div>
 										<div class="form-group">
-											<label th:for="${mem.userpatient}">Weight (kg)</label> <input
+											<label th:for="${pat.weight}">Weight (kg)</label> <input
 												type="text" class="form-control" id="inputweight"
-												placeholder="50" th:field="*{userpatient.weight}" />
+												placeholder="50" th:field="*{weight}" />
 										</div>
 										<div class="form-group">
-											<label th:for="${mem.userpatient}">Branch</label> <input
+											<label th:for="${pat.idbranch}">Branch</label> <input
 												type="text" class="form-control" id="inputbranch"
 												placeholder="" /> <input type="hidden" class="form-control"
 												id="selectbranch" placeholder=""
-												th:field="*{userpatient.idbranch.idbranch}" />
+												th:field="*{idbranch.idbranch}" />
+										</div>
+										<div class="form-group">
+											<label th:for="${pat.usernutritionist}">Nutritionist</label> <input
+												type="text" class="form-control" id="acnut"
+												placeholder="" /> <input type="hidden" class="form-control"
+												id="selectnut" placeholder=""
+												th:field="*{usernutritionist.usernutritionist}" />
 										</div>
 									</div>
 								</div>
@@ -204,7 +211,7 @@ body {
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
 									<button class="btn btn-primary" type="submit" formmethod="post"
-										id="submitbranch">Submit</button>
+										id="submitpat">Submit</button>
 								</div>
 							</form>
 						</div>
@@ -222,18 +229,18 @@ body {
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="pat : ${semuaMem}">
-							<td th:text="${pat.userpatient.userpatient}"></td>
-							<td th:text="${pat.userpatient.email}"></td>
-							<td th:text="${pat.userpatient.fullname}"></td>
-							<td th:text="${pat.userpatient.idbranch.namabranch}"></td>
-							<td th:value="${pat.userpatient.isactive}"></td>
+						<tr th:each="pat : ${semuaPat}">
+							<td th:text="${pat.userpatient}"></td>
+							<td th:text="${pat.email}"></td>
+							<td th:text="${pat.fullname}"></td>
+							<td th:text="${pat.idbranch.namabranch}"></td>
+							<td th:value="${pat.isactive}"></td>
 							<td style="width: 40px"><a
-								th:href="'javascript:openViewPat(' + ${pat.userpatient.userpatient} +');'"
+								th:href="'javascript:openViewPat(' + ${pat.userpatient} +');'"
 								style="margin-right: 15px;" class="edit"><i
 									class="fas fa-edit"></i></a> <a href="#" class="delpat"><i
 									class="fas fa-trash-alt"></i></a> <input type="hidden"
-								class="patIds" th:value="${pat.userpatient.userpatient}" /></td>
+								class="patIds" th:value="${pat.userpatient}" /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -291,13 +298,41 @@ body {
 				var url = "/deletePat";
 				var choice = confirm('Do you really want to delete this record?');
 			    if(choice == true) {
-					$.get(url,{idpat :idPat});
-					location.reload();
+			    	$.get(url,{idpat :idPat})
+			    	.done(function( data ) {
+			    		location.reload();	
+			    	});
 			    } else {
 			    	return false;
 			    };
 		    });
+			
+			$("#submitpat").click(function(){
+				var user = $("#inputuserpat").val();
+				var url = "/addmember";
+				$.get(url,{user : user})
+				.done(function( data ) {
+		    		location.reload();	
+		    	});
+			});
+			
+//			var userNut = [];
+//			var ibranch = $("#selectbranch").val();
+//			var url "/nutuser";
+	//		$.get(url,{branch : ibranch})
+	//		.done(function(data) {
+	//			$.each(data, function(index, value) {
+	//				userNut.push(value);
+	//			});
+	//		});
 
+//			$("#acnut").autocomplete({
+//				source : userNut,
+//				select : function(event, ui) {
+//					$("#selectnut").val(ui.item.value);
+//				}
+//			});
+			
 		});
 
 		$(document).ready(function() {
@@ -320,10 +355,38 @@ body {
 				select : function(event, ui) {
 					var index = branchName.indexOf(ui.item.value);
 					$("#selectbranch").val(branchId[index]);
+					
+					var ibranch = $("#selectbranch").val();
+					var url = "/nutuser";
+					$.get(url,{branch : ibranch})
+					.done(function(data) {
+						$("#acnut").autocomplete({
+							source : data,
+							select : function(event, ui) {
+								$("#selectnut").val(ui.item.value);
+							}
+						});
+					});
 				}
 			});
 		});
-
+		/*
+		$(document).ready(function() {
+			var ibranch = $("#selectbranch").val();
+			alert(ibranch);
+			var url = "/nutuser";
+			$.get(url,{branch : ibranch})
+			.done(function(data) {
+				alert(data);
+				$("#acnut").autocomplete({
+					source : data,
+					select : function(event, ui) {
+						$("#selectnut").val(ui.item.value);
+					}
+				});
+			});
+		});
+*/
 		$("#manage").collapse({
 			toggle : true
 		});

@@ -49,6 +49,7 @@ public class MembershipDAO {
 			ex.printStackTrace();
 			transaksi.rollback();
 			isSuccess = false;
+			System.out.println(ex.getMessage());
 //			log.error("DAO Error", ex.getMessage());
 			//level logging 1 to 5: trace -> debug -> info -> warning -> error
 		}

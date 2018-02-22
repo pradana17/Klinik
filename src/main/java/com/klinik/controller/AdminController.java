@@ -95,18 +95,39 @@ public class AdminController {
 		}
 	}
 	
+	@GetMapping("/managepat")
+	public String formPat(Model model) {
+		Patient patient  = new Patient();
+		model.addAttribute("semuaPat", patDAO.getAllPatient());
+		model.addAttribute("pat", patient);
+		return "admin/managepatient";
+	}
+	
+	@PostMapping("/managepat")
+	public String addPatient(@Valid Patient patient, BindingResult result) {
+		
+		if(!result.hasErrors() && patDAO.addPatient(patient)) {
+			return "redirect:/admin/managepat";
+		} else {
+			for (ObjectError er : result.getAllErrors()) {
+				System.out.println(er.getDefaultMessage());
+			}
+			return "admin/managepatient";
+		}
+	}
+	
 //	@GetMapping("/managepat")
 //	public String formPat(Model model) {
-//		Patient patient  = new Patient();
-//		model.addAttribute("semuaPat", patDAO.getAllPatient());
-//		model.addAttribute("pat", patient);
+//		Membership membership = new Membership();
+//		model.addAttribute("semuaMem", memDAO.getAllMember());
+//		model.addAttribute("mem", membership);
 //		return "admin/managepatient";
 //	}
 //	
 //	@PostMapping("/managepat")
-//	public String addPatient(@Valid Patient patient, BindingResult result) {
+//	public String addPatient(@Valid Membership membership, BindingResult result) {
 //		
-//		if(!result.hasErrors() && patDAO.addPatient(patient)) {
+//		if(!result.hasErrors() && memDAO.addMember(membership)) {
 //			return "redirect:/admin/managepatient";
 //		} else {
 //			for (ObjectError er : result.getAllErrors()) {
@@ -115,27 +136,6 @@ public class AdminController {
 //			return "admin/managepatient";
 //		}
 //	}
-	
-	@GetMapping("/managepat")
-	public String formPat(Model model) {
-		Membership membership = new Membership();
-		model.addAttribute("semuaMem", memDAO.getAllMember());
-		model.addAttribute("mem", membership);
-		return "admin/managepatient";
-	}
-	
-	@PostMapping("/managepat")
-	public String addPatient(@Valid Membership membership, BindingResult result) {
-		
-		if(!result.hasErrors() && memDAO.addMember(membership)) {
-			return "redirect:/admin/managepatient";
-		} else {
-			for (ObjectError er : result.getAllErrors()) {
-				System.out.println(er.getDefaultMessage());
-			}
-			return "admin/managepatient";
-		}
-	}
 	
 	@GetMapping("/managemealplan")
 	public String indexMeal(Model model) {
