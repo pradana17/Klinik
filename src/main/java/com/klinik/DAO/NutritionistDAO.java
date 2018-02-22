@@ -27,6 +27,10 @@ public class NutritionistDAO {
 		return (Nutritionist) factory.createEntityManager().createQuery("from Nutritionist where usernutritionist = '" + user + "'").getSingleResult();
 	}
 	
+	public List<Nutritionist> getNutrionUserbyBranch(String branch) {
+		return (List<Nutritionist>) factory.createEntityManager().createQuery("from Nutritionist where idbranch = '" + branch + "'").getResultList();
+	}
+	
 	public List<String> getAllUserNut(){
 		StringBuilder builder;
 		List<String> nutName = new ArrayList<>();

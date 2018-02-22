@@ -14,11 +14,13 @@ import com.klinik.DAO.BranchDAO;
 import com.klinik.DAO.CaloriesbibleDAO;
 import com.klinik.DAO.ChatDAO;
 import com.klinik.DAO.MealplanDAO;
+import com.klinik.DAO.MembershipDAO;
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
 import com.klinik.model.Branch;
 import com.klinik.model.Caloriesbible;
 import com.klinik.model.Chat;
+import com.klinik.model.Membership;
 import com.klinik.model.Nutritionist;
 import com.klinik.model.Patient;
 
@@ -42,6 +44,8 @@ public class BackgroudHandler {
 	private PatientDAO patDAO;
 	@Autowired
 	private ChatDAO chatDAO;
+	@Autowired
+	private MembershipDAO memDAO;
 	
 	@GetMapping("/changeCalorie")
 	public boolean changeCalorie(@RequestParam("idcal") short idcal, @RequestParam("calorie") Float calorie) {
@@ -241,5 +245,31 @@ public class BackgroudHandler {
 	public boolean delChat(@RequestParam("id") Integer id) {
 		Chat chat = chatDAO.getChatId(id);
 		return chatDAO.delChat(chat);
+	}
+	
+	@GetMapping("/addmember")
+	public boolean addMember(@RequestParam("user") String id) {
+		
+		Patient pat = new Patient();
+		pat.setUserpatient(id);
+		Membership membership = new Membership();
+		membership.setUserpatient(patDAO.getPatientUser(id));
+		
+		return memDAO.addMember(membership);
+	}
+	
+	@GetMapping("/nutuser")
+	public List<String> getAllNutNamebyBranch(@RequestParam("branch") String id) {
+		StringBuilder builder;
+		List<String> nutName = new ArrayList<>();
+		List<Nutritionist> listNut = nutDAO.getNutrionUserbyBranch(id);
+		
+		for (Nutritionist nut : listNut) {
+			builder = new StringBuilder();
+			builder.append(nut.getUsernutritionist());
+			nutName.add(builder.toString());
+		}
+		
+		return nutName;
 	}
 }
