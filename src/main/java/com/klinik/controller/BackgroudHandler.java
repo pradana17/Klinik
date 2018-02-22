@@ -250,10 +250,8 @@ public class BackgroudHandler {
 	@GetMapping("/addmember")
 	public boolean addMember(@RequestParam("user") String id) {
 		
-		Patient pat = new Patient();
-		pat.setUserpatient(id);
 		Membership membership = new Membership();
-		membership.setUserpatient(patDAO.getPatientUser(id));
+		membership.setUserpatient(id);
 		
 		return memDAO.addMember(membership);
 	}

@@ -234,7 +234,7 @@ body {
 							<td th:text="${pat.email}"></td>
 							<td th:text="${pat.fullname}"></td>
 							<td th:text="${pat.idbranch.namabranch}"></td>
-							<td th:value="${pat.isactive}"></td>
+							<td th:value="${pat.isactive}" class="status"></td>
 							<td style="width: 40px"><a
 								th:href="'javascript:openViewPat(' + ${pat.userpatient} +');'"
 								style="margin-right: 15px;" class="edit"><i

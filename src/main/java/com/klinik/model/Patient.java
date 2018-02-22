@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -73,12 +74,11 @@ public class Patient implements Serializable {
     private List<Appointment> appointmentList;
     @OneToMany(mappedBy = "userpatient", fetch = FetchType.LAZY)
     private List<Personalitytest> personalitytestList;
-    @OneToMany(mappedBy = "userpatient", fetch = FetchType.LAZY)
-    private List<Membership> membershipList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient", fetch = FetchType.LAZY)
     private List<Useranswers> useranswersList;
-    @OneToMany(mappedBy = "receiverId", fetch = FetchType.LAZY)
-    private List<Chat> chatList;
+    @JoinColumn(name = "USERPATIENT", referencedColumnName = "USERPATIENT", insertable = false, updatable = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private Membership membership;
     @JoinColumn(name = "USERNUTRITIONIST", referencedColumnName = "USERNUTRITIONIST")
     @ManyToOne(fetch = FetchType.LAZY)
     private Nutritionist usernutritionist;
@@ -182,15 +182,6 @@ public class Patient implements Serializable {
     }
 
     @XmlTransient
-    public List<Membership> getMembershipList() {
-        return membershipList;
-    }
-
-    public void setMembershipList(List<Membership> membershipList) {
-        this.membershipList = membershipList;
-    }
-
-    @XmlTransient
     public List<Useranswers> getUseranswersList() {
         return useranswersList;
     }
@@ -199,13 +190,12 @@ public class Patient implements Serializable {
         this.useranswersList = useranswersList;
     }
 
-    @XmlTransient
-    public List<Chat> getChatList() {
-        return chatList;
+    public Membership getMembership() {
+        return membership;
     }
 
-    public void setChatList(List<Chat> chatList) {
-        this.chatList = chatList;
+    public void setMembership(Membership membership) {
+        this.membership = membership;
     }
 
     public Nutritionist getUsernutritionist() {
