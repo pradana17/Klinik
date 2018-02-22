@@ -132,8 +132,7 @@ body {
 								Plan</a></li>
 						<li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
 					</div>
-					<li><a data-toggle="collapse" href="#announc" role="button"
-						aria-expanded="false" aria-controls="announc">Announcement</a></li>
+					<li><a th:href="@{'/admin/managechat'}" role="button">Announcement</a></li>
 				</ul>
 			</div>
 			<div id="page-content-wrapper">
@@ -150,7 +149,7 @@ body {
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="title">Add Data Nutritionist</h5>
+								<h5 class="modal-title" id="title">Add Data Patient</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -183,11 +182,28 @@ body {
 												placeholder="user@gmail.com" th:field="*{email}" />
 										</div>
 										<div class="form-group">
+											<label th:for="${pat.height}">Height (cm)</label> <input
+												type="text" class="form-control" id="inputheight"
+												placeholder="170" th:field="*{height}" />
+										</div>
+										<div class="form-group">
+											<label th:for="${pat.weight}">Weight (kg)</label> <input
+												type="text" class="form-control" id="inputweight"
+												placeholder="50" th:field="*{weight}" />
+										</div>
+										<div class="form-group">
 											<label th:for="${pat.idbranch}">Branch</label> <input
 												type="text" class="form-control" id="inputbranch"
 												placeholder="" /> <input type="hidden" class="form-control"
 												id="selectbranch" placeholder=""
 												th:field="*{idbranch.idbranch}" />
+										</div>
+										<div class="form-group">
+											<label th:for="${pat.usernutritionist}">Nutritionist</label> <input
+												type="text" class="form-control" id="acnut"
+												placeholder="" /> <input type="hidden" class="form-control"
+												id="selectnut" placeholder=""
+												th:field="*{usernutritionist.usernutritionist}" />
 										</div>
 									</div>
 								</div>
@@ -195,7 +211,7 @@ body {
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
 									<button class="btn btn-primary" type="submit" formmethod="post"
-										id="submitbranch">Submit</button>
+										id="submitpat">Submit</button>
 								</div>
 							</form>
 						</div>
@@ -214,10 +230,10 @@ body {
 					</thead>
 					<tbody>
 						<tr th:each="pat : ${semuaPat}">
-							<td th:text="${pat.userpatient}" class="user"></td>
-							<td th:text="${pat.email}" class="email"></td>
-							<td th:text="${pat.fullname}" class="fname"></td>
-							<td th:text="${pat.idbranch.namabranch}" class="branch"></td>
+							<td th:text="${pat.userpatient}"></td>
+							<td th:text="${pat.email}"></td>
+							<td th:text="${pat.fullname}"></td>
+							<td th:text="${pat.idbranch.namabranch}"></td>
 							<td th:value="${pat.isactive}" class="status"></td>
 							<td style="width: 40px"><a
 								th:href="'javascript:openViewPat(' + ${pat.userpatient} +');'"
@@ -233,7 +249,7 @@ body {
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="titl">Edit Data Nutritionist</h5>
+								<h5 class="modal-title" id="titl">Edit Data Patient</h5>
 								<button type="button" class="close" data-dismiss="modal"
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -282,13 +298,41 @@ body {
 				var url = "/deletePat";
 				var choice = confirm('Do you really want to delete this record?');
 			    if(choice == true) {
-					$.get(url,{idpat :idPat});
-					location.reload();
+			    	$.get(url,{idpat :idPat})
+			    	.done(function( data ) {
+			    		location.reload();	
+			    	});
 			    } else {
 			    	return false;
 			    };
 		    });
+			
+			$("#submitpat").click(function(){
+				var user = $("#inputuserpat").val();
+				var url = "/addmember";
+				$.get(url,{user : user})
+				.done(function( data ) {
+		    		location.reload();	
+		    	});
+			});
+			
+//			var userNut = [];
+//			var ibranch = $("#selectbranch").val();
+//			var url "/nutuser";
+	//		$.get(url,{branch : ibranch})
+	//		.done(function(data) {
+	//			$.each(data, function(index, value) {
+	//				userNut.push(value);
+	//			});
+	//		});
 
+//			$("#acnut").autocomplete({
+//				source : userNut,
+//				select : function(event, ui) {
+//					$("#selectnut").val(ui.item.value);
+//				}
+//			});
+			
 		});
 
 		$(document).ready(function() {
@@ -311,10 +355,38 @@ body {
 				select : function(event, ui) {
 					var index = branchName.indexOf(ui.item.value);
 					$("#selectbranch").val(branchId[index]);
+					
+					var ibranch = $("#selectbranch").val();
+					var url = "/nutuser";
+					$.get(url,{branch : ibranch})
+					.done(function(data) {
+						$("#acnut").autocomplete({
+							source : data,
+							select : function(event, ui) {
+								$("#selectnut").val(ui.item.value);
+							}
+						});
+					});
 				}
 			});
 		});
-
+		/*
+		$(document).ready(function() {
+			var ibranch = $("#selectbranch").val();
+			alert(ibranch);
+			var url = "/nutuser";
+			$.get(url,{branch : ibranch})
+			.done(function(data) {
+				alert(data);
+				$("#acnut").autocomplete({
+					source : data,
+					select : function(event, ui) {
+						$("#selectnut").val(ui.item.value);
+					}
+				});
+			});
+		});
+*/
 		$("#manage").collapse({
 			toggle : true
 		});

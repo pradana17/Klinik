@@ -24,11 +24,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klinik.DAO.BranchDAO;
+import com.klinik.DAO.ChatDAO;
 import com.klinik.DAO.MealplanDAO;
+import com.klinik.DAO.MembershipDAO;
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
 import com.klinik.model.Branch;
+import com.klinik.model.Chat;
 import com.klinik.model.Mealplan;
+import com.klinik.model.Membership;
 import com.klinik.model.Nutritionist;
 import com.klinik.model.Patient;
 
@@ -44,6 +48,10 @@ public class AdminController {
 	private PatientDAO patDAO;
 	@Autowired
 	private MealplanDAO mpDAO;
+	@Autowired
+	private ChatDAO chatDAO;
+	@Autowired
+	private MembershipDAO memDAO;
 	
 	@GetMapping("/managebranch")
 	public String formBranch(Model model) {
@@ -99,7 +107,7 @@ public class AdminController {
 	public String addPatient(@Valid Patient patient, BindingResult result) {
 		
 		if(!result.hasErrors() && patDAO.addPatient(patient)) {
-			return "redirect:/admin/managepatient";
+			return "redirect:/admin/managepat";
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());
@@ -107,6 +115,27 @@ public class AdminController {
 			return "admin/managepatient";
 		}
 	}
+	
+//	@GetMapping("/managepat")
+//	public String formPat(Model model) {
+//		Membership membership = new Membership();
+//		model.addAttribute("semuaMem", memDAO.getAllMember());
+//		model.addAttribute("mem", membership);
+//		return "admin/managepatient";
+//	}
+//	
+//	@PostMapping("/managepat")
+//	public String addPatient(@Valid Membership membership, BindingResult result) {
+//		
+//		if(!result.hasErrors() && memDAO.addMember(membership)) {
+//			return "redirect:/admin/managepatient";
+//		} else {
+//			for (ObjectError er : result.getAllErrors()) {
+//				System.out.println(er.getDefaultMessage());
+//			}
+//			return "admin/managepatient";
+//		}
+//	}
 	
 	@GetMapping("/managemealplan")
 	public String indexMeal(Model model) {
@@ -179,4 +208,11 @@ public class AdminController {
         modelMap.addAttribute("objPatient", patient);
         return "admin/managepat :: viewpat";
     }
+    
+    @GetMapping("/managechat")
+	public String formChat(Model model) {
+		model.addAttribute("semuaChat", chatDAO.getAllChat());
+		return "admin/managechat";
+	}
+	
 }

@@ -18,12 +18,12 @@ import com.klinik.DAO.UserAnswerDAO;
 import com.klinik.model.Personalitytest;
 import com.klinik.model.Useranswers;
 
-
 @Controller
 @RequestMapping("question")
 public class QuestionController {
 	
 	@Autowired
+	private CorrectAnswerDAO answerDAO;
 	private QuestionDAO questionDAO;	
 	@Autowired
 	private UserAnswerDAO userAnswerDAO;
@@ -48,11 +48,24 @@ public class QuestionController {
 		return "question/detail";
 	}
 	
+	@GetMapping("/detail")
+	public String addForm(Model model) {
+		Useranswers userAnswer = new Useranswers();
+		model.addAttribute("getUserAnswer", userAnswer);
+		model.addAttribute("getCaloriesNeed", answerDAO.getCaloriesNeed(userAnswer.getChoosenanswerid(), userAnswer.getQuestion().getQuestionid()));
+		return "/question/detail";
+	}
+	
+
 	
 	@PostMapping("/detail")
 	public String addAnswer(@Valid Useranswers useranswer, BindingResult result) {		
 		System.out.println("test "+result.hasErrors()+" "+userAnswerDAO.addUserAnswer(useranswer));
+<<<<<<< HEAD
 	
+=======
+//		return null;
+>>>>>>> 4242eb6dd1a6336853421ca14e310c40d3116ea3
 		if(!result.hasErrors() && userAnswerDAO.addUserAnswer(useranswer)) {
 			return "redirect:/question/index";
 		} else {

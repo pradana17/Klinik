@@ -16,7 +16,7 @@ public class UserController {
 	
 	@GetMapping("/detail/{senderId}")
 	public String detail(Model model, @PathVariable("senderId") String id) {
-		model.addAttribute("objChat", chatDAO.getChatId(id));
+		model.addAttribute("objChat", chatDAO.getChatUser(id));
 		return "viewremind";
 	}
 	

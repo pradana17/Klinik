@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.klinik.DAO.BranchDAO;
 import com.klinik.DAO.CaloriesbibleDAO;
+import com.klinik.DAO.ChatDAO;
 import com.klinik.DAO.MealplanDAO;
+import com.klinik.DAO.MembershipDAO;
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
 import com.klinik.model.Branch;
 import com.klinik.model.Caloriesbible;
+import com.klinik.model.Chat;
+import com.klinik.model.Membership;
 import com.klinik.model.Nutritionist;
 import com.klinik.model.Patient;
 
@@ -38,6 +42,10 @@ public class BackgroudHandler {
 	private MealplanDAO mpDAO;
 	@Autowired
 	private PatientDAO patDAO;
+	@Autowired
+	private ChatDAO chatDAO;
+	@Autowired
+	private MembershipDAO memDAO;
 	
 	@GetMapping("/changeCalorie")
 	public boolean changeCalorie(@RequestParam("idcal") short idcal, @RequestParam("calorie") Float calorie) {
@@ -197,6 +205,7 @@ public class BackgroudHandler {
 		return patDAO.editPatient(patient);
 	}
 	
+<<<<<<< HEAD
 	
 	@GetMapping("/patientname")
 	public List<String> getAllPatient() {
@@ -226,5 +235,71 @@ public class BackgroudHandler {
 		}
 		
 		return hasil;
+=======
+	@GetMapping("/getallpat")
+	public List<String> getAllUserPat(){
+		List<String> patName = patDAO.getAllUserPatientName();
+		return patName;
+	}
+	
+	@GetMapping("/getallnut")
+	public List<String> getAllUserNut(){
+		List<String> nutName = nutDAO.getAllUserNut();
+		return nutName;
+	}
+	
+	@GetMapping("/getalluser")
+	public List<String> getAllUser(){
+		List<String> name = new ArrayList<>();
+		List<String> patName = patDAO.getAllUserPatientName();
+		List<String> nutName = nutDAO.getAllUserNut();
+		name.addAll(nutName);
+		name.addAll(patName);
+		
+		return name;
+	}
+	
+	@GetMapping("/addchat")
+	public boolean addChat(
+			@RequestParam("user") String id,
+			@RequestParam("mes") String mes) {
+
+		Chat chat = new Chat();
+		chat.setReceiverId(id);
+		chat.setMessage(mes);
+		chat.setSenderId("Admin");
+		
+		return chatDAO.addChat(chat);
+	}
+	
+	@GetMapping("/delchat")
+	public boolean delChat(@RequestParam("id") Integer id) {
+		Chat chat = chatDAO.getChatId(id);
+		return chatDAO.delChat(chat);
+	}
+	
+	@GetMapping("/addmember")
+	public boolean addMember(@RequestParam("user") String id) {
+		
+		Membership membership = new Membership();
+		membership.setUserpatient(id);
+		
+		return memDAO.addMember(membership);
+	}
+	
+	@GetMapping("/nutuser")
+	public List<String> getAllNutNamebyBranch(@RequestParam("branch") String id) {
+		StringBuilder builder;
+		List<String> nutName = new ArrayList<>();
+		List<Nutritionist> listNut = nutDAO.getNutrionUserbyBranch(id);
+		
+		for (Nutritionist nut : listNut) {
+			builder = new StringBuilder();
+			builder.append(nut.getUsernutritionist());
+			nutName.add(builder.toString());
+		}
+		
+		return nutName;
+>>>>>>> 4242eb6dd1a6336853421ca14e310c40d3116ea3
 	}
 }
