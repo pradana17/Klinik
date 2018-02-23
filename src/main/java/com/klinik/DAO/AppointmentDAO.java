@@ -40,13 +40,7 @@ public class AppointmentDAO {
 			transaksi = em.getTransaction();
 			transaksi.begin();
 			appointment.setApprovedby("admin");		
-			appointment.setApproved(0);			
-			System.out.println("aaaa");
-			System.out.println(appointment.getApprovedby());
-			System.out.println(appointment.getApproved());
-			System.out.println(appointment.getDateappointment());
-			System.out.println(appointment.getUsernutritionist());
-			System.out.println(appointment.getUserpatient());			
+			appointment.setApproved(0);		
 			em.persist(appointment);
 			transaksi.commit();
 		} catch (Exception ex) {

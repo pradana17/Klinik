@@ -224,7 +224,6 @@ body {
 							<th>Email</th>
 							<th>Full Name</th>
 							<th>Branch</th>
-							<th>Nutritionist</th>
 							<th>Status</th>
 							<th>Action</th>
 						</tr>
@@ -235,7 +234,6 @@ body {
 							<td th:text="${pat.email}"></td>
 							<td th:text="${pat.fullname}"></td>
 							<td th:text="${pat.idbranch.namabranch}"></td>
-							<td th:text="${pat.usernutritionist.usernutritionist}"></td>
 							<td th:value="${pat.isactive}" class="status"></td>
 							<td style="width: 40px"><a
 								th:href="'javascript:openViewPat(' + ${pat.userpatient} +');'"

@@ -158,7 +158,7 @@ public class BackgroudHandler {
 	public List<String> getAllBranchName() {
 		StringBuilder builder;
 		List<String> hasil = new ArrayList<>();
-		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch").getResultList();
+		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch where isactive = 1").getResultList();
 		
 		for (Branch branch : listBranch) {
 			builder = new StringBuilder();
@@ -173,7 +173,7 @@ public class BackgroudHandler {
 	public List<String> getAllBranchId() {
 		StringBuilder builder;
 		List<String> hasil = new ArrayList<>();
-		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch").getResultList();
+		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch where isactive = 1").getResultList();
 		
 		for (Branch branch : listBranch) {
 			builder = new StringBuilder();

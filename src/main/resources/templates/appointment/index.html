@@ -167,19 +167,13 @@ body {
 										<div class="form-group">
 										<label th:for="${janji.usernutritionist}">Nutritionist</label> <input
 												type="text" class="form-control" id="inputnut"
-												placeholder="name "/> <input type="hidden" class="form-control"
-												id="selectnutri" placeholder=""
-												th:field="*{usernutritionist.usernutritionist}"  />	
+												placeholder="name" th:field="*{usernutritionist.usernutritionist}" />
 										</div>
-										 
 										<div class="form-group">
 											<label th:for="${janji.userpatient}">Patient</label> <input
 												type="text" class="form-control" id="inputpat"
-												placeholder="name patient" /> <input type="hidden" class="form-control"
-												id="selectpatient" placeholder=""
-												th:field="*{userpatient.userpatient}" />
+												placeholder="name patient" th:field="*{userpatient.userpatient}" />
 										</div>
-									
 										<div class="form-group">
 											<label th:for="${janji.dateappointment}">Date appointment</label> <input
 												type="text" class="form-control" id="input-date"
@@ -218,27 +212,6 @@ body {
 						</tr>
 					</tbody>
 				</table>
-				<div class="modal fade" id="viewPat" role="dialog"
-					th:fragment="viewpat">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="titl">Edit Data Nutritionist</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<div class="flex-column"></div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Close</button>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -265,12 +238,6 @@ body {
 			$('#input-date').datepicker();
 			
 			$("table").dataTable();
-
-			if ($(".status").val() == 0) {
-				$(".status").text("Aktif");
-			} else {
-				$(".status").text("Tidak Aktif");
-			}
 			
 			$(".delpat").click (function(){
 				var idx = $(".delpat").index(this);
@@ -285,59 +252,6 @@ body {
 			    };
 		    });
 
-		});
-
-		$(document).ready(function() {
-			var branchName = [];
-			var branchId = [];
-			$.get("/branchname", function(data) {
-				$.each(data, function(index, value) {
-					branchName.push(value);
-				});
-			});
-
-			$.get("/branchid", function(data) {
-				$.each(data, function(index, value) {
-					branchId.push(value);
-				});
-			});
-
-			$("#inputbranch").autocomplete({
-				source : branchName,
-				select : function(event, ui) {
-					var index = branchName.indexOf(ui.item.value);
-					$("#selectbranch").val(branchId[index]);
-				}
-			});
-		});
-		
-		$(document).ready(function() {
-			var patientName = [];
-			var patientID = [];
-			$.get("/patientname", function(data) {
-				$.each(data, function(index, value) {
-					patientName.push(value);
-				});
-			});
-
-			$.get("/patientid", function(data) {
-				$.each(data, function(index, value) {
-					patientID.push(value);
-				});
-			});
-
-			$("#inputpat").autocomplete({
-				source : patientName,
-				select : function(event, ui) {
-					var index = patientName.indexOf(ui.item.value);
-					$("#selectpatient").val(patientId[index]);
-				}
-			});
-		});
-		
-		
-		$('#submitbranch').click(function(){
-			alert($('#inputnut').val());
 		});
 
 		$("#manage").collapse({
