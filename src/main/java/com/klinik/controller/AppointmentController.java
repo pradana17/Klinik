@@ -31,7 +31,7 @@ public class AppointmentController {
 
 	@PostMapping("/index")
 	public String addAppointment(@Valid Appointment appointment, BindingResult result) {
-		System.out.println(result.hasErrors() +" -- "+ appointmentDAO.addAppointment(appointment));
+		System.out.println(result.hasErrors() +" -disini- "+ appointmentDAO.addAppointment(appointment));
 		if (!result.hasErrors() && appointmentDAO.addAppointment(appointment)) {
 			return "redirect:/appointment/index";
 		} else {
@@ -43,21 +43,34 @@ public class AppointmentController {
 
 	}
 
-	@GetMapping("/validation/{IdAppointment}")
-	public String updateApproved(Model model, @PathVariable("IdAppointment") int Id) {
-		model.addAttribute("validate", appointmentDAO.getAppointmentID(Id));
-		return "appointment/validation";
+	@GetMapping("/edit/{id}")
+	public String edit(Model model, @PathVariable("actorId") int Id) {
+		model.addAttribute("getID", appointmentDAO.getAppointmentID(Id));
+		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
+		Appointment appointment = new Appointment();
+		model.addAttribute("janji", appointment);
+		return "appointment/edit";
+	}
+	
+	@GetMapping("/validation")
+	public String updateApproved(Model model) {
+		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
+		Appointment appointment = new Appointment();
+		model.addAttribute("janji", appointment);
+		return "appointment/validation"; 
 	}
 
-	@PostMapping("/validation")
+	@PostMapping("/edit")
 	public String updateApproved(@Valid Appointment appointment, BindingResult result) {
+		System.out.println(result.hasErrors() +" haha "+ appointmentDAO.ValidateAppointment(appointment));
 		if (!result.hasErrors() && appointmentDAO.ValidateAppointment(appointment)) {
+			System.out.println("kuy");
 			return "redirect:/appointment/index";
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());
 			}
-			return "appointment/validation/";
+			return "appointment/edit";
 		}
 	}
 }

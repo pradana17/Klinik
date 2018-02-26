@@ -77,5 +77,4 @@ public class CaloriesbibleDAO {
 	public List<Caloriesbible> getFoodDetail(String nama) {
 		return factory.createEntityManager().createQuery("from Caloriesbible where foodname like '%" + nama+"%'").getResultList();
 	}	
-
 }

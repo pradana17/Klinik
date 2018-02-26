@@ -165,21 +165,19 @@ body {
 								<div class="modal-body">
 									<div class="flex-column">
 										<div class="form-group">
-										<label th:for="${janji.usernutritionist}">Nutritionist</label> <input
-												type="text" class="form-control" id="inputnut"
-												placeholder="name "/> <input type="hidden" class="form-control"
+										<label th:for="${janji.usernutritionist}">Nutritionist</label>
+										 <input type="text" class="form-control"
 												id="selectnutri" placeholder=""
-												th:field="*{usernutritionist.usernutritionist}"  />	
+												th:field="*{usernutritionist.usernutritionist}" />	
 										</div>
 										 
 										<div class="form-group">
-											<label th:for="${janji.userpatient}">Patient</label> <input
-												type="text" class="form-control" id="inputpat"
-												placeholder="name patient" /> <input type="hidden" class="form-control"
-												id="selectpatient" placeholder=""
-												th:field="*{userpatient.userpatient}" />
+											<label th:for="${janji.userpatient}">Patient</label> 
+											<input type="text" class="form-control"
+												id="inputpat" placeholder=""
+												th:field="*{userpatient.userpatient}"/>
 										</div>
-									
+								
 										<div class="form-group">
 											<label th:for="${janji.dateappointment}">Date appointment</label> <input
 												type="text" class="form-control" id="input-date"
@@ -214,7 +212,7 @@ body {
 							<td th:text="${app.userpatient.userpatient}" class="user"></td>
 							<td th:text="${app.dateappointment}" class="date"></td>
 							<td th:text="${app.approvedby}" class="by"></td>
-							<td th:text="${app.approved}" class="approved"></td>
+							<td th:text="${app.approved}" id="status" class="approved"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -266,94 +264,19 @@ body {
 			
 			$("table").dataTable();
 
-			if ($(".status").val() == 0) {
-				$(".status").text("Aktif");
+			if ($("#status").val() == 0) {
+				$("#status").text("Aktif");
 			} else {
-				$(".status").text("Tidak Aktif");
+				$("#status").text("Tidak Aktif");
 			}
-			
-			$(".delpat").click (function(){
-				var idx = $(".delpat").index(this);
-				var idPat = $(".patIds:eq(" + idx + ")").val();
-				var url = "/deletePat";
-				var choice = confirm('Do you really want to delete this record?');
-			    if(choice == true) {
-					$.get(url,{idpat :idPat});
-					location.reload();
-			    } else {
-			    	return false;
-			    };
-		    });
-
-		});
-
-		$(document).ready(function() {
-			var branchName = [];
-			var branchId = [];
-			$.get("/branchname", function(data) {
-				$.each(data, function(index, value) {
-					branchName.push(value);
-				});
-			});
-
-			$.get("/branchid", function(data) {
-				$.each(data, function(index, value) {
-					branchId.push(value);
-				});
-			});
-
-			$("#inputbranch").autocomplete({
-				source : branchName,
-				select : function(event, ui) {
-					var index = branchName.indexOf(ui.item.value);
-					$("#selectbranch").val(branchId[index]);
-				}
-			});
-		});
-		
-		$(document).ready(function() {
-			var patientName = [];
-			var patientID = [];
-			$.get("/patientname", function(data) {
-				$.each(data, function(index, value) {
-					patientName.push(value);
-				});
-			});
-
-			$.get("/patientid", function(data) {
-				$.each(data, function(index, value) {
-					patientID.push(value);
-				});
-			});
-
-			$("#inputpat").autocomplete({
-				source : patientName,
-				select : function(event, ui) {
-					var index = patientName.indexOf(ui.item.value);
-					$("#selectpatient").val(patientId[index]);
-				}
-			});
-		});
 		
 		
 		$('#submitbranch').click(function(){
-			alert($('#inputnut').val());
+			alert($('#inputpat').val());
 		});
 
-		$("#manage").collapse({
-			toggle : true
 		});
-
-		function openViewPat(user) {
-			$.ajax({
-				url : "/admin/detailpat/" + user,
-				success : function(response) {
-					$("#viewPatHolder").html(response);
-					$("#viewPat").modal();
-					$("#viewPat").modal("open");
-				}
-			});
-		}
+	
 	</script>
 </body>
 </html>
