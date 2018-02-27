@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+
+<title>Calories Bible</title>
+</head>
+<body>
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Kode Meal Plan</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="idmp : ${idmealpick}">
+					<td th:text="${idmp.idmealplan.kdmp}"></td>
+					<td><a
+						th:href="@{'/download?idmealplan='+${idmp.idmealplan.idmealplan}}">Download</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
