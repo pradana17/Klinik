@@ -100,17 +100,20 @@ body {
 }
 </style>
 <script type="text/javascript">
+	var a;
 	$(document).ready(function() {
 		$("table").dataTable();
 	});
 
 	function getAnswer(id) {
+		a = id;
 		alert(id);
 	}
 
 	function getQuestionID(id) {
-		$("#chooseID").val(id);
-		alert($("#chooseID").val());
+		$("#choosequestion").val(id);
+		alert($("#choosequestion").val());
+		$("#simpan").attr("disabled", true);
 	}
 </script>
 </head>
@@ -158,54 +161,81 @@ body {
 						</button>
 					</div>
 				</div>
-
-				<form action="#" th:action="@{/question/index}"
-					th:object="${getUserAnswer}" method="post">
+				<form th:action="@{/question/index}" th:object="${getUserAnswer}"
+					method="post">
 					<table class="table table-striped table-bordered">
 						<thead class="thead-dark">
 							<tr>
 								<th>No.</th>
 								<th>Question</th>
 								<th>Answer</th>
+								<th>Others</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="questionObj: ${allQuestions}">
 								<td th:text="${questionObj.questionid}"></td>
 								<td th:text="${questionObj.questions}"></td>
-								<!--  
-								<td><a
-									th:href="@{'/question/detail/'+${questionObj.questionid}}">Answer</a></td>-->
 								<td>
 									<div class="form-group">
-										<select id="answbobot"
-											th:for="${getUserAnswer.choosenanswerid}"
-											onchange="getAnswer(this.value)" class="form-control"
-											name="AnswerAll">
-											<option th:each="x : ${questionObj.correctanswersList}"
+										<li th:for="${getUserAnswer.choosenanswerid}"
+											th:each="x : ${questionObj.correctanswersList}"><input
+											onchange="getAnswer(this.value)" type="radio"
+											id="chooseanswer" th:field="*{choosenanswerid}"
+											th:value="${x.answers.idanswer}" /> <label
+											th:text="${x.answers.answer}">Wireframe</label></li>
+
+										<!-- 
+										<select id="answbobot" onchange="getAnswer(this.value)"
+											class="form-control" name="AnswerAll">
+											<option th:for="${getUserAnswer.choosenanswerid}"
+												th:each="x : ${questionObj.correctanswersList}"
 												th:field="*{choosenanswerid}"
 												th:value="${x.answers.idanswer}"
 												th:text="${x.answers.answer}"></option>
 										</select>
-									</div>
 									<div th:for="${getUserAnswer.useranswersPK}">
 										<input type="hidden" id="chooseID"
-											th:field="*{useranswersPK.questionid}" th:value=5 />
+											th:field="*{useranswersPK.questionid}" />
 									</div>
+									-->
+										<label th:for="${getUserAnswer.useranswersPK}"></label>
+										<div th:each="x : ${questionObj.correctanswersList}">
+											<input type="hidden" id="choosequestion"
+												th:field="*{useranswersPK.questionid}"
+												th:value="${x.question.questionid}"
+												th:errorclass="fieldError" />
+										</div>
+										<!-- 
 									<div th:for="${getUserAnswer.useranswersPK}">
 										<input type="hidden" id="choosePatient"
-											th:field="*{useranswersPK.userpatient}" th:value="taufik" />
-									</div>
+											th:field="*{useranswersPK.userpatient}" />
+									</div> 
 									<div>
-										<button type="button" th:value="${questionObj.questionid}"
+										<button type="submit" th:value="${questionObj.questionid}"
 											onclick="getQuestionID(this.value)" class="btn btn-success"
 											style="width: 100px; heigth: 5px;">Submit</button>
+									</div>-->
+										<div th:each="x : ${questionObj}">
+											<button type="submit" id="simpan" th:value="${x.questionid}"
+												class="btn btn-primary" style="width: 100px; heigth: 5px;"
+												onclick="getQuestionID(this.value)">Simpan</button>
+										</div>
 									</div>
 								</td>
+								<td><a
+									th:href="@{'/question/detail/'+${questionObj.questionid}}">Answer</a></td>
 							</tr>
 						</tbody>
 					</table>
 				</form>
+				<div style="text-align:center">
+				<form action="#" th:action="@{/question/sum}" th:object="${sum}"
+					method="post">
+					<button type="hidden" id="sumAnswers" class="btn btn-success"
+						style="width: 100px; heigth: 5px;">Finish</button>
+				</form>
+				</div>
 			</div>
 		</div>
 	</div>
