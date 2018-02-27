@@ -1,46 +1,22 @@
 package com.klinik.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class DefaultController {
-//
-//    @GetMapping("/")
-//    public String home1() {
-//        return "/home";
-//    }
-//
-//    @GetMapping("/home")
-//    public String home() {
-//        return "/home";
-//    }
-//
-//    @GetMapping("/admin")
-//    public String admin() {
-//        return "/admin";
-//    }
-//
-//    @GetMapping("/user")
-//    public String user() {
-//        return "/user";
-//    }
-//
-//    @GetMapping("/about")
-//    public String about() {
-//        return "/about";
-//    }
-//
-//    @GetMapping("/login")
-//    public String login() {
-//        return "/login";
-//    }
-//
-//    @GetMapping("/403")
-//    public String error403() {
-//        return "/error/403";
-//    }
+
+	@RequestMapping("/default")
+    public String defaultAfterLogin(HttpServletRequest request) {
+        if (request.isUserInRole("ADMIN")) {
+            return "redirect:/admin/managebranch";
+        }
+        return "redirect:/caloriesbible/index";
+    }
 
 }
 

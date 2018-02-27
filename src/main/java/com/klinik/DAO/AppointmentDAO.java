@@ -38,13 +38,23 @@ public class AppointmentDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
+<<<<<<< HEAD
 			appointment.setApprovedby("admin");
 			appointment.setApproved(0);
+=======
+<<<<<<< HEAD
+			appointment.setApprovedby("admin");
+=======
+			appointment.setApprovedby("admin");		
+>>>>>>> c9e0820067f92d3af838de39821ae75a7f25ce6f
+			appointment.setApproved(0);	
+>>>>>>> 5a796bf5059a468fc2972b3a033192edf2ee059d
 			System.out.println("aaaa");
 			System.out.println(appointment.getApprovedby());
 			System.out.println(appointment.getApproved());
 			System.out.println(appointment.getDateappointment());
 			System.out.println(appointment.getUsernutritionist().getUsernutritionist());
+<<<<<<< HEAD
 			System.out.println(appointment.getUserpatient().getUserpatient());
 			appointment.setApproved(0);
 			if (appointment == null) {
@@ -52,6 +62,14 @@ public class AppointmentDAO {
 			} else {
 				em.merge(appointment);
 			}
+=======
+<<<<<<< HEAD
+			System.out.println(appointment.getUserpatient().getUserpatient());
+=======
+			System.out.println(appointment.getUserpatient().getUserpatient());			
+>>>>>>> c9e0820067f92d3af838de39821ae75a7f25ce6f
+			em.persist(appointment);
+>>>>>>> 5a796bf5059a468fc2972b3a033192edf2ee059d
 			transaksi.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();

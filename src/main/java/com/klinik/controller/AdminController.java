@@ -174,15 +174,12 @@ public class AdminController {
 			OutputStream out = response.getOutputStream();
 			ByteArrayInputStream inputStream = new ByteArrayInputStream(mealplan.getFiles());
 			response.setContentType(mealplan.getTypefile());
-	//		IOUtils.copy(mealplan.getFiles().getBinaryStream(), out);
 			IOUtils.copy(inputStream, out);
 			out.flush();
 			out.close();
 		
 		} catch (IOException e) {
 			e.printStackTrace();
-	//	} catch (SQLException e) {
-	//		e.printStackTrace();
 		}
 		return null;
 	}
