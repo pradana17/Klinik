@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.klinik.model.Appointment;
 import com.klinik.model.Nutritionist;
 
-
 @Service
 public class AppointmentDAO {
 
@@ -39,19 +38,20 @@ public class AppointmentDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
-			appointment.setApprovedby("admin");		
-<<<<<<< HEAD
-			appointment.setApproved(0);	
+			appointment.setApprovedby("admin");
+			appointment.setApproved(0);
 			System.out.println("aaaa");
 			System.out.println(appointment.getApprovedby());
 			System.out.println(appointment.getApproved());
 			System.out.println(appointment.getDateappointment());
 			System.out.println(appointment.getUsernutritionist().getUsernutritionist());
-			System.out.println(appointment.getUserpatient().getUserpatient());			
-=======
-			appointment.setApproved(0);		
->>>>>>> 73e93a850a240aa38b315dc492baeb9185a52b99
-			em.persist(appointment);
+			System.out.println(appointment.getUserpatient().getUserpatient());
+			appointment.setApproved(0);
+			if (appointment == null) {
+				em.persist(appointment);
+			} else {
+				em.merge(appointment);
+			}
 			transaksi.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -69,7 +69,7 @@ public class AppointmentDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
-			System.out.println(updateApproved.getUserpatient()+" cc "+updateApproved.getApproved());
+			System.out.println(updateApproved.getUserpatient() + " cc " + updateApproved.getApproved());
 			Appointment setApproved = (Appointment) em.find(Appointment.class, updateApproved.getIdappointment());
 			setApproved.setUserpatient(updateApproved.getUserpatient());
 			setApproved.setUsernutritionist(updateApproved.getUsernutritionist());
@@ -80,6 +80,7 @@ public class AppointmentDAO {
 			System.out.println(setApproved.getUsernutritionist().getUsernutritionist());
 			System.out.println(setApproved.getUserpatient().getUserpatient());
 			System.out.println(setApproved.getApprovedby());
+
 			System.out.println(setApproved.getApproved());
 			System.out.println(setApproved.getDateappointment());
 			transaksi.commit();
