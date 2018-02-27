@@ -89,7 +89,7 @@ body {
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link"
-						href="{{ url('/login') }}">Logout</a></li>
+						th:href="@{/logout}">Logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -120,6 +120,7 @@ body {
 							data-target="#addbranch" id="set">
 							<i class="fas fa-plus fa-1x"></i>
 						</button>
+						<h1 th:text="${username}"></h1>
 					</div>
 				</div>
 				<div class="modal fade" id="addbranch" tabindex="-1" role="dialog"

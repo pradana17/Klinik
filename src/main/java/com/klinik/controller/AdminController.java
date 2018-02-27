@@ -3,6 +3,7 @@ package com.klinik.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -54,10 +55,12 @@ public class AdminController {
 	private MembershipDAO memDAO;
 	
 	@GetMapping("/managebranch")
-	public String formBranch(Model model) {
+	public String formBranch(Model model, Principal principal) {
 		Branch branch  = new Branch();
 		model.addAttribute("semuabranch", branchDAO.getAllBranch());
 		model.addAttribute("branch", branch);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "admin/managebranch";
 	}
 	
