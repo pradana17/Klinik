@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +26,12 @@ public class CaloriesbibleController {
 	private CaloriesbibleDAO caloriesbibleDAO;
 	
 	@GetMapping("/index")
-	public String index (Model model) {
+	public String index (Model model, Principal principal) {
 		Caloriesbible cr = new Caloriesbible();
 		model.addAttribute("semuaCaloriesbible",caloriesbibleDAO.getAllCaloriesbible());
 		model.addAttribute("caloriesbible", cr);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return ("caloriesbible/index");
 	}
 	
