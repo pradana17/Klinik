@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.klinik.model.Appointment;
+<<<<<<< HEAD
+=======
 import com.klinik.model.Nutritionist;
+>>>>>>> 1907d4124536b850d8fb891a4049e8c7b0c70b79
 
 @Service
 public class AppointmentDAO {
@@ -39,6 +42,11 @@ public class AppointmentDAO {
 			transaksi = em.getTransaction();
 			transaksi.begin();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+			appointment.setApprovedby("admin");	
+			appointment.setApproved(0);
+>>>>>>> f3dddffe8cd814959241e696e8ab49b9060e7412
 =======
 <<<<<<< HEAD
 			appointment.setApprovedby("admin");
@@ -60,12 +68,15 @@ public class AppointmentDAO {
 =======
 <<<<<<< HEAD
 			System.out.println(appointment.getUserpatient().getUserpatient());
+>>>>>>> 1907d4124536b850d8fb891a4049e8c7b0c70b79
 			appointment.setApproved(0);
 			if (appointment == null) {
 				em.persist(appointment);
 			} else {
 				em.merge(appointment);
 			}
+<<<<<<< HEAD
+=======
 =======
 <<<<<<< HEAD
 			System.out.println(appointment.getUserpatient().getUserpatient());
@@ -99,6 +110,8 @@ public class AppointmentDAO {
 			setApproved.setApproved(updateApproved.getApproved());
 			setApproved.setApprovedby(updateApproved.getApprovedby());
 			setApproved.setDateappointment(updateApproved.getDateappointment());
+<<<<<<< HEAD
+=======
 			System.out.println("nanana");
 			System.out.println(setApproved.getUsernutritionist().getUsernutritionist());
 			System.out.println(setApproved.getUserpatient().getUserpatient());
@@ -106,6 +119,7 @@ public class AppointmentDAO {
 
 			System.out.println(setApproved.getApproved());
 			System.out.println(setApproved.getDateappointment());
+>>>>>>> 1907d4124536b850d8fb891a4049e8c7b0c70b79
 			transaksi.commit();
 		} catch (Exception ex) {
 			transaksi.rollback();
