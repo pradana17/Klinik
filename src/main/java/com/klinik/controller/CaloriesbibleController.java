@@ -36,8 +36,10 @@ public class CaloriesbibleController {
 	}
 	
 	@GetMapping("/detail/{idCal}")
-	public String detail(Model model, @PathVariable("idCal") int idcal) {
+	public String detail(Model model, @PathVariable("idCal") int idcal, Principal principal) {
 		model.addAttribute("detailCalories",caloriesbibleDAO.getCaloriesbible(idcal));
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return ("caloriesbible/detail");
 	}
 	
@@ -54,14 +56,18 @@ public class CaloriesbibleController {
 	}
 	
 	@GetMapping("/searchfood")
-	public String displayBible() {
+	public String displayBible(Model model, Principal principal) {
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "caloriesbible/searchfood";
 	}	
 	
 	@GetMapping("/detailSearch/{foodname}")
-	public String detailSearch(Model model, @PathVariable("foodname") String foodname) {
+	public String detailSearch(Model model, @PathVariable("foodname") String foodname, Principal principal) {
 		System.out.println("foodname" +foodname);
 		model.addAttribute("getDetail",caloriesbibleDAO.getFoodDetail(foodname));
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "caloriesbible/detailSearch";
 	}
 	

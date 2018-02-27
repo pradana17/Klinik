@@ -14,7 +14,10 @@ public class DefaultController {
         if (request.isUserInRole("ADMIN")) {
             return "redirect:/admin/managebranch";
         }
-        return "redirect:/caloriesbible/index";
+        else if (request.isUserInRole("NUT")) {
+        	return "redirect:/caloriesbible/index";
+        }
+        return "redirect:/patient/caloriesbible";
     }
 
 }

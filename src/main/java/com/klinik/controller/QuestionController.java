@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.klinik.DAO.CorrectAnswerDAO;
 import com.klinik.DAO.QuestionDAO;
 import com.klinik.DAO.UserAnswerDAO;
 import com.klinik.model.Personalitytest;
@@ -28,10 +29,12 @@ public class QuestionController {
 	private UserAnswerDAO userAnswerDAO;
 
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model, Principal principal) {
 		System.out.println("masuk 1");
 		model.addAttribute("allQuestions", questionDAO.getAllQuestion());
 		model.addAttribute("getUserAnswer", new Useranswers());
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "question/index";
 	}
 
@@ -51,10 +54,12 @@ public class QuestionController {
 	}
 
 	@GetMapping("/detail/{questionid}")
-	public String detail(Model model, @PathVariable("questionid") Integer id) {
+	public String detail(Model model, @PathVariable("questionid") Integer id, Principal principal) {
 		model.addAttribute("objQuestion", questionDAO.getQuestion(id));
 		Useranswers userAnswer = new Useranswers();
 		model.addAttribute("getUserAnswer", userAnswer);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "question/detail";
 	}
 
@@ -73,8 +78,10 @@ public class QuestionController {
 	}
 
 	@GetMapping("/sum/{userpatient}")
-	public String sum(Model model, @PathVariable("userpatient") String user) {
+	public String sum(Model model, @PathVariable("userpatient") String user, Principal principal) {
 		model.addAttribute("sum", user);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "test/sum";
 	}
 

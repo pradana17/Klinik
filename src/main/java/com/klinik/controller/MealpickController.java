@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +20,10 @@ public class MealpickController {
 	
 	
 	@GetMapping("/getidmpc/{userpatient}")
-	public String detail(Model model, @PathVariable("userpatient") String userpatient) {
+	public String detail(Model model, @PathVariable("userpatient") String userpatient, Principal principal) {
 		model.addAttribute("idmealpick",mealpickDAO.getMealpickByPatient(userpatient));
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return ("mealpick/getidmpc");
 	}
 

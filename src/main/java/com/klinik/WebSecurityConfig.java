@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/home").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
 				.antMatchers("/caloriesbible/**").hasAnyRole("NUT")
-				.antMatchers("/caloriesbible/**").hasAnyRole("PAT")
+				.antMatchers("/patient/**").hasAnyRole("PAT")
 				.anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
             .logout()
+            	.logoutSuccessUrl("/login")
                 .permitAll();
     }
 
