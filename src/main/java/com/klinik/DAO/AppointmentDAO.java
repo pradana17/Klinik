@@ -38,29 +38,14 @@ public class AppointmentDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
-<<<<<<< HEAD
 			appointment.setApprovedby("admin");	
 			appointment.setApproved(0);
-			appointment.setApproved(0);
-=======
-			appointment.setApprovedby("admin");
-			appointment.setApproved(0);
-			System.out.println("aaaa");
-			System.out.println(appointment.getApprovedby());
-			System.out.println(appointment.getApproved());
-			System.out.println(appointment.getDateappointment());
-			System.out.println(appointment.getUsernutritionist().getUsernutritionist());
-			System.out.println(appointment.getUserpatient().getUserpatient());
->>>>>>> 638103bbbfc1cf07a13e774ad2d3ba57ea0a092c
 			if (appointment == null) {
 				em.persist(appointment);
 				transaksi.commit();
 			}
-<<<<<<< HEAD
 			em.persist(appointment);
 			transaksi.commit();
-=======
->>>>>>> 638103bbbfc1cf07a13e774ad2d3ba57ea0a092c
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			transaksi.rollback();
@@ -84,16 +69,6 @@ public class AppointmentDAO {
 			setApproved.setApproved(updateApproved.getApproved());
 			setApproved.setApprovedby(updateApproved.getApprovedby());
 			setApproved.setDateappointment(updateApproved.getDateappointment());
-<<<<<<< HEAD
-=======
-			System.out.println("nanana");
-			System.out.println(setApproved.getUsernutritionist().getUsernutritionist());
-			System.out.println(setApproved.getUserpatient().getUserpatient());
-			System.out.println(setApproved.getApprovedby());
-
-			System.out.println(setApproved.getApproved());
-			System.out.println(setApproved.getDateappointment());
->>>>>>> 638103bbbfc1cf07a13e774ad2d3ba57ea0a092c
 			transaksi.commit();
 		} catch (Exception ex) {
 			transaksi.rollback();
