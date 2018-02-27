@@ -36,7 +36,7 @@ public class PersonalityTestController {
 	}
 	
 	@PostMapping("/sum")
-	public String addActor(@Valid Personalitytest test, BindingResult result) {		
+	public String sumResult(@Valid Personalitytest test, BindingResult result) {		
 		System.out.println("test "+result.hasErrors()+" "+testDAO.addTest(test));
 //		return null;
 //		

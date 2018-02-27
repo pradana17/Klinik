@@ -15,52 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.klinik.DAO.CorrectAnswerDAO;
 import com.klinik.DAO.QuestionDAO;
 import com.klinik.DAO.UserAnswerDAO;
+import com.klinik.model.Personalitytest;
 import com.klinik.model.Useranswers;
+
 
 @Controller
 @RequestMapping("question")
 public class QuestionController {
 	
 	@Autowired
-	private CorrectAnswerDAO answerDAO;
 	private QuestionDAO questionDAO;	
 	@Autowired
 	private UserAnswerDAO userAnswerDAO;
-	@Autowired
-	CorrectAnswerDAO correctDAO;
 	
 	@GetMapping("/index")
 	public String index(Model model) {
+		System.out.println("masuk 1");
 		model.addAttribute("allQuestions",  questionDAO.getAllQuestion());
+		Useranswers userAnswer = new Useranswers();
+		model.addAttribute("getUserAnswer", userAnswer);
 		return "question/index";
 	}	
 	
-	@GetMapping("/detail/{questionid}")
-	public String detail(Model model, @PathVariable("questionid") Integer id) {
-		model.addAttribute("objQuestion",questionDAO.getQuestion(id));
-		Useranswers userAnswer = new Useranswers();
-		model.addAttribute("getUserAnswer", userAnswer);
-//		model.addAttribute("getNutrition",correctDAO.getCaloriesNeed(userAnswer.getChoosenanswerid(), id));
-//		System.out.println("cek k: "+userAnswer.getChoosenanswerid()+" "+id);
-		return "question/detail";
-	}
-	
-	@GetMapping("/detail")
-	public String addForm(Model model) {
-		Useranswers userAnswer = new Useranswers();
-		model.addAttribute("getUserAnswer", userAnswer);
-		model.addAttribute("getCaloriesNeed", answerDAO.getCaloriesNeed(userAnswer.getChoosenanswerid(), userAnswer.getQuestion().getQuestionid()));
-		return "/question/detail";
-	}
-	
-
-	
-	@PostMapping("/detail")
-	public String addActor(@Valid Useranswers useranswer, BindingResult result) {		
-		System.out.println("test "+result.hasErrors()+" "+userAnswerDAO.addUserAnswer(useranswer));
-//		return null;
+	@PostMapping("/index")
+	public String addAnswer(@Valid Useranswers useranswer, BindingResult result) {	
+		System.out.println("xxx "+result.hasErrors()+" "+userAnswerDAO.addUserAnswer(useranswer));
+		
 		if(!result.hasErrors() && userAnswerDAO.addUserAnswer(useranswer)) {
-			return "redirect:/question/index";
+			return "yes";
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());
@@ -68,12 +50,28 @@ public class QuestionController {
 			return "/question/index";
 		}
 	}
+	
+	
+	@GetMapping("/detail/{questionid}")
+	public String detail(Model model, @PathVariable("questionid") Integer id) {
+		model.addAttribute("objQuestion",questionDAO.getQuestion(id));
+		Useranswers userAnswer = new Useranswers();
+		model.addAttribute("getUserAnswer", userAnswer);
+		return "question/detail";
+	}
+	
+	@PostMapping("/detail")
+	public String add(@Valid Useranswers useranswer, BindingResult result) {			
+		System.out.println("xxx "+result.hasErrors()+" "+userAnswerDAO.addUserAnswer(useranswer));
+	
+		if(!result.hasErrors() && userAnswerDAO.addUserAnswer(useranswer)) {
+			return "/question/index";
+		} else {
+			for (ObjectError er : result.getAllErrors()) {
+				System.out.println(er.getDefaultMessage());
+			}
+			return "/question/detail/"+useranswer.getUseranswersPK().getQuestionid();
+		}
+	}
+	
 }
-
-
-//@GetMapping("/add")
-//public String addForm(Model model) {
-//	Useranswers userAnswer = new Useranswers();
-//	model.addAttribute("getUserAnswer", userAnswer);
-//	return "/useranswer/add";
-//}

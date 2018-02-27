@@ -169,7 +169,7 @@ public class BackgroudHandler {
 	public List<String> getAllBranchName() {
 		StringBuilder builder;
 		List<String> hasil = new ArrayList<>();
-		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch").getResultList();
+		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch where isactive = 1").getResultList();
 		
 		for (Branch branch : listBranch) {
 			builder = new StringBuilder();
@@ -184,7 +184,7 @@ public class BackgroudHandler {
 	public List<String> getAllBranchId() {
 		StringBuilder builder;
 		List<String> hasil = new ArrayList<>();
-		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch").getResultList();
+		List<Branch> listBranch = entityManagerFactory.createEntityManager().createQuery("from Branch where isactive = 1").getResultList();
 		
 		for (Branch branch : listBranch) {
 			builder = new StringBuilder();
@@ -215,7 +215,37 @@ public class BackgroudHandler {
 		patient.setIsactive(0);
 		return patDAO.editPatient(patient);
 	}
+
 	
+	@GetMapping("/patientname")
+	public List<String> getAllPatient() {
+		StringBuilder builder;
+		List<String> hasil = new ArrayList<>();
+		List<Patient> listPatient = entityManagerFactory.createEntityManager().createQuery("from Patient").getResultList();
+		
+		for (Patient patient : listPatient) {
+			builder = new StringBuilder();
+			builder.append(patient.getFullname());
+			hasil.add(builder.toString());
+		}
+		
+		return hasil;
+	}
+	
+	@GetMapping("/patientid")
+	public List<String> getAllPatientId() {
+		StringBuilder builder;
+		List<String> hasil = new ArrayList<>();
+		List<Patient> listPatient = entityManagerFactory.createEntityManager().createQuery("from Patient").getResultList();
+		
+		for (Patient patient : listPatient) {
+			builder = new StringBuilder();
+			builder.append(patient.getUserpatient());
+			hasil.add(builder.toString());
+		}
+		
+		return hasil;
+	}
 	@GetMapping("/getallpat")
 	public List<String> getAllUserPat(){
 		List<String> patName = patDAO.getAllUserPatientName();
@@ -261,10 +291,8 @@ public class BackgroudHandler {
 	@GetMapping("/addmember")
 	public boolean addMember(@RequestParam("user") String id) {
 		
-		Patient pat = new Patient();
-		pat.setUserpatient(id);
 		Membership membership = new Membership();
-		membership.setUserpatient(patDAO.getPatientUser(id));
+		membership.setUserpatient(id);
 		
 		return memDAO.addMember(membership);
 	}

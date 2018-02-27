@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Manage Branch</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+<link
+	href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
+
+<style type="text/css">
+#first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn {
+	width: 100px;
+	height: 100px;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+	z-index: 1000;
+	position: absolute;
+	left: 250px;
+	width: 250px;
+	height: 100%;
+	margin-left: -250px;
+	overflow-y: auto;
+	background: #222;
+}
+
+#page-content-wrapper {
+	width: calc(100% - 250px);
+	position: absolute;
+	padding: 15px;
+	margin-left: 250px;
+}
+
+.sidebar-nav {
+	position: absolute;
+	top: 0;
+	width: 250px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sidebar-nav li {
+	text-indent: 20px;
+	line-height: 40px;
+	color: gray;
+}
+
+.sidebar-nav li a {
+	display: block;
+	text-decoration: none;
+	color: #999999;
+	border-top: 1px solid #373737;
+	border-bottom: 1px solid #1A1A1A;
+}
+
+#manage li a {
+	display: block;
+	text-decoration: none;
+	color: #999999;
+	border-top: 1px solid #373737;
+	border-bottom: 1px solid #1A1A1A;
+	text-indent: 2.5rem;
+}
+
+.sidebar-nav li a:hover {
+	text-decoration: none;
+	color: #fff;
+	background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+	text-decoration: none;
+}
+
+.ui-autocomplete {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1510 !important;
+	float: left;
+	display: none;
+	min-width: 160px;
+	width: 160px;
+	padding: 4px 0;
+	margin: 2px 0 0 0;
+	list-style: none;
+	background-color: #ffffff;
+	border-color: #ccc;
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 1px;
+}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img src=".." width="30"
+				height="30" class="d-inline-block align-top" alt="" /> Klinik
+			</a>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<ul class="navbar-nav mr-auto">
+				</ul>
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link"
+						href="{{ url('/login') }}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row flex-xl-nowrap">
+			<div id="sidebar-wrapper">
+				<ul class="sidebar-nav">
+					<li><a data-toggle="collapse" href="#scheduleapp"
+						role="button" aria-expanded="false" aria-controls="scheduleapp">Schedule
+							Appointment</a></li>
+					<div class="collapse" id="manage">
+						<li><a th:href="@{'/appointment/index'}" role="button">Appointment
+								list</a></li>
+						<li><a th:href="@{'/appointment/validation'}" role="button">Validate
+								appointment</a></li>
+					</div>
+					<li><a data-toggle="collapse" href="#manage" role="button"
+						aria-expanded="false" aria-controls="manage">Manage</a></li>
+					<div class="collapse" id="manage">
+						<li><a th:href="@{'/admin/managenut'}" role="button">Nutritionist</a></li>
+						<li><a th:href="@{'/admin/managepat'}" role="button">Patient</a></li>
+						<li><a th:href="@{'/admin/managemealplan'}" role="button">Meal
+								Plan</a></li>
+						<li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
+					</div>
+					<li><a data-toggle="collapse" href="#announc" role="button"
+						aria-expanded="false" aria-controls="announc">Announcement</a></li>
+				</ul>
+			</div>
+			<div></div>
+			<table class="table table-striped table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>Nutritionist</th>
+						<th>Patient</th>
+						<th>Date</th>
+						<th>Approved By</th>
+						<th>Status</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="app : ${getAppointment}">
+						<td th:text="${app.usernutritionist.usernutritionist}"
+							class="nutritionist"></td>
+						<td th:text="${app.userpatient.userpatient}" class="user"></td>
+						<td th:text="${app.dateappointment}" class="date"></td>
+						<td th:text="${app.approvedby}" class="by"></td>
+						<td th:text="${app.approved}" class="approved"></td>
+						<td>
+							<button type="button" class="btn btn-primary"
+								th:value="${app.idappointment}"
+								onclick="getQuestion(this.value)" data-toggle="modal"
+								data-target="#addbranch" id="set">
+								<i class="fas fa-edit fa-1x"></i>
+							</button>
+							<div class="modal fade" id="addbranch" tabindex="-1"
+								role="dialog" aria-labelledby="addbranch" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="title">Validate Data
+												Appointment</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<form action="#" th:action="@{/appointment/edit}"
+											th:object="${janji}" method="post">
+											<div class="modal-body">
+												<div class="flex-column">
+													<div class="form-group">
+														<label th:for="${janji.idappointment}"
+															th:field="*{id.appointment}">ID</label>
+														<input type="text" class="form-control" id="inputnut"
+															th:value="${app.idappointment}" />
+													</div>
+													<div class="form-group">
+														<label th:for="${janji.usernutritionist}"
+															th:field="*{userpatient.userpatient}">Nutritionist</label>
+														<input type="text" class="form-control" id="inputnut"
+															th:value="${app.usernutritionist.usernutritionist}" />
+													</div>
+													<div class="form-group">
+														<label th:for="${janji.userpatient}"
+															th:field="*{userpatient.userpatient}">Patient</label> <input
+															type="text" class="form-control" id="inputpat"
+															th:value="${app.userpatient.userpatient}" />
+													</div>
+													<div class="form-group">
+														<label th:for="${janji.dateappointment}"
+															th:field="*{dateappointment}">Date appointment</label> <input
+															type="text" class="form-control" id="input-date"
+															th:value="${app.dateappointment}" />
+													</div>
+
+													<div class="form-group">
+														<label th:for="${janji.approved}" th:field="*{approved}">Approved
+														</label> <input type="text" class="form-control"
+															id="input-approved" th:value="${app.approved}" />
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button class="btn btn-primary" type="submit"
+													formmethod="post" id="submitbranch">Validate</button>
+
+												<input type="hidden" th:field="*{idappointment}"
+													th:value="*{idappointment}" />
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<script src="/static/fontawesome/fontawesome-all.js"></script>
+	<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet"
+		href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" href="/resources/demos/style.css" />
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<script>
+		function getQuestion(id) {
+			alert(id);
+		}
+
+		$(document)
+				.ready(
+						function() {
+
+							$("table").dataTable();
+
+							if ($(".status").val() == 0) {
+								$(".status").text("Aktif");
+							} else {
+								$(".status").text("Tidak Aktif");
+							}
+
+							$(".delpat")
+									.click(
+											function() {
+												var idx = $(".delpat").index(
+														this);
+												var idPat = $(
+														".patIds:eq(" + idx
+																+ ")").val();
+												var url = "/deletePat";
+												var choice = confirm('Do you really want to delete this record?');
+												if (choice == true) {
+													$.get(url, {
+														idpat : idPat
+													});
+													location.reload();
+												} else {
+													return false;
+												}
+												;
+											});
+
+						});
+		$(document).ready(function() {
+			var patientName = [];
+			var patientID = [];
+			$.get("/patientname", function(data) {
+				$.each(data, function(index, value) {
+					patientName.push(value);
+				});
+			});
+
+			$.get("/patientid", function(data) {
+				$.each(data, function(index, value) {
+					patientID.push(value);
+				});
+			});
+
+			$("#inputpat").autocomplete({
+				source : patientName,
+				select : function(event, ui) {
+					var index = patientName.indexOf(ui.item.value);
+					$("#selectpatient").val(patientId[index]);
+				}
+			});
+		});
+
+		$('#submitbranch').click(function() {
+			alert($('#inputnut').val());
+		});
+
+		$("#manage").collapse({
+			toggle : true
+		});
+	</script>
+</body>
+</html>

@@ -8,19 +8,19 @@ package com.klinik.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,40 +32,40 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Membership.findAll", query = "SELECT m FROM Membership m")
-    , @NamedQuery(name = "Membership.findByIDmember", query = "SELECT m FROM Membership m WHERE m.iDmember = :iDmember")
+    , @NamedQuery(name = "Membership.findByUserpatient", query = "SELECT m FROM Membership m WHERE m.userpatient = :userpatient")
     , @NamedQuery(name = "Membership.findByDatejoin", query = "SELECT m FROM Membership m WHERE m.datejoin = :datejoin")
     , @NamedQuery(name = "Membership.findByDateexpired", query = "SELECT m FROM Membership m WHERE m.dateexpired = :dateexpired")})
 public class Membership implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "IDmember")
-    private Integer iDmember;
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "USERPATIENT")
+    private String userpatient;
     @Column(name = "DATEJOIN")
     @Temporal(TemporalType.DATE)
     private Date datejoin;
     @Column(name = "DATEEXPIRED")
     @Temporal(TemporalType.DATE)
     private Date dateexpired;
-    @JoinColumn(name = "USERPATIENT", referencedColumnName = "USERPATIENT")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Patient userpatient;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "membership", fetch = FetchType.LAZY)
+    private Patient patient;
 
     public Membership() {
     }
 
-    public Membership(Integer iDmember) {
-        this.iDmember = iDmember;
+    public Membership(String userpatient) {
+        this.userpatient = userpatient;
     }
 
-    public Integer getIDmember() {
-        return iDmember;
+    public String getUserpatient() {
+        return userpatient;
     }
 
-    public void setIDmember(Integer iDmember) {
-        this.iDmember = iDmember;
+    public void setUserpatient(String userpatient) {
+        this.userpatient = userpatient;
     }
 
     public Date getDatejoin() {
@@ -84,18 +84,18 @@ public class Membership implements Serializable {
         this.dateexpired = dateexpired;
     }
 
-    public Patient getUserpatient() {
-        return userpatient;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setUserpatient(Patient userpatient) {
-        this.userpatient = userpatient;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (iDmember != null ? iDmember.hashCode() : 0);
+        hash += (userpatient != null ? userpatient.hashCode() : 0);
         return hash;
     }
 
@@ -106,7 +106,7 @@ public class Membership implements Serializable {
             return false;
         }
         Membership other = (Membership) object;
-        if ((this.iDmember == null && other.iDmember != null) || (this.iDmember != null && !this.iDmember.equals(other.iDmember))) {
+        if ((this.userpatient == null && other.userpatient != null) || (this.userpatient != null && !this.userpatient.equals(other.userpatient))) {
             return false;
         }
         return true;
@@ -114,7 +114,7 @@ public class Membership implements Serializable {
 
     @Override
     public String toString() {
-        return "com.klinik.model.Membership[ iDmember=" + iDmember + " ]";
+        return "com.klinik.model.Membership[ userpatient=" + userpatient + " ]";
     }
     
 }
