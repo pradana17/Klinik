@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,12 @@ public class AppointmentController {
 	AppointmentDAO appointmentDAO = new AppointmentDAO();
 
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model, Principal principal) {
 		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
 		Appointment appointment = new Appointment();
 		model.addAttribute("janji", appointment);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "appointment/index";
 	}
 
@@ -44,19 +48,23 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/edit/{id}")
-	public String edit(Model model, @PathVariable("actorId") int Id) {
+	public String edit(Model model, @PathVariable("actorId") int Id, Principal principal) {
 		model.addAttribute("getID", appointmentDAO.getAppointmentID(Id));
 		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
 		Appointment appointment = new Appointment();
 		model.addAttribute("janji", appointment);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "appointment/edit";
 	}
 	
 	@GetMapping("/validation")
-	public String updateApproved(Model model) {
+	public String updateApproved(Model model, Principal principal) {
 		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
 		Appointment appointment = new Appointment();
 		model.addAttribute("janji", appointment);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "appointment/validation"; 
 	}
 

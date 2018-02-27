@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +26,20 @@ public class CaloriesbibleController {
 	private CaloriesbibleDAO caloriesbibleDAO;
 	
 	@GetMapping("/index")
-	public String index (Model model) {
+	public String index (Model model, Principal principal) {
 		Caloriesbible cr = new Caloriesbible();
 		model.addAttribute("semuaCaloriesbible",caloriesbibleDAO.getAllCaloriesbible());
 		model.addAttribute("caloriesbible", cr);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return ("caloriesbible/index");
 	}
 	
 	@GetMapping("/detail/{idCal}")
-	public String detail(Model model, @PathVariable("idCal") int idcal) {
+	public String detail(Model model, @PathVariable("idCal") int idcal, Principal principal) {
 		model.addAttribute("detailCalories",caloriesbibleDAO.getCaloriesbible(idcal));
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return ("caloriesbible/detail");
 	}
 	
@@ -50,14 +56,18 @@ public class CaloriesbibleController {
 	}
 	
 	@GetMapping("/searchfood")
-	public String displayBible() {
+	public String displayBible(Model model, Principal principal) {
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "caloriesbible/searchfood";
 	}	
 	
 	@GetMapping("/detailSearch/{foodname}")
-	public String detailSearch(Model model, @PathVariable("foodname") String foodname) {
+	public String detailSearch(Model model, @PathVariable("foodname") String foodname, Principal principal) {
 		System.out.println("foodname" +foodname);
 		model.addAttribute("getDetail",caloriesbibleDAO.getFoodDetail(foodname));
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "caloriesbible/detailSearch";
 	}
 	
