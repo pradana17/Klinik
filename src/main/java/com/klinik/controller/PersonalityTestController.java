@@ -38,8 +38,6 @@ public class PersonalityTestController {
 	@PostMapping("/sum")
 	public String sumResult(@Valid Personalitytest test, BindingResult result) {		
 		System.out.println("test "+result.hasErrors()+" "+testDAO.addTest(test));
-//		return null;
-//		
 		if(!result.hasErrors() && testDAO.addTest(test)) {
 			return "redirect:/test/index";
 		} else {
