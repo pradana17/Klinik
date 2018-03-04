@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.klinik.model.Patient;
@@ -18,6 +19,8 @@ public class PatientDAO {
 
 	@Autowired
 	private EntityManagerFactory factory;
+	@Autowired
+	private PasswordEncoder pEncoder;
 	
 	public List<Patient> getAllPatient() {
 		return (List<Patient>) factory.createEntityManager().createQuery("from Patient where isactive = 1").getResultList();
@@ -48,6 +51,7 @@ public class PatientDAO {
 			transaksi = em.getTransaction();
 			transaksi.begin();
 			patient.setIsactive(1);
+			patient.setPassword(pEncoder.encode(patient.getPassword()));
 			em.persist(patient);
 			transaksi.commit();
 		} catch (Exception ex) {
