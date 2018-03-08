@@ -38,38 +38,15 @@ public class AppointmentDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
-<<<<<<< HEAD
 			appointment.setApprovedby("admin");
-			appointment.setApproved(0);
-=======
-<<<<<<< HEAD
-			appointment.setApprovedby("admin");
-=======
-			appointment.setApprovedby("admin");		
->>>>>>> c9e0820067f92d3af838de39821ae75a7f25ce6f
-			appointment.setApproved(0);	
->>>>>>> 5a796bf5059a468fc2972b3a033192edf2ee059d
-			System.out.println("aaaa");
-			System.out.println(appointment.getApprovedby());
-			System.out.println(appointment.getApproved());
-			System.out.println(appointment.getDateappointment());
-			System.out.println(appointment.getUsernutritionist().getUsernutritionist());
-<<<<<<< HEAD
-			System.out.println(appointment.getUserpatient().getUserpatient());
 			appointment.setApproved(0);
 			if (appointment == null) {
 				em.persist(appointment);
-			} else {
-				em.merge(appointment);
 			}
-=======
-<<<<<<< HEAD
+//			em.persist(appointment);
+			em.merge(appointment);
 			System.out.println(appointment.getUserpatient().getUserpatient());
-=======
-			System.out.println(appointment.getUserpatient().getUserpatient());			
->>>>>>> c9e0820067f92d3af838de39821ae75a7f25ce6f
-			em.persist(appointment);
->>>>>>> 5a796bf5059a468fc2972b3a033192edf2ee059d
+			System.out.println(appointment.getUserpatient().getUserpatient());
 			transaksi.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -94,15 +71,10 @@ public class AppointmentDAO {
 			setApproved.setApproved(updateApproved.getApproved());
 			setApproved.setApprovedby(updateApproved.getApprovedby());
 			setApproved.setDateappointment(updateApproved.getDateappointment());
-			System.out.println("nanana");
-			System.out.println(setApproved.getUsernutritionist().getUsernutritionist());
-			System.out.println(setApproved.getUserpatient().getUserpatient());
-			System.out.println(setApproved.getApprovedby());
-
-			System.out.println(setApproved.getApproved());
-			System.out.println(setApproved.getDateappointment());
+			
 			transaksi.commit();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			transaksi.rollback();
 			isSucces = false;
 		}

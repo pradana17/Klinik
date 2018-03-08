@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,12 @@ public class QuestionController {
 	private UserAnswerDAO userAnswerDAO;
 
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model, Principal principal) {
 		System.out.println("masuk 1");
 		model.addAttribute("allQuestions", questionDAO.getAllQuestion());
 		model.addAttribute("getUserAnswer", new Useranswers());
+		String name = principal.getName();
+		model.addAttribute("username", name);
 		return "question/index";
 	}
 

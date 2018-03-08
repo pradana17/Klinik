@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klinik.DAO.AppointmentDAO;
 import com.klinik.DAO.BranchDAO;
 import com.klinik.DAO.CaloriesbibleDAO;
 import com.klinik.DAO.ChatDAO;
@@ -24,6 +25,7 @@ import com.klinik.DAO.MealplanDAO;
 import com.klinik.DAO.MembershipDAO;
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
+import com.klinik.model.Appointment;
 import com.klinik.model.Branch;
 import com.klinik.model.Caloriesbible;
 import com.klinik.model.Chat;
@@ -57,12 +59,22 @@ public class BackgroudHandler {
 	private MembershipDAO memDAO;
 	@Autowired
 	private MealpickDAO mpcDAO;
+	@Autowired
+	private AppointmentDAO appDAO;
+
 	
 	@GetMapping("/changeCalorie")
 	public boolean changeCalorie(@RequestParam("idcal") short idcal, @RequestParam("calorie") Float calorie) {
 		Caloriesbible updatedCalorie = calbible.getCaloriesbible(idcal);
 		updatedCalorie.setCalorie(calorie);
 		return calbible.editCaloriesbible(updatedCalorie);
+	}
+	
+	@GetMapping("/validate")
+	public boolean validate(@RequestParam("x") int id, @RequestParam("y") int approved) {
+		Appointment app = appDAO.getAppointmentID(id);
+		app.setApproved(approved);
+		return appDAO.ValidateAppointment(app);
 	}
 	
 	@GetMapping("/changeProtein")

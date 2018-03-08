@@ -100,20 +100,19 @@ body {
 }
 </style>
 <script type="text/javascript">
-	var a;
+	
 	$(document).ready(function() {
 		$("table").dataTable();
 	});
 
 	function getAnswer(id) {
-		a = id;
 		alert(id);
 	}
 
-	function getQuestionID(id) {
+	function getQuestionID(id, user) {
 		$("#choosequestion").val(id);
-		alert($("#choosequestion").val());
-		$("#simpan").attr("disabled", true);
+		$("#inputakhir").val(user);
+		alert($("#inputakhir").val());
 	}
 </script>
 </head>
@@ -206,6 +205,12 @@ body {
 												th:value="${x.question.questionid}"
 												th:errorclass="fieldError" />
 										</div>
+										<div class="form-group">
+											<label th:for="${getUserAnswer.useranswersPK}"></label> <input
+												type="hidden" class="form-control" th:value="${username}"
+												id="inputpat"/> <input type="hidden"
+												id="inputakhir" th:field="*{useranswersPK.userpatient}" />
+										</div>
 										<!-- 
 									<div th:for="${getUserAnswer.useranswersPK}">
 										<input type="hidden" id="choosePatient"
@@ -219,7 +224,8 @@ body {
 										<div th:each="x : ${questionObj}">
 											<button type="submit" id="simpan" th:value="${x.questionid}"
 												class="btn btn-primary" style="width: 100px; heigth: 5px;"
-												onclick="getQuestionID(this.value)">Simpan</button>
+												onclick="getQuestionID(this.value, document.getElementById('inputpat').value)"
+												>Simpan</button>
 										</div>
 									</div>
 								</td>
@@ -229,12 +235,12 @@ body {
 						</tbody>
 					</table>
 				</form>
-				<div style="text-align:center">
-				<form action="#" th:action="@{/question/sum}" th:object="${sum}"
-					method="post">
-					<button type="hidden" id="sumAnswers" class="btn btn-success"
-						style="width: 100px; heigth: 5px;">Finish</button>
-				</form>
+				<div style="text-align: center">
+					<form action="#" th:action="@{/question/sum}" th:object="${sum}"
+						method="post">
+						<button type="hidden" id="sumAnswers" class="btn btn-success"
+							style="width: 100px; heigth: 5px;">Finish</button>
+					</form>
 				</div>
 			</div>
 		</div>

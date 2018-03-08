@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,12 @@ public class AppointmentController {
 	AppointmentDAO appointmentDAO = new AppointmentDAO();
 
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model, Principal principal) {
 		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
 		Appointment appointment = new Appointment();
 		model.addAttribute("janji", appointment);
+		String name = principal.getName();
+		model.addAttribute("username", name);
 		return "appointment/index";
 	}
 
@@ -52,25 +56,27 @@ public class AppointmentController {
 		return "appointment/edit";
 	}
 	
+
+	@PostMapping("/validation")
+	public String updateApproved(@Valid Appointment appointment, BindingResult result) {
+		System.out.println(result.hasErrors() +" haha "+ appointmentDAO.ValidateAppointment(appointment));
+		System.out.println(appointment.getIdappointment());
+		if (!result.hasErrors() && appointmentDAO.ValidateAppointment(appointment)) {
+			System.out.println("kuy");
+			return "redirect:/appointment/validation";
+		} else {
+			for (ObjectError er : result.getAllErrors()) {
+				System.out.println(er.getDefaultMessage());
+			}
+			return "appointment/validation";
+		}
+	}
+	
 	@GetMapping("/validation")
 	public String updateApproved(Model model) {
 		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
 		Appointment appointment = new Appointment();
 		model.addAttribute("janji", appointment);
 		return "appointment/validation"; 
-	}
-
-	@PostMapping("/edit")
-	public String updateApproved(@Valid Appointment appointment, BindingResult result) {
-		System.out.println(result.hasErrors() +" haha "+ appointmentDAO.ValidateAppointment(appointment));
-		if (!result.hasErrors() && appointmentDAO.ValidateAppointment(appointment)) {
-			System.out.println("kuy");
-			return "redirect:/appointment/index";
-		} else {
-			for (ObjectError er : result.getAllErrors()) {
-				System.out.println(er.getDefaultMessage());
-			}
-			return "appointment/edit";
-		}
 	}
 }

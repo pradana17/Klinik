@@ -168,46 +168,30 @@ body {
 								<div class="modal-body">
 									<div class="flex-column">
 										<div class="form-group">
-<<<<<<< HEAD
 											<label th:for="${janji.usernutritionist}">Nutritionist</label>
 											<input type="text" class="form-control" id="selectnutri"
 												placeholder=""
 												th:field="*{usernutritionist.usernutritionist}" />
-										</div>
-										<div class="form-group">
-=======
-										<label th:for="${janji.usernutritionist}">Nutritionist</label>
-										 <input type="text" class="form-control"
-												id="selectnutri" placeholder=""
-												th:field="*{usernutritionist.usernutritionist}" />
-										<label th:for="${janji.usernutritionist}">Nutritionist</label> <input
-												type="text" class="form-control" id="inputnut"
-												placeholder="name" th:field="*{usernutritionist.usernutritionist}" />
-										</div>
-										<div class="form-group">
-											<label th:for="${janji.userpatient}">Patient</label> 
-											<input type="text" class="form-control"
-												id="inputpat" placeholder=""
-												th:field="*{userpatient.userpatient}"/>
-										</div>
->>>>>>> 5a796bf5059a468fc2972b3a033192edf2ee059d
-											<label th:for="${janji.userpatient}">Patient</label> <input
-												type="text" class="form-control" id="inputpat"
-												placeholder="" th:field="*{userpatient.userpatient}" />
-										</div>
-										<div class="form-group">
-											<label th:for="${janji.dateappointment}">Date
-												appointment</label> <input type="text" class="form-control"
-												id="input-date" placeholder="Date appointment"
-												th:field="*{dateappointment}" />
+											<div class="form-group">
+												<label th:for="${janji.userpatient}">Patient</label> <input
+													type="text" class="form-control"  th:value="${username}" id="inputpat"
+													readonly="readonly" />
+												<input type="hidden" id="inputakhir" th:field="*{userpatient.userpatient}" />
+											</div>
+											<div class="form-group">
+												<label th:for="${janji.dateappointment}">Date
+													appointment</label> <input type="text" class="form-control"
+													id="input-date" placeholder="Date appointment"
+													th:field="*{dateappointment}" />
+											</div>
 										</div>
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
+									<button type="submit" class="btn btn-secondary"
 										data-dismiss="modal">Close</button>
 									<button class="btn btn-primary" type="submit" formmethod="post"
-										id="submitbranch">Submit</button>
+										id="submitbranch" onclick="tampil(document.getElementById('inputpat').value)">Submit</button>
 								</div>
 							</div>
 						</form>
@@ -215,7 +199,7 @@ body {
 				</div>
 				<table class="table table-striped table-bordered">
 					<thead class="thead-dark">
-						<tr>
+						<tr>9
 							<th>Nutritionist</th>
 							<th>Patient</th>
 							<th>Date</th>
@@ -235,78 +219,41 @@ body {
 					</tbody>
 				</table>
 			</div>
-</div>
-</div>
-			<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
-			<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-			<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-			<script
-				src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-			<script
-				src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-			<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
-			<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-			<script src="/static/fontawesome/fontawesome-all.js"></script>
-			<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
-			<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
-			<link rel="stylesheet"
-				href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-			<link rel="stylesheet" href="/resources/demos/style.css" />
-			<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		</div>
+	</div>
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+	<script src="/static/fontawesome/fontawesome-all.js"></script>
+	<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet"
+		href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" href="/resources/demos/style.css" />
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-			<script>
-				$(document)
-						.ready(
-								function() {
-									$('#input-date').datepicker();
-
-									$("table").dataTable();
-
-<<<<<<< HEAD
-									if ($("#status").val() == 0) {
-										$("#status").text("Aktif");
-									} else {
-										$("#status").text("Tidak Aktif");
-									}
-
-									$('#submitbranch').click(function() {
-										alert($('#inputpat').val());
-									});
-
-									$(".delpat")
-											.click(
-													function() {
-														var idx = $(".delpat")
-																.index(this);
-														var idPat = $(
-																".patIds:eq("
-																		+ idx
-																		+ ")")
-																.val();
-														var url = "/deletePat";
-														var choice = confirm('Do you really want to delete this record?');
-														if (choice == true) {
-															$.get(url, {
-																idpat : idPat
-															});
-															location.reload();
-														} else {
-															return false;
-														}
-														;
-													});
-=======
 	<script>
+	
+	function tampil(id){
+		alert(id);
+		
+	}
 		$(document).ready(function() {
 			$('#input-date').datepicker();
 			
 			$("table").dataTable();
 			
-			if ($("#status").val() == 0) {
-				$("#status").text("Aktif");
+			if ($("#approved").val() == 0) {
+				$("#approved).text("not confirmed");
 			} else {
-				$("#status").text("Tidak Aktif");
+				$("#status").text("vaidate");
 			}
 		
 		
@@ -326,21 +273,8 @@ body {
 			    	return false;
 			    };
 		    });
->>>>>>> 5a796bf5059a468fc2972b3a033192edf2ee059d
 
-								});
-
-<<<<<<< HEAD
-				$("#manage").collapse({
-					toggle : true
-				});
-			</script>
-=======
-		$("#manage").collapse({
-			toggle : true
-		});
 	
 	</script>
->>>>>>> 5a796bf5059a468fc2972b3a033192edf2ee059d
 </body>
 </html>
