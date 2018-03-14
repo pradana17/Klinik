@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +17,10 @@ public class UserController {
 	private ChatDAO chatDAO;
 	
 	@GetMapping("/detail/{senderId}")
-	public String detail(Model model, @PathVariable("senderId") String id) {
+	public String detail(Model model, @PathVariable("senderId") String id, Principal principal) {
 		model.addAttribute("objChat", chatDAO.getChatUser(id));
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "viewremind";
 	}
 	

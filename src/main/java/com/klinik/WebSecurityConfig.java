@@ -5,10 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
@@ -36,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/home").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
 				.antMatchers("/caloriesbible/**").hasAnyRole("NUT")
-				.antMatchers("/caloriesbible/**").hasAnyRole("PAT")
+				.antMatchers("/patient/**").hasAnyRole("PAT")
 				.anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -45,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
             .logout()
+            	.logoutSuccessUrl("/login")
                 .permitAll();
     }
 

@@ -1,5 +1,7 @@
 package com.klinik.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.klinik.DAO.TestDAO;
 import com.klinik.model.Personalitytest;
-import com.klinik.model.Useranswers;
 
 @Controller
 @RequestMapping("test")
@@ -24,14 +25,18 @@ public class PersonalityTestController {
 	private TestDAO testDAO;
 	
 	@GetMapping("/index")
-	public String index(Model model) {
+	public String index(Model model, Principal principal) {
 		model.addAttribute("allTest",  testDAO.getAllTest());
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "test/index";
 	}	
 	
 	@GetMapping("/sum/{userpatient}")
-	public String sum(Model model, @PathVariable("userpatient") String user) {
+	public String sum(Model model, @PathVariable("userpatient") String user, Principal principal) {
 		model.addAttribute("sum",  user);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "test/sum";
 	}
 	

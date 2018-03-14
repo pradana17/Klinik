@@ -3,6 +3,7 @@ package com.klinik.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -19,20 +20,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klinik.DAO.BranchDAO;
 import com.klinik.DAO.ChatDAO;
 import com.klinik.DAO.MealplanDAO;
-import com.klinik.DAO.MembershipDAO;
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
 import com.klinik.model.Branch;
-import com.klinik.model.Chat;
 import com.klinik.model.Mealplan;
-import com.klinik.model.Membership;
 import com.klinik.model.Nutritionist;
 import com.klinik.model.Patient;
 
@@ -50,14 +47,14 @@ public class AdminController {
 	private MealplanDAO mpDAO;
 	@Autowired
 	private ChatDAO chatDAO;
-	@Autowired
-	private MembershipDAO memDAO;
 	
 	@GetMapping("/managebranch")
-	public String formBranch(Model model) {
+	public String formBranch(Model model, Principal principal) {
 		Branch branch  = new Branch();
 		model.addAttribute("semuabranch", branchDAO.getAllBranch());
 		model.addAttribute("branch", branch);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "admin/managebranch";
 	}
 	
@@ -75,10 +72,12 @@ public class AdminController {
 	}
 	
 	@GetMapping("/managenut")
-	public String formNut(Model model) {
+	public String formNut(Model model, Principal principal) {
 		Nutritionist nutritionist  = new Nutritionist();
 		model.addAttribute("semuaNut", nutDAO.getAllNutritionist());
 		model.addAttribute("nut", nutritionist);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "admin/managenut";
 	}
 	
@@ -96,10 +95,12 @@ public class AdminController {
 	}
 	
 	@GetMapping("/managepat")
-	public String formPat(Model model) {
+	public String formPat(Model model, Principal principal) {
 		Patient patient  = new Patient();
 		model.addAttribute("semuaPat", patDAO.getAllPatient());
 		model.addAttribute("pat", patient);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "admin/managepatient";
 	}
 	
@@ -138,10 +139,12 @@ public class AdminController {
 //	}
 	
 	@GetMapping("/managemealplan")
-	public String indexMeal(Model model) {
+	public String indexMeal(Model model, Principal principal) {
 		Mealplan mealplan = new Mealplan();
 		model.addAttribute("semuaMeal", mpDAO.getAllMeal());
 		model.addAttribute("mp", mealplan);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "admin/managemealplan";
 	}
 	

@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.klinik.model.Nutritionist;
@@ -18,6 +19,8 @@ public class NutritionistDAO {
 
 	@Autowired
 	private EntityManagerFactory factory;
+	@Autowired
+	private PasswordEncoder encoder;
 	
 	public List<Nutritionist> getAllNutritionist() {
 		return (List<Nutritionist>) factory.createEntityManager().createQuery("from Nutritionist where isactive = 1").getResultList();
@@ -52,10 +55,12 @@ public class NutritionistDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
+			nutritionist.setPassword(encoder.encode(nutritionist.getPassword()));
 			nutritionist.setIsactive(1);
 			em.persist(nutritionist);
 			transaksi.commit();
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			transaksi.rollback();
 			isSuccess = false;
 //			log.error("DAO Error", ex.getMessage());

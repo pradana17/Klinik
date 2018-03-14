@@ -1,7 +1,5 @@
 package com.klinik;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Component;
 import com.klinik.DAO.ChatDAO;
 import com.klinik.DAO.PatientDAO;
 import com.klinik.model.Chat;
-import com.klinik.model.Patient;
 
 
 @Component

@@ -29,7 +29,11 @@ public class AppointmentController {
 		Appointment appointment = new Appointment();
 		model.addAttribute("janji", appointment);
 		String name = principal.getName();
+<<<<<<< HEAD
 		model.addAttribute("username", name);
+=======
+	    model.addAttribute("username", name);
+>>>>>>> 1cd765afcbe532b984b4c526902102dceb92f99e
 		return "appointment/index";
 	}
 
@@ -48,14 +52,28 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/edit/{id}")
-	public String edit(Model model, @PathVariable("actorId") int Id) {
+	public String edit(Model model, @PathVariable("actorId") int Id, Principal principal) {
 		model.addAttribute("getID", appointmentDAO.getAppointmentID(Id));
 		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
 		Appointment appointment = new Appointment();
 		model.addAttribute("janji", appointment);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "appointment/edit";
 	}
 	
+<<<<<<< HEAD
+=======
+	@GetMapping("/validation")
+	public String updateApproved(Model model, Principal principal) {
+		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
+		Appointment appointment = new Appointment();
+		model.addAttribute("janji", appointment);
+		String name = principal.getName();
+	    model.addAttribute("username", name);
+		return "appointment/validation"; 
+	}
+>>>>>>> 1cd765afcbe532b984b4c526902102dceb92f99e
 
 	@PostMapping("/validation")
 	public String updateApproved(@Valid Appointment appointment, BindingResult result) {

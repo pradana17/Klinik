@@ -4,7 +4,6 @@ package com.klinik.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -15,7 +14,10 @@ public class DefaultController {
         if (request.isUserInRole("ADMIN")) {
             return "redirect:/admin/managebranch";
         }
-        return "redirect:/caloriesbible/index";
+        else if (request.isUserInRole("NUT")) {
+        	return "redirect:/caloriesbible/index";
+        }
+        return "redirect:/patient/caloriesbible";
     }
 
 }

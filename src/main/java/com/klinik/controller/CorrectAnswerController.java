@@ -1,6 +1,6 @@
 package com.klinik.controller;
 
-import javax.persistence.EntityManagerFactory;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.klinik.DAO.CorrectAnswerDAO;
-import com.klinik.DAO.UserAnswerDAO;
 
 
 @Controller
@@ -19,17 +18,20 @@ public class CorrectAnswerController {
 	
 	@Autowired
 	private CorrectAnswerDAO caDAO;
-	private EntityManagerFactory factory;
 	
 	@GetMapping("/correctAnswer")
-	public String index(Model model) {
+	public String index(Model model, Principal principal) {
 		model.addAttribute("allCorrect",  caDAO.getAllCorrectAnswer());
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "correctanswer/correctAnswer";
 	}
 	
 	@GetMapping("/detailquiz/{questionid}")
-	public String detailQuiz(Model model, @PathVariable("questionid") int Id) {
+	public String detailQuiz(Model model, @PathVariable("questionid") int Id, Principal principal) {
 		model.addAttribute("objQuiz", caDAO.detailQuiz(Id));
+		String name = principal.getName();
+	    model.addAttribute("username", name);
 		return "correctanswer/detailquiz";
 	}
 	
