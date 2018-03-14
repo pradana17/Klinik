@@ -219,7 +219,7 @@ body {
 												var idChat = $(
 														".chatIds:eq(" + idx
 																+ ")").val();
-												var url = "/delchat";
+												var url = "/api/chat/delchat";
 												var choice = confirm('Do you really want to delete this record?');
 												if (choice == true) {
 													$.get(url, {
@@ -241,7 +241,7 @@ body {
 						//var mes = $("textarea#message").val();
 						$("#sen").click(function() {
 							var mes = $("textarea#message").val();
-							var url = "/addchat";
+							var url = "/api/chat/addchat";
 							$.get(url, {
 								user : user,
 								mes : mes
@@ -253,12 +253,12 @@ body {
 					});
 				});
 			} else if ($(this).val() == "2") {
-				$.get("/getallpat", function(data) {
+				$.get("/api/user/getallpat", function(data) {
 					$.each(data, function(index, value) {
 						var user = value;
 						$("#sen").click(function() {
 							var mes = $("textarea#message").val();
-							var url = "/addchat";
+							var url = "/api/chat/addchat";
 							$.get(url, {
 								user : user,
 								mes : mes
@@ -275,7 +275,7 @@ body {
 						var user = value;
 						$("#sen").click(function() {
 							var mes = $("textarea#message").val();
-							var url = "/addchat";
+							var url = "/api/chat/addchat";
 							$.get(url, {
 								user : user,
 								mes : mes

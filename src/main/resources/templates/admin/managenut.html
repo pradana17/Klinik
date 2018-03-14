@@ -282,13 +282,13 @@ body {
 		$(document).ready(function() {
 			var branchName = [];
 			var branchId = [];
-			$.get("/branchname", function(data) {
+			$.get("/api/branch/branchname", function(data) {
 				$.each(data, function(index, value) {
 					branchName.push(value);
 				});
 			});
 
-			$.get("/branchid", function(data) {
+			$.get("/api/branch/branchid", function(data) {
 				$.each(data, function(index, value) {
 					branchId.push(value);
 				});
@@ -305,7 +305,7 @@ body {
 		$(".delnut").click (function(){
 				var idx = $(".delnut").index(this);
 				var idNut = $(".nutIds:eq(" + idx + ")").val();
-				var url = "/deleteNut";
+				var url = "/api/user/deleteNut";
 				var choice = confirm('Do you really want to delete this record?');
 			    if(choice == true) {
 			    	$.get(url,{idnut :idNut})

@@ -231,7 +231,7 @@ body {
 														.html(
 																'<input type="text" id="'+id+'" />');
 												$("#" + id).val(currentName);
-												var url = "/changebranchkode";
+												var url = "/api/branch/changebranchkode";
 												var clicked = $(this);
 
 												$("#" + id)
@@ -275,7 +275,7 @@ body {
 														.html(
 																'<input type="text" id="'+id+'" />');
 												$("#" + id).val(currentName);
-												var url = "/changebranchnama";
+												var url = "/api/branch/changebranchnama";
 												var clicked = $(this);
 
 												$("#" + id)
@@ -319,7 +319,7 @@ body {
 														.html(
 																'<input type="text" id="'+id+'" />');
 												$("#" + id).val(currentName);
-												var url = "/changebranchalamat";
+												var url = "/api/branch/changebranchalamat";
 												var clicked = $(this);
 
 												$("#" + id)
@@ -354,7 +354,7 @@ body {
 												var idBranch = $(
 														".branchIds:eq(" + idx
 																+ ")").val();
-												var url = "/deleteBranch";
+												var url = "/api/branch/deleteBranch";
 												var choice = confirm('Do you really want to delete this record?');
 												if(choice == true) {
 											    	$.get(url,{idbr :idBranch})

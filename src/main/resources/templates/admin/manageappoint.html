@@ -295,7 +295,7 @@ body {
 			$(".delpat").click (function(){
 				var idx = $(".delpat").index(this);
 				var idPat = $(".patIds:eq(" + idx + ")").val();
-				var url = "/deletePat";
+				var url = "/api/user/deletePat";
 				var choice = confirm('Do you really want to delete this record?');
 			    if(choice == true) {
 			    	$.get(url,{idpat :idPat})
@@ -309,7 +309,7 @@ body {
 			
 			$("#submitpat").click(function(){
 				var user = $("#inputuserpat").val();
-				var url = "/addmember";
+				var url = "/api/addmember";
 				$.get(url,{user : user})
 				.done(function( data ) {
 		    		location.reload();	
@@ -318,7 +318,7 @@ body {
 			
 //			var userNut = [];
 //			var ibranch = $("#selectbranch").val();
-//			var url "/nutuser";
+//			var url "/api/user/nutuser";
 	//		$.get(url,{branch : ibranch})
 	//		.done(function(data) {
 	//			$.each(data, function(index, value) {
@@ -338,13 +338,13 @@ body {
 		$(document).ready(function() {
 			var branchName = [];
 			var branchId = [];
-			$.get("/branchname", function(data) {
+			$.get("/api/branch/branchname", function(data) {
 				$.each(data, function(index, value) {
 					branchName.push(value);
 				});
 			});
 
-			$.get("/branchid", function(data) {
+			$.get("/api/branch/branchid", function(data) {
 				$.each(data, function(index, value) {
 					branchId.push(value);
 				});
@@ -357,7 +357,7 @@ body {
 					$("#selectbranch").val(branchId[index]);
 					
 					var ibranch = $("#selectbranch").val();
-					var url = "/nutuser";
+					var url = "/api/user/nutuser";
 					$.get(url,{branch : ibranch})
 					.done(function(data) {
 						$("#acnut").autocomplete({
