@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1" />
+
 <title>Manage Branch</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
@@ -99,6 +99,19 @@ body {
 	border-width: 1px;
 }
 </style>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<script src="../webjars/font-awesome/on-server/js/fontawesome-all.js"></script>
+<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
+
 <script type="text/javascript">
 	var a;
 	$(document).ready(function() {
@@ -229,29 +242,17 @@ body {
 						</tbody>
 					</table>
 				</form>
-				<div style="text-align:center">
-				<form action="#" th:action="@{/question/sum}" th:object="${sum}"
-					method="post">
-					<button type="hidden" id="sumAnswers" class="btn btn-success"
-						style="width: 100px; heigth: 5px;">Finish</button>
-				</form>
+				<div style="text-align: center">
+					<form action="#" th:action="@{/question/sum}" th:object="${sum}"
+						method="post">
+						<button type="hidden" id="sumAnswers" class="btn btn-success"
+							style="width: 100px; heigth: 5px;">Finish</button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-	<script src="/static/fontawesome/fontawesome-all.js"></script>
-	<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
 
 </body>
 </html>
