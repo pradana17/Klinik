@@ -59,6 +59,7 @@ public class Mealplan implements Serializable {
     private Integer fase;
     @Size(max = 10)
     @Column(name = "KDMP")
+    
     private String kdmp;
     @Size(max = 70)
     @Column(name = "FILENAME")
