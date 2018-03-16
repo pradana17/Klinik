@@ -34,7 +34,7 @@ public class BackgroundService {
 		return true;
 	}
 	
-	@Scheduled(cron="0 0 12 * * *")
+	@Scheduled(cron="30 * 12 * * *")
 	public boolean reminderLunch(){
 		Chat cha;
 		List<String> patName = patDAO.getAllUserPatientName();

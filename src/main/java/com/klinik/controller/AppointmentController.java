@@ -24,12 +24,12 @@ public class AppointmentController {
 	AppointmentDAO appointmentDAO = new AppointmentDAO();
 
 	@GetMapping("/index")
-	public String index(Model model, Principal principal) {
+	public String index(Model model) {
 		model.addAttribute("getAppointment", appointmentDAO.getAllAppointments());
 		Appointment appointment = new Appointment();
 		model.addAttribute("janji", appointment);
-		String name = principal.getName();
-	    model.addAttribute("username", name);
+		
+	   
 		return "appointment/index";
 	}
 
@@ -42,7 +42,7 @@ public class AppointmentController {
 			for (ObjectError er : result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());
 			}
-			return "appointment/index";
+			return "redirect:/appointment/index";
 		}
 
 	}

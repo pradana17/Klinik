@@ -111,7 +111,7 @@ body {
 				</ul>
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link"
-						href="{{ url('/login') }}">Logout</a></li>
+						href="@{/logout}">Logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -199,10 +199,9 @@ body {
 												th:field="*{idbranch.idbranch}" />
 										</div>
 										<div class="form-group">
-											<label th:for="${pat.usernutritionist}">Nutritionist</label> <input
-												type="text" class="form-control" id="acnut"
-												placeholder="" /> <input type="hidden" class="form-control"
-												id="selectnut" placeholder=""
+											<label th:for="${pat.usernutritionist}">Nutritionist</label> 
+											<input type="text" class="form-control" id="acnut" placeholder="" /> 
+											<input type="hidden" class="form-control" id="selectnut" placeholder=""
 												th:field="*{usernutritionist.usernutritionist}" />
 										</div>
 									</div>

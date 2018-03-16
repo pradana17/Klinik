@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import com.klinik.DAO.NutritionistDAO;
 import com.klinik.DAO.PatientDAO;
@@ -32,10 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private NutritionistDAO nutDAO;
 	
+	 @Autowired
+	private AccessDeniedHandler accessDeniedHandler;
+	 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeRequests()
+            	.antMatchers("/api/**").permitAll()
+            	.antMatchers("/webjars/**").permitAll()
                 .antMatchers("/", "/home").permitAll()
                 .antMatchers("/admin/**").permitAll() //hasAnyRole("ADMIN")
 				.antMatchers("/caloriesbible/**").permitAll() // ("NUT")
@@ -48,13 +54,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
                 .and()
             .formLogin()
-            	.defaultSuccessUrl("/default", true)
-                .loginPage("/login")
+            	.loginPage("/login")
+            	.defaultSuccessUrl("/default", true)                
                 .permitAll()
                 .and()
             .logout()
             	.logoutSuccessUrl("/login")
-                .permitAll();
+                .permitAll()
+                .and()
+        	.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
     }
 
     @Autowired

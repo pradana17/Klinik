@@ -49,12 +49,11 @@ public class AdminController {
 	private ChatDAO chatDAO;
 	
 	@GetMapping("/managebranch")
-	public String formBranch(Model model, Principal principal) {
+	
+	public String formBranch(Model model) {
 		Branch branch  = new Branch();
 		model.addAttribute("semuabranch", branchDAO.getAllBranch());
 		model.addAttribute("branch", branch);
-		String name = principal.getName();
-	    model.addAttribute("username", name);
 		return "admin/managebranch";
 	}
 	
@@ -72,12 +71,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/managenut")
-	public String formNut(Model model, Principal principal) {
+	public String formNut(Model model) {
 		Nutritionist nutritionist  = new Nutritionist();
 		model.addAttribute("semuaNut", nutDAO.getAllNutritionist());
 		model.addAttribute("nut", nutritionist);
-		String name = principal.getName();
-	    model.addAttribute("username", name);
+		
 		return "admin/managenut";
 	}
 	
@@ -95,12 +93,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/managepat")
-	public String formPat(Model model, Principal principal) {
+	public String formPat(Model model) {
 		Patient patient  = new Patient();
 		model.addAttribute("semuaPat", patDAO.getAllPatient());
 		model.addAttribute("pat", patient);
-		String name = principal.getName();
-	    model.addAttribute("username", name);
+	
 		return "admin/managepatient";
 	}
 	
@@ -139,12 +136,11 @@ public class AdminController {
 //	}
 	
 	@GetMapping("/managemealplan")
-	public String indexMeal(Model model, Principal principal) {
+	public String indexMeal(Model model) {
 		Mealplan mealplan = new Mealplan();
 		model.addAttribute("semuaMeal", mpDAO.getAllMeal());
 		model.addAttribute("mp", mealplan);
-		String name = principal.getName();
-	    model.addAttribute("username", name);
+	
 		return "admin/managemealplan";
 	}
 	
