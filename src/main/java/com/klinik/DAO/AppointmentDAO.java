@@ -1,10 +1,12 @@
 package com.klinik.DAO;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.sound.midi.Soundbank;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.klinik.model.Appointment;
 import com.klinik.model.Nutritionist;
+import com.klinik.model.Patient;
 
 @Service
 public class AppointmentDAO {
@@ -30,6 +33,14 @@ public class AppointmentDAO {
 		return (Appointment) factory.createEntityManager().createQuery("from Appointment where IDAPPOINTMENT = " + Id)
 				.getSingleResult();
 	}
+	
+	public List<Appointment> getAppointmentNut(String nutritionist) {
+		return factory.createEntityManager().createQuery("from Appointment where usernutritionist like '%" + nutritionist+"%' and approved = 1").getResultList();
+	}
+	
+	public List<Appointment> getAppointmentPat(String patient) {
+		return factory.createEntityManager().createQuery("from Appointment where userpatient like '%" + patient+"%'").getResultList();
+	}
 
 	public boolean addAppointment(Appointment appointment) {
 		EntityManager em = factory.createEntityManager();
@@ -38,25 +49,18 @@ public class AppointmentDAO {
 		try {
 			transaksi = em.getTransaction();
 			transaksi.begin();
-<<<<<<< HEAD
 			appointment.setApprovedby("admin");
 			appointment.setApproved(0);
+			System.out.println("cek error");
+			System.out.println("id "+appointment.getIdappointment());
+			System.out.println("user "+appointment.getUserpatient().getUserpatient());
+			System.out.println("nutri "+appointment.getUsernutritionist().getUsernutritionist());
+			System.out.println(appointment.getDateappointment());
 			if (appointment == null) {
 				em.persist(appointment);
+			}else{
+				em.merge(appointment);
 			}
-//			em.persist(appointment);
-			em.merge(appointment);
-			System.out.println(appointment.getUserpatient().getUserpatient());
-			System.out.println(appointment.getUserpatient().getUserpatient());
-=======
-			appointment.setApprovedby("admin");	
-			appointment.setApproved(0);
-			if (appointment == null) {
-				em.persist(appointment);
-				transaksi.commit();
-			}
-			em.persist(appointment);
->>>>>>> 1cd765afcbe532b984b4c526902102dceb92f99e
 			transaksi.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -80,11 +84,7 @@ public class AppointmentDAO {
 			setApproved.setUsernutritionist(updateApproved.getUsernutritionist());
 			setApproved.setApproved(updateApproved.getApproved());
 			setApproved.setApprovedby(updateApproved.getApprovedby());
-			setApproved.setDateappointment(updateApproved.getDateappointment());
-<<<<<<< HEAD
-			
-=======
->>>>>>> 1cd765afcbe532b984b4c526902102dceb92f99e
+			setApproved.setDateappointment(updateApproved.getDateappointment());			
 			transaksi.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();

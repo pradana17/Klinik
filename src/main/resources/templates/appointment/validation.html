@@ -9,7 +9,7 @@
 	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
 <link
 	href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
-
+<!-- jquery, jquery databales, datatables .js -->
 <style type="text/css">
 #first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn {
 	width: 100px;
@@ -151,7 +151,6 @@ body {
 							<th>Date</th>
 							<th>Approved By</th>
 							<th>Status</th>
-							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -170,9 +169,6 @@ body {
 							<td th:text="${app.approved}" class="approvedID">
 							<input type="hidden" class="Setapproved" th:value="${app.idappointment}" /> </td>
 							<!--  <input type="hidden" id="approved" th:value="${app.approved}" /> -->
-							<td>
-							<input type="text" class="SetapprovedID" th:value="${app.idappointment}" /> </td>
-							
 						</tr>
 					</tbody>
 				</table>
@@ -218,27 +214,8 @@ body {
 	<link rel="stylesheet" href="/resources/demos/style.css" />
 
 	<script>
-
-		$(document).on('dblclick', '.approvedID', function(){
-			var idx = $(".approvedID").index(this);
-			var idApp = $(".SetapprovedID:eq("+ idx +")").val();
-			var setvalid = prompt("validate", $(this).text());
-			var url = "/validate";
-			var clicked = $(this);
-			
-			$.get(url,{
-				x : idApp,
-				y : setvalid
-			}).done(function (data){
-				
-				if(data){
-					$(clicked).text(setValid);
-					location.reload();  
-				}				
-				  
-			}); 
-		});
-		
+	
+	
 		function getQuestion(id, nut, pat, date, approved) {
 			$('#inputID').val(id);
 			$('#input-nut').val(nut);
@@ -252,105 +229,30 @@ body {
 		$(document)
 				.ready(
 						function() {
+							var table;
 							$('#input-date').datepicker();
+							table=$("table").dataTable();
 
-							$("table").dataTable();
-
-							if ($(".status").val() == 0) {
-								$(".status").text("Aktif");
-							} else {
-								$(".status").text("Tidak Aktif");
-							}
-
-							$(".delpat")
-									.click(
-											function() {
-												var idx = $(".delpat").index(
-														this);
-												var idPat = $(
-														".patIds:eq(" + idx
-																+ ")").val();
-												var url = "/deletePat";
-												var choice = confirm('Do you really want to delete this record?');
-												if (choice == true) {
-													$.get(url, {
-														idpat : idPat
-													});
-													location.reload();
-												} else {
-													return false;
-												}
-												;
-											});
+							$(document).on('dblclick', '.approvedID', function(){
+								var idx = $(".approvedID").index(this);
+								var idApp = $(".SetapprovedID:eq("+ idx +")").val();
+								var setvalid = prompt("validate", $(this).text());
+								var url = "/validate";
+								var clicked = $(this);
+								
+								$.get(url,{
+									x : idApp,
+									y : setvalid
+								}).done(function (data){
+									location.reload(); 	
+									  
+								}); 
+							});
 
 						});
 
-		$(document).ready(function() {
-			var branchName = [];
-			var branchId = [];
-			$.get("/branchname", function(data) {
-				$.each(data, function(index, value) {
-					branchName.push(value);
-				});
-			});
-
-			$.get("/branchid", function(data) {
-				$.each(data, function(index, value) {
-					branchId.push(value);
-				});
-			});
-
-			$("#inputbranch").autocomplete({
-				source : branchName,
-				select : function(event, ui) {
-					var index = branchName.indexOf(ui.item.value);
-					$("#selectbranch").val(branchId[index]);
-				}
-			});
-		});
-
-		$(document).ready(function() {
-			var patientName = [];
-			var patientID = [];
-			$.get("/patientname", function(data) {
-				$.each(data, function(index, value) {
-					patientName.push(value);
-				});
-			});
-
-			$.get("/patientid", function(data) {
-				$.each(data, function(index, value) {
-					patientID.push(value);
-				});
-			});
-
-			$("#inputpat").autocomplete({
-				source : patientName,
-				select : function(event, ui) {
-					var index = patientName.indexOf(ui.item.value);
-					$("#selectpatient").val(patientId[index]);
-				}
-			});
-		});
-
-		$('#submitbranch').click(function() {
-			alert($('#input-approved').val());
-		});
-
-		$("#manage").collapse({
-			toggle : true
-		});
-
-		function openViewPat(user) {
-			$.ajax({
-				url : "/admin/detailpat/" + user,
-				success : function(response) {
-					$("#viewPatHolder").html(response);
-					$("#viewPat").modal();
-					$("#viewPat").modal("open");
-				}
-			});
-		}
+		
+		
 	</script>
 </body>
 </html>

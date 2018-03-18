@@ -62,7 +62,7 @@ public class UserAnswerDAO {
 			useranswersPK.setQuestionid(useranswer.getUseranswersPK().getQuestionid());
 			question.setQuestionid(useranswer.getUseranswersPK().getQuestionid());
 			useranswer.setQuestion(question);
-			useranswersPK.setUserpatient("taufik");
+			useranswersPK.setUserpatient("salman");
 			useranswer.setUseranswersPK(useranswersPK);
 			System.out.println("lolos");
 			Correctanswers ca = needCalorieDAO.getCaloriesNeed(useranswer.getChoosenanswerid(),
@@ -98,9 +98,9 @@ public class UserAnswerDAO {
 			transaksi = em.getTransaction();
 			transaksi.begin();
 			test.setDatetest(new Date());
-			patient.setUserpatient("taufik");
+			patient.setUserpatient("salman");
 			test.setUserpatient(patient);
-			List<Useranswers> sum = SumResult("taufik", new SimpleDateFormat("yyyy-MM-dd").format(myDate));
+			List<Useranswers> sum = SumResult("salman", new SimpleDateFormat("yyyy-MM-dd").format(myDate));
 			int total = 0;
 			for (int i = 0; i < sum.size(); i++) {
 				int jml = sum.get(i).getResulttemp();

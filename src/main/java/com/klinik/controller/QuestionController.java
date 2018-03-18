@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.klinik.DAO.CorrectAnswerDAO;
 import com.klinik.DAO.QuestionDAO;
 import com.klinik.DAO.UserAnswerDAO;
 import com.klinik.model.Personalitytest;
@@ -34,11 +35,7 @@ public class QuestionController {
 		model.addAttribute("allQuestions", questionDAO.getAllQuestion());
 		model.addAttribute("getUserAnswer", new Useranswers());
 		String name = principal.getName();
-<<<<<<< HEAD
 		model.addAttribute("username", name);
-=======
-	    model.addAttribute("username", name);
->>>>>>> 1cd765afcbe532b984b4c526902102dceb92f99e
 		return "question/index";
 	}
 
@@ -58,12 +55,10 @@ public class QuestionController {
 	}
 
 	@GetMapping("/detail/{questionid}")
-	public String detail(Model model, @PathVariable("questionid") Integer id, Principal principal) {
+	public String detail(Model model, @PathVariable("questionid") Integer id) {
 		model.addAttribute("objQuestion", questionDAO.getQuestion(id));
 		Useranswers userAnswer = new Useranswers();
 		model.addAttribute("getUserAnswer", userAnswer);
-		String name = principal.getName();
-	    model.addAttribute("username", name);
 		return "question/detail";
 	}
 
@@ -82,10 +77,8 @@ public class QuestionController {
 	}
 
 	@GetMapping("/sum/{userpatient}")
-	public String sum(Model model, @PathVariable("userpatient") String user, Principal principal) {
+	public String sum(Model model, @PathVariable("userpatient") String user) {
 		model.addAttribute("sum", user);
-		String name = principal.getName();
-	    model.addAttribute("username", name);
 		return "test/sum";
 	}
 
