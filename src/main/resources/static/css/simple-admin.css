@@ -66,3 +66,22 @@ body {
 .sidebar-nav li a:active, .sidebar-nav li a:focus {
 	text-decoration: none;
 }
+
+.ui-autocomplete {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1510 !important;
+	float: left;
+	display: none;
+	min-width: 160px;
+	width: 160px;
+	padding: 4px 0;
+	margin: 2px 0 0 0;
+	list-style: none;
+	background-color: #ffffff;
+	border-color: #ccc;
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 1px;
+}

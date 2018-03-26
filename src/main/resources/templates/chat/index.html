@@ -6,76 +6,6 @@
 <f1 th:replace="template :: header-css" />
 <f1 th:replace="template :: header-js" />
 
-<style type="text/css">
-#first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn {
-	width: 100px;
-	height: 100px;
-}
-
-body {
-	overflow-x: hidden;
-}
-
-#sidebar-wrapper {
-	z-index: 1000;
-	position: absolute;
-	left: 250px;
-	width: 250px;
-	height: 140vh; margin-left : -250px;
-	overflow: auto;
-	background: #222;
-	margin-left: -250px;
-}
-
-#page-content-wrapper {
-	width: calc(100% - 250px);
-	position: absolute;
-	padding: 15px;
-	margin-left: 250px;
-}
-
-.sidebar-nav {
-	position: absolute;
-	top: 0;
-	width: 250px;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.sidebar-nav li {
-	text-indent: 20px;
-	line-height: 40px;
-	color: gray;
-}
-
-.sidebar-nav li a {
-	display: block;
-	text-decoration: none;
-	color: #999999;
-	border-top: 1px solid #373737;
-	border-bottom: 1px solid #1A1A1A;
-}
-
-#manage li a {
-	display: block;
-	text-decoration: none;
-	color: #999999;
-	border-top: 1px solid #373737;
-	border-bottom: 1px solid #1A1A1A;
-	text-indent: 2.5rem;
-}
-
-.sidebar-nav li a:hover {
-	text-decoration: none;
-	color: #fff;
-	background: rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-nav li a:active, .sidebar-nav li a:focus {
-	text-decoration: none;
-}
-</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
@@ -85,22 +15,8 @@ body {
 	</nav>
 	<div class="container-fluid">
 		<div class="row flex-xl-nowrap">
-			<div id="sidebar-wrapper">
-				<ul class="sidebar-nav">
-					<li><a data-toggle="collapse" href="#scheduleapp"
-						role="button" aria-expanded="false" aria-controls="scheduleapp">Schedule
-							Appointment</a></li>
-					<li><a data-toggle="collapse" href="#manage" role="button"
-						aria-expanded="false" aria-controls="manage">Manage</a></li>
-					<div class="collapse" id="manage">
-						<li><a th:href="@{'/admin/managenut'}" role="button">Nutritionist</a></li>
-						<li><a th:href="@{'/admin/managepat'}" role="button">Patient</a></li>
-						<li><a th:href="@{'/admin/managemealplan'}" role="button">Meal
-								Plan</a></li>
-						<li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
-					</div>
-					<li><a th:href="@{'/admin/managechat'}" role="button">Announcement</a></li>
-				</ul>
+			<div id="sidebar-wrapper" th:include="fragments/menu :: admin">
+				
 			</div>
 			<div id="page-content-wrapper">
 				<div class="flex-column pl-md-3 pb-md-3">

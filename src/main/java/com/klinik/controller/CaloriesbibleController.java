@@ -26,20 +26,18 @@ public class CaloriesbibleController {
 	private CaloriesbibleDAO caloriesbibleDAO;
 	
 	@GetMapping("/index")
-	public String index (Model model, Principal principal) {
+	public String index (Model model) {
 		Caloriesbible cr = new Caloriesbible();
 		model.addAttribute("semuaCaloriesbible",caloriesbibleDAO.getAllCaloriesbible());
 		model.addAttribute("caloriesbible", cr);
-		String name = principal.getName();
-	    model.addAttribute("username", name);
+		
 		return ("caloriesbible/index");
 	}
 	
 	@GetMapping("/detail/{idCal}")
-	public String detail(Model model, @PathVariable("idCal") int idcal, Principal principal) {
+	public String detail(Model model, @PathVariable("idCal") int idcal) {
 		model.addAttribute("detailCalories",caloriesbibleDAO.getCaloriesbible(idcal));
-		String name = principal.getName();
-	    model.addAttribute("username", name);
+		
 		return ("caloriesbible/detail");
 	}
 	

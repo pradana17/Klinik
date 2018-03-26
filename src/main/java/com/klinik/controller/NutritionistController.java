@@ -34,65 +34,38 @@ import com.klinik.model.Nutritionist;
 import com.klinik.model.Patient;
 
 @Controller
-@RequestMapping("admin")
-public class AdminController {
-	
-	
+@RequestMapping("nutritionist")
+public class NutritionistController {
+		
 	@Autowired
 	private NutritionistDAO nutDAO;
 	
-
-	@Autowired
-	private ChatDAO chatDAO;
 	
 	
-	
-	@GetMapping("/managenut")
+	@GetMapping("/index")
 	public String formNut(Model model) {
 		Nutritionist nutritionist  = new Nutritionist();
 		model.addAttribute("semuaNut", nutDAO.getAllNutritionist());
 		model.addAttribute("nut", nutritionist);
 		
-		return "admin/managenut";
+		return "nutritionist/index";
 	}
 	
-	@PostMapping("/managenut")
+	@PostMapping("/index")
 	public String addNut(@Valid Nutritionist nutritionist, BindingResult result) {
 		
 		if(!result.hasErrors() && nutDAO.addNutritionist(nutritionist)) {
-			return "redirect:/admin/managenut";
+			return "redirect:/nutritionist/index";
 		} else {
 			for (ObjectError er : result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());
 			}
-			return "admin/managenut";
+			return "nutritionist/index";
 		}
 	}
 	
 	
-	
-//	@GetMapping("/managepat")
-//	public String formPat(Model model) {
-//		Membership membership = new Membership();
-//		model.addAttribute("semuaMem", memDAO.getAllMember());
-//		model.addAttribute("mem", membership);
-//		return "admin/managepatient";
-//	}
-//	
-//	@PostMapping("/managepat")
-//	public String addPatient(@Valid Membership membership, BindingResult result) {
-//		
-//		if(!result.hasErrors() && memDAO.addMember(membership)) {
-//			return "redirect:/admin/managepatient";
-//		} else {
-//			for (ObjectError er : result.getAllErrors()) {
-//				System.out.println(er.getDefaultMessage());
-//			}
-//			return "admin/managepatient";
-//		}
-//	}
-	
-	
+
     
     
     @GetMapping("/detailnut/{usernutritionist}")
@@ -102,12 +75,5 @@ public class AdminController {
         return "admin/managenut :: viewnut";
     }
     
-    
-    
-    @GetMapping("/managechat")
-	public String formChat(Model model) {
-		model.addAttribute("semuaChat", chatDAO.getAllChat());
-		return "admin/managechat";
-	}
 	
 }

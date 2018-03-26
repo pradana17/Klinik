@@ -56,7 +56,7 @@ public class MealPlanController {
             e.printStackTrace();
         }
 
-        return "mealplan/index";
+        return "redirect:/mealplan/index";
     }
 
     

@@ -6,76 +6,7 @@
 <f1 th:replace="template :: header-css" />
 <f1 th:replace="template :: header-js" />
 
-<style type="text/css">
-#first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn {
-	width: 100px;
-	height: 100px;
-}
 
-body {
-	overflow-x: hidden;
-}
-
-#sidebar-wrapper {
-	z-index: 1000;
-	position: absolute;
-	left: 250px;
-	width: 250px;
-	height: 100%;
-	margin-left: -250px;
-	overflow-y: auto;
-	background: #222;
-}
-
-#page-content-wrapper {
-	width: calc(100% - 250px);
-	position: absolute;
-	padding: 15px;
-	margin-left: 250px;
-}
-
-.sidebar-nav {
-	position: absolute;
-	top: 0;
-	width: 250px;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.sidebar-nav li {
-	text-indent: 20px;
-	line-height: 40px;
-	color: gray;
-}
-
-.sidebar-nav li a {
-	display: block;
-	text-decoration: none;
-	color: #999999;
-	border-top: 1px solid #373737;
-	border-bottom: 1px solid #1A1A1A;
-}
-
-#manage li a {
-	display: block;
-	text-decoration: none;
-	color: #999999;
-	border-top: 1px solid #373737;
-	border-bottom: 1px solid #1A1A1A;
-	text-indent: 2.5rem;
-}
-
-.sidebar-nav li a:hover {
-	text-decoration: none;
-	color: #fff;
-	background: rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-nav li a:active, .sidebar-nav li a:focus {
-	text-decoration: none;
-}
-</style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
@@ -113,7 +44,7 @@ body {
 								<div class="modal-body">
 									<div class="flex-column">
 										<div class="form-group row">
-											<label th:for="${mp.kdmp}" class="col-sm-4 col-form-label">Kode
+											<label for="kdmp" class="col-sm-4 col-form-label">Kode
 												Meal Plan</label>
 											<div class="col-sm-8">
 												<input type="text" class="form-control" id="inputkdmp"
@@ -201,10 +132,7 @@ body {
 							<td style="width: 40px"><a
 								th:href="@{'/mealplan/download/' + ${mp.idmealplan}}"
 								style="margin-right: 15px;" class="edit" id="editb"><i
-									class="fas fa-download"></i></a> <a
-								th:href="'javascript:openViewMp(\'' + ${mp.idmealplan} +'\');'"><i
-									class="fas fa-pencil-alt"></i></a> <input type="hidden"
-								class="branchIds" th:value="${mp.idmealplan}" /></td>
+									class="fas fa-download"></i></a> </td>
 						</tr>
 					</tbody>
 				</table>
@@ -221,7 +149,7 @@ body {
 											<thead>
 												<tr>
 													<th></th>
-													<th></th>
+													
 												</tr>
 											</thead>
 											<tbody>
@@ -283,9 +211,8 @@ body {
 
 		function openViewMp(id) {
 			$.ajax({
-				url : "/admin/detailmp/" + id,
+				url : "/mealplan/detailmp/" + id,
 				success : function(data) {
-					alert(data);
 					$("#viewMpHolder").html(data);
 					$("#viewMp").modal("show");
 				}
