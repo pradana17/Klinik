@@ -25,16 +25,20 @@ public class CaloriesbibleController {
 	@Autowired
 	private CaloriesbibleDAO caloriesbibleDAO;
 	
+	@Autowired
+	private Caloriesbible cr;
+	
 	@GetMapping("/index")
 	public String index (Model model) {
-		Caloriesbible cr = new Caloriesbible();
+		System.out.println(System.currentTimeMillis());
 		model.addAttribute("semuaCaloriesbible",caloriesbibleDAO.getAllCaloriesbible());
 		model.addAttribute("caloriesbible", cr);
 		
+		System.out.println(System.currentTimeMillis());
 		return ("caloriesbible/index");
 	}
 	
-	@GetMapping("/detail/{idCal}")
+	@GetMapping("/{idCal}")
 	public String detail(Model model, @PathVariable("idCal") int idcal) {
 		model.addAttribute("detailCalories",caloriesbibleDAO.getCaloriesbible(idcal));
 		
@@ -49,7 +53,7 @@ public class CaloriesbibleController {
 			for (ObjectError er : result.getAllErrors()) {
 				System.out.println(er.getDefaultMessage());
 			}
-			return "caloriesbible/index";
+			return "redirect:/caloriesbible/index";
 		}
 	}
 	

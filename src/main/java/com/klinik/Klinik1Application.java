@@ -10,6 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.klinik.model.Caloriesbible;
+
 @SpringBootApplication
 @EnableScheduling
 public class Klinik1Application {
@@ -39,5 +41,11 @@ public class Klinik1Application {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	public Caloriesbible createCaloriesBibleTemp(){
+		
+		return new Caloriesbible();
 	}
 }
