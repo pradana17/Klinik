@@ -1,0 +1,68 @@
+#first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn {
+	width: 100px;
+	height: 100px;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+	z-index: 1000;
+	position: absolute;
+	left: 250px;
+	width: 250px;
+	height: 100%;
+	margin-left: -250px;
+	overflow-y: auto;
+	background: #222;
+}
+
+#page-content-wrapper {
+	width: calc(100% - 250px);
+	position: absolute;
+	padding: 15px;
+	margin-left: 250px;
+}
+
+.sidebar-nav {
+	position: absolute;
+	top: 0;
+	width: 250px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sidebar-nav li {
+	text-indent: 20px;
+	line-height: 40px;
+	color: gray;
+}
+
+.sidebar-nav li a {
+	display: block;
+	text-decoration: none;
+	color: #999999;
+	border-top: 1px solid #373737;
+	border-bottom: 1px solid #1A1A1A;
+}
+
+#manage li a {
+	display: block;
+	text-decoration: none;
+	color: #999999;
+	border-top: 1px solid #373737;
+	border-bottom: 1px solid #1A1A1A;
+	text-indent: 2.5rem;
+}
+
+.sidebar-nav li a:hover {
+	text-decoration: none;
+	color: #fff;
+	background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-nav li a:active, .sidebar-nav li a:focus {
+	text-decoration: none;
+}

@@ -25,10 +25,8 @@ public class PersonalityTestController {
 	private TestDAO testDAO;
 	
 	@GetMapping("/index")
-	public String index(Model model, Principal principal) {
+	public String index(Model model) {
 		model.addAttribute("allTest",  testDAO.getAllTest());
-		String name = principal.getName();
-	    model.addAttribute("username", name);
 		return "test/index";
 	}	
 	

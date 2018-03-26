@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+
+</head>
+<body>
+
+	<div th:fragment="admin">
+		<ul class="sidebar-nav">
+			<li><a data-toggle="collapse" href="#scheduleapp" role="button"
+				aria-expanded="false" aria-controls="scheduleapp">Schedule
+					Appointment</a></li>
+			<li><a data-toggle="collapse" href="#manage" role="button"
+				aria-expanded="false" aria-controls="manage">Manage</a></li>
+			<div class="collapse" id="manage">
+				<li><a th:href="@{'/nutritionist/index'}" role="button">Nutritionist</a></li>
+				<li><a th:href="@{'/patient/index'}" role="button">Patient</a></li>
+				<li><a th:href="@{'/mealplan/index'}" role="button">Meal
+						Plan</a></li>
+				<li><a th:href="@{'/branch/index'}" role="button">Branch</a></li>
+			</div>
+			<li><a th:href="@{'/admin/managechat'}" role="button">Announcement</a></li>
+		</ul>
+
+	</div>
+
+
+</body>
+</html>

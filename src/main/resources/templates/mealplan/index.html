@@ -3,10 +3,9 @@
 <head>
 <meta charset="ISO-8859-1" />
 <title>Set Meal Plan</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+<f1 th:replace="template :: header-css" />
+<f1 th:replace="template :: header-js" />
+
 <style type="text/css">
 #first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn {
 	width: 100px;
@@ -80,38 +79,14 @@ body {
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img src=".." width="30"
-				height="30" class="d-inline-block align-top" alt="" /> Klinik
-			</a>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<ul class="navbar-nav mr-auto">
-				</ul>
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link"
-						href="@{/logout}">Logout</a></li>
-				</ul>
-			</div>
+		<div class="container-fluid" th:replace="template :: header-html">
+			
 		</div>
 	</nav>
 	<div class="container-fluid">
 		<div class="row flex-xl-nowrap">
-			<div id="sidebar-wrapper">
-				<ul class="sidebar-nav">
-					<li><a data-toggle="collapse" href="#scheduleapp"
-						role="button" aria-expanded="false" aria-controls="scheduleapp">Schedule
-							Appointment</a></li>
-					<li><a data-toggle="collapse" href="#manage" role="button"
-						aria-expanded="false" aria-controls="manage">Manage</a></li>
-					<div class="collapse" id="manage">
-						<li><a th:href="@{'/admin/managenut'}" role="button">Nutritionist</a></li>
-						<li><a th:href="@{'/admin/managepat'}" role="button">Patient</a></li>
-						<li><a th:href="@{'/admin/managemealplan'}" role="button">Meal
-								Plan</a></li>
-						<li><a th:href="@{'/admin/managebranch'}" role="button">Branch</a></li>
-					</div>
-					<li><a th:href="@{'/admin/managechat'}" role="button">Announcement</a></li>
-				</ul>
+			<div id="sidebar-wrapper" th:include="fragments/menu :: admin">
+				
 			</div>
 			<div id="page-content-wrapper">
 				<div class="flex-column pl-md-3 pb-md-3">
@@ -133,7 +108,7 @@ body {
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							<form action="#" th:action="@{/admin/managemealplan}"
+							<form action="#" th:action="@{/mealplan/index}"
 								th:object="${mp}" enctype="multipart/form-data" method="post">
 								<div class="modal-body">
 									<div class="flex-column">
@@ -224,7 +199,7 @@ body {
 							<td th:text="${mp.fase}" class="alm"></td>
 							<td th:text="${mp.filename}" class="s"></td>
 							<td style="width: 40px"><a
-								th:href="@{'/admin/download/' + ${mp.idmealplan}}"
+								th:href="@{'/mealplan/download/' + ${mp.idmealplan}}"
 								style="margin-right: 15px;" class="edit" id="editb"><i
 									class="fas fa-download"></i></a> <a
 								th:href="'javascript:openViewMp(\'' + ${mp.idmealplan} +'\');'"><i
@@ -278,18 +253,6 @@ body {
 		</div>
 	</div>
 
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-	<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-	<script src="../webjars/font-awesome/on-server/js/fontawesome-all.js"></script>
-	<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
 
 	<script>
 		$(document).ready(function() {

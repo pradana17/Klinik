@@ -2,14 +2,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1" />
-<title>Manage Branch</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
-<link
-	href="https://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
-<link rel="stylesheet" href="/resources/demos/style.css" />
+<title>Manage Appointment</title>
+<f1 th:replace="template :: header-css" />
+<f1 th:replace="template :: header-js" />
 	
 <style type="text/css">
 #first .btn, #second .btn, #third .btn, #fourth .btn, #last .btn {
@@ -103,18 +98,8 @@ body {
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img src=".." width="30"
-				height="30" class="d-inline-block align-top" alt="" /> Klinik
-			</a>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<ul class="navbar-nav mr-auto">
-				</ul>
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link"
-						href="@{/logout}">Logout</a></li>
-				</ul>
-			</div>
+		<div class="container-fluid" th:replace="template :: header-html">
+			
 		</div>
 	</nav>
 	<div class="container-fluid">
@@ -223,18 +208,6 @@ body {
 			</div>
 		</div>
 	</div>
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
-	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-	<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-	<script src="../webjars/font-awesome/on-server/js/fontawesome-all.js"></script>
-	<script src="../webjars/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script>
 	
 	<script>
 		$(document).ready(function() {

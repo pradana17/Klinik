@@ -12,7 +12,7 @@ public class DefaultController {
 	@RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ADMIN")) {
-            return "redirect:/admin/managebranch";
+            return "redirect:/branch/index";
         }
         if (request.isUserInRole("NUT")) {
         	return "redirect:/caloriesbible/index";
